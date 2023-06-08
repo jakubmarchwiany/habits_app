@@ -66,6 +66,7 @@ export async function postFetch<T>(
                 }
             })
             .catch((error) => {
+                console.log(error);
                 toast.error("Serwer nie odpowiada :(", { id: toastId });
                 if (options?.customError) reject(error);
             });

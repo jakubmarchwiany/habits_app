@@ -1,24 +1,53 @@
-import { ThemeProvider, createTheme, responsiveFontSizes } from "@mui/material";
+import { Stack, ThemeProvider, createTheme, responsiveFontSizes } from "@mui/material";
 import { getDesignTokens } from "assets/theme";
 import Navbar from "components/layouts/Navbar";
+import LoadingPage from "components/pages/LoadingPage";
+import { useAppDispatch } from "hooks/redux";
 import useStateTheme from "hooks/use_state_theme";
-
-import { useMemo } from "react";
-import { Toaster } from "react-hot-toast";
+import Cookies from "js-cookie";
+import { useEffect, useMemo, useState } from "react";
+import toast, { Toaster } from "react-hot-toast";
 import { Outlet } from "react-router-dom";
+import { getUserData } from "store/user-actions";
 
 function App() {
     const [mode, setMode] = useStateTheme();
+    const [isLogged, setIsLogged] = useState(false);
+
+    const dispatch = useAppDispatch();
 
     const theme = useMemo(() => {
         return responsiveFontSizes(createTheme(getDesignTokens(mode)));
     }, [mode]);
 
+    useEffect(() => {
+        if (Cookies.get("authorization") !== undefined) {
+            dispatch(getUserData(setIsLogged));
+        } else {
+            toast.error("Zaloguj się ponownie", { duration: 3000 });
+            setIsLogged(false);
+        }
+    }, []);
+
     return (
         <ThemeProvider theme={theme}>
-            <Navbar switchMode={setMode} />
+            {isLogged ? (
+                <>
+                    <Stack
+                        height="100vh"
+                        display="flex"
+                        flexDirection="column"
+                        color="text.primary"
+                        bgcolor={"background.paper"}
+                    >
+                        <Navbar switchMode={setMode} />
+                        <Outlet />
+                    </Stack>
+                </>
+            ) : (
+                <LoadingPage />
+            )}
 
-            <Outlet />
             <Toaster
                 position="bottom-center"
                 gutter={10}

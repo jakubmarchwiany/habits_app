@@ -1,6 +1,10 @@
 import { Stack, Typography } from "@mui/material";
+import HabitFrame from "components/dashboard/HabitFrame";
+import { useAppSelector } from "hooks/redux";
 
 function Dashboard() {
+    const user = useAppSelector((state) => state.user);
+
     return (
         <Stack
             component="main"
@@ -9,9 +13,13 @@ function Dashboard() {
             alignItems={"center"}
             justifyContent={"center"}
         >
-            <Typography typography="h2" mt={5}>
-                Panel główny
-            </Typography>
+            {user && (
+                <>
+                    {user.habits.map((habit) => {
+                        return <HabitFrame key={habit.name} habit={habit} />;
+                    })}
+                </>
+            )}
         </Stack>
     );
 }

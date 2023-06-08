@@ -7,9 +7,11 @@ import Plans from "components/pages/Plans";
 import Settings from "components/pages/Settings";
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
+import { Provider } from "react-redux";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
+import store from "store";
 
-console.log(import.meta.env)
+console.log(import.meta.env);
 
 const router = createBrowserRouter([
     {
@@ -18,7 +20,10 @@ const router = createBrowserRouter([
         children: [
             { path: "/", element: <Dashboard /> },
             { path: "/plans", element: <Plans /> },
-            { path: "/add_habit", element: <AddHabit /> },
+            {
+                path: "/add_habit",
+                element: <AddHabit />,
+            },
             { path: "/settings", element: <Settings /> },
         ],
         errorElement: <Error />,
@@ -27,6 +32,8 @@ const router = createBrowserRouter([
 
 createRoot(document.getElementById("root") as HTMLElement).render(
     <StrictMode>
-        <RouterProvider router={router} />
+        <Provider store={store}>
+            <RouterProvider router={router} />
+        </Provider>
     </StrictMode>
 );
