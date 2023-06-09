@@ -1,21 +1,17 @@
 import { Button, Stack, TextField, Typography } from "@mui/material";
-import { postFetch } from "components/utils/fetches";
+import { useAppDispatch } from "hooks/redux";
 import React from "react";
 import { useNavigate } from "react-router-dom";
+import { createHabit } from "store/user-actions";
 
-function AddHabit() {
+function CreateHabit() {
     const [habitName, setHabitName] = React.useState("");
-    const [habitActivityPerDay, setHabitActivityPerDay] = React.useState(1);
 
     const navigate = useNavigate();
+    const dispatch = useAppDispatch();
 
-    const handleAddHabit = () => {
-        postFetch(
-            { name: habitName, numberOfActivitiesPerDay: habitActivityPerDay },
-            "/user/habit/add"
-        ).then(() => {
-            navigate("/");
-        });
+    const handleCreateHabit = () => {
+        dispatch(createHabit(habitName, navigate));
     };
 
     return (
@@ -28,7 +24,7 @@ function AddHabit() {
             justifyContent={"center"}
         >
             <Typography typography="h2" mt={5}>
-                Dodaj nawyk
+                Stwórz nawyk
             </Typography>
 
             <TextField
@@ -40,35 +36,18 @@ function AddHabit() {
                 }}
                 sx={{ mt: 5 }}
             />
-            <TextField
-                color="primary"
-                type="number"
-                InputProps={{
-                    inputProps: {
-                        max: 100,
-                        min: 1,
-                    },
-                }}
-                label="Nazwa nawyku"
-                value={habitActivityPerDay}
-                fullWidth
-                onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-                    setHabitActivityPerDay(parseInt(event.target.value));
-                }}
-                sx={{ mt: 5 }}
-            />
 
             <Button
                 fullWidth
                 variant="contained"
-                onClick={handleAddHabit}
+                onClick={handleCreateHabit}
                 sx={{ mt: 1 }}
                 disabled={habitName === ""}
             >
-                Dodaj
+                Stwórz
             </Button>
         </Stack>
     );
 }
 
-export default AddHabit;
+export default CreateHabit;

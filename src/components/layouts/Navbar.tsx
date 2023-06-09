@@ -52,10 +52,10 @@ function Navbar({ switchMode }: NavbarProps) {
                         isActive={location.pathname === `/plans`}
                     />
                     <MyLinkButton
-                        to="add_habit"
-                        text="Dodaj nawyk"
+                        to="create_habit"
+                        text="Stwórz nawyk"
                         textColor="white"
-                        isActive={location.pathname === `/add_habit`}
+                        isActive={location.pathname === `/create_habit`}
                     />
                     <MyLinkButton
                         to="settings"

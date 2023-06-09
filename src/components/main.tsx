@@ -1,6 +1,6 @@
 import "assets/global.css";
 import App from "components/App";
-import AddHabit from "components/pages/AddHabit";
+import CreateHabit from "components/pages/CreateHabit";
 import Dashboard from "components/pages/Dashboard";
 import Error from "components/pages/Error";
 import Plans from "components/pages/Plans";
@@ -21,8 +21,8 @@ const router = createBrowserRouter([
             { path: "/", element: <Dashboard /> },
             { path: "/plans", element: <Plans /> },
             {
-                path: "/add_habit",
-                element: <AddHabit />,
+                path: "/create_habit",
+                element: <CreateHabit />,
             },
             { path: "/settings", element: <Settings /> },
         ],

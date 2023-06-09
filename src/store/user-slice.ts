@@ -34,6 +34,9 @@ const userSlice = createSlice({
             state.userName = userName;
             state.habits = habits;
         },
+        createHabit(state, action: PayloadAction<Habit>) {
+            state.habits.push(action.payload);
+        },
     },
 });
 export const userActions = userSlice.actions;

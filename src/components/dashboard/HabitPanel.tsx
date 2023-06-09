@@ -10,8 +10,8 @@ type Props = {
     habit: Habit;
 };
 
-function Habit({ habit }: Props) {
-    const { name, steps, activities } = habit;
+function HabitPanel({ habit }: Props) {
+    const { id, name, activities } = habit;
 
     const dispatch = useAppDispatch();
 
@@ -132,4 +132,4 @@ function Habit({ habit }: Props) {
     );
 }
 
-export default Habit;
+export default HabitPanel;

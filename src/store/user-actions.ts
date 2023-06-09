@@ -1,8 +1,9 @@
 /* eslint-disable @typescript-eslint/ban-types */
 
 import { getFetch, postFetch } from "components/utils/fetches";
+import { NavigateFunction } from "react-router-dom";
 import { AppThunk } from "./index";
-import { UserData, userActions } from "./user-slice";
+import { Habit, UserData, userActions } from "./user-slice";
 
 export const getUserDataAction =
     (setIsLogged: Function): AppThunk =>
@@ -12,6 +13,17 @@ export const getUserDataAction =
         }).then(({ data }) => {
             appDispatch(userActions.setUserData(data));
             setIsLogged(true);
+        });
+    };
+
+export const createHabit =
+    (name: string, navigate: NavigateFunction): AppThunk =>
+    (appDispatch) => {
+        postFetch<{ data: Habit }>({ name }, "/user/habit/create", {
+            customError: true,
+        }).then(({ data }) => {
+            appDispatch(userActions.createHabit(data));
+            navigate("/");
         });
     };
 
