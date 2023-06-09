@@ -12,7 +12,7 @@ import { getUserDataAction } from "store/user-actions";
 
 function App() {
     const [mode, setMode] = useStateTheme();
-    const [isLogged, setIsLogged] = useState(false);
+    const [isLogged, setIsLogged] = useState<boolean | undefined>(undefined);
 
     const dispatch = useAppDispatch();
 
@@ -32,23 +32,19 @@ function App() {
     return (
         <ThemeProvider theme={theme}>
             {isLogged ? (
-                <>
-                    <Stack
-                        height="100%"
-                        minHeight={"100vh"}
-                        flex={1}
-                        flexGrow={1}
-                        // display="flex"
-                        flexDirection="column"
-                        color="text.primary"
-                        bgcolor={"background.paper"}
-                    >
-                        <Navbar switchMode={setMode} />
-                        <Outlet />
-                    </Stack>
-                </>
+                <Stack
+                    height="100%"
+                    minHeight={"100vh"}
+                    // display="flex"
+                    flexDirection="column"
+                    color="text.primary"
+                    bgcolor={"background.paper"}
+                >
+                    <Navbar switchMode={setMode} />
+                    <Outlet />
+                </Stack>
             ) : (
-                <LoadingPage />
+                <LoadingPage isLogged={isLogged} />
             )}
 
             <Toaster
