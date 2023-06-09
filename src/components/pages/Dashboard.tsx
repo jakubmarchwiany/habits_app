@@ -1,5 +1,5 @@
 import { Stack } from "@mui/material";
-import HabitFrame from "components/dashboard/HabitFrame";
+import Habit from "components/dashboard/HabitFrame";
 import { useAppSelector } from "hooks/redux";
 
 function Dashboard() {
@@ -16,7 +16,7 @@ function Dashboard() {
             {user && (
                 <>
                     {user.habits.map((habit) => {
-                        return <HabitFrame key={habit.name} habit={habit} />;
+                        return <Habit key={habit.id} habit={habit} />;
                     })}
                 </>
             )}

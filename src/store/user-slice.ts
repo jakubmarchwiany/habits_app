@@ -1,9 +1,9 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 
 export type Habit = {
+    id: string;
     name: string;
-    steps: number;
-    activities: [string][] | [string, number][];
+    activities: string[];
 };
 
 export type UserState = {

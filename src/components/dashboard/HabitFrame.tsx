@@ -10,7 +10,7 @@ type Props = {
     habit: Habit;
 };
 
-function HabitFrame({ habit }: Props) {
+function Habit({ habit }: Props) {
     const { name, steps, activities } = habit;
 
     const dispatch = useAppDispatch();
@@ -132,4 +132,4 @@ function HabitFrame({ habit }: Props) {
     );
 }
 
-export default HabitFrame;
+export default Habit;

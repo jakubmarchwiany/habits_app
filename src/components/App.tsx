@@ -54,7 +54,6 @@ function App() {
             <Toaster
                 position="bottom-center"
                 gutter={10}
-                // reverseOrder={true}
                 containerStyle={{ marginBottom: "40px" }}
                 toastOptions={{
                     style: {
