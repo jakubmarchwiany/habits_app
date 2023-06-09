@@ -8,7 +8,7 @@ import Cookies from "js-cookie";
 import { useEffect, useMemo, useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
 import { Outlet } from "react-router-dom";
-import { getUserData } from "store/user-actions";
+import { getUserDataAction } from "store/user-actions";
 
 function App() {
     const [mode, setMode] = useStateTheme();
@@ -22,7 +22,7 @@ function App() {
 
     useEffect(() => {
         if (Cookies.get("authorization") !== undefined) {
-            dispatch(getUserData(setIsLogged));
+            dispatch(getUserDataAction(setIsLogged));
         } else {
             toast.error("Zaloguj się ponownie", { duration: 3000 });
             setIsLogged(false);
@@ -34,8 +34,11 @@ function App() {
             {isLogged ? (
                 <>
                     <Stack
-                        height="100vh"
-                        display="flex"
+                        height="100%"
+                        minHeight={"100vh"}
+                        flex={1}
+                        flexGrow={1}
+                        // display="flex"
                         flexDirection="column"
                         color="text.primary"
                         bgcolor={"background.paper"}

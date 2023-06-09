@@ -1,4 +1,4 @@
-import { Stack, Typography } from "@mui/material";
+import { Stack } from "@mui/material";
 import HabitFrame from "components/dashboard/HabitFrame";
 import { useAppSelector } from "hooks/redux";
 
