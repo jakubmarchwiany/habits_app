@@ -10,39 +10,37 @@ export const getUserDataAction =
     (appDispatch) => {
         getFetch<{ data: UserData }>("/user/data", {
             customError: true,
-        }).then(({ data }) => {
-            appDispatch(userActions.setUserData(data));
-            setIsLogged(true);
-        });
+        })
+            .then(({ data }) => {
+                appDispatch(userActions.setUserData(data));
+                setIsLogged(true);
+            })
+            .catch(() => {
+                setIsLogged(false);
+            });
     };
 
 export const createHabit =
     (name: string, navigate: NavigateFunction): AppThunk =>
     (appDispatch) => {
-        postFetch<{ data: Habit }>({ name }, "/user/habit/create", {
-            customError: true,
-        }).then(({ data }) => {
+        postFetch<{ data: Habit }>({ name }, "/user/habit/create").then(({ data }) => {
             appDispatch(userActions.createHabit(data));
             navigate("/");
         });
     };
 
 export const addActivityAction =
-    (habitName: string, date: string): AppThunk =>
+    (id: string, date: string): AppThunk =>
     (appDispatch) => {
-        postFetch<{ data: UserData }>({ habitName, date }, "/user/habit/activity/add", {
-            customError: true,
-        }).then(() => {
-            console.log("elo");
+        postFetch<{ data: UserData }>({ id, date }, "/user/habit/activity/add").then(() => {
+            appDispatch(userActions.addActivity({ id, date }));
         });
     };
 
 export const deleteActivityAction =
-    (habitName: string, date: string): AppThunk =>
+    (id: string, date: string): AppThunk =>
     (appDispatch) => {
-        postFetch<{ data: UserData }>({ habitName, date }, "/user/habit/activity/delete", {
-            customError: true,
-        }).then(() => {
-            console.log("elo");
+        postFetch<{ data: UserData }>({ id, date }, "/user/habit/activity/delete").then(() => {
+            appDispatch(userActions.deleteActivity({ id, date }));
         });
     };

@@ -1,7 +1,6 @@
-import React from "react";
-
 function Plans() {
-    return <div>Plans</div>;
+    // Generate a large list of items
+    return <div>plans</div>;
 }
 
 export default Plans;

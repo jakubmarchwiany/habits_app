@@ -1,17 +1,16 @@
 import "assets/global.css";
 import App from "components/App";
 import CreateHabit from "components/pages/CreateHabit";
-import Dashboard from "components/pages/Dashboard";
 import Error from "components/pages/Error";
 import Plans from "components/pages/Plans";
 import Settings from "components/pages/Settings";
+import Dashboard from "components/pages/dashboard/Dashboard";
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import { Provider } from "react-redux";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import store from "store";
 
-console.log(import.meta.env);
 
 const router = createBrowserRouter([
     {

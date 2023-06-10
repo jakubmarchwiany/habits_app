@@ -5,3 +5,9 @@
 #sidebar a.active {
     color: palegoldenrod;
 }
+
+:root {
+    --red: #b00;
+    --blue: #2c5a69;
+    --fullwidth: 100%;
+}
