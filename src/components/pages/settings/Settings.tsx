@@ -1,7 +1,6 @@
 import { Stack, Typography } from "@mui/material";
 import DraggableList from "components/pages/settings/DraggableList";
 import ColorThemeSettings from "components/pages/settings/SaveColorThemeTextField";
-import React from "react";
 
 function Settings() {
     return (
