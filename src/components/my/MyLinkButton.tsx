@@ -20,13 +20,13 @@ function MyLinkButton({
     to,
     isActive = false,
     size = "large",
-    textColor = "secondary.contrastText",
+    textColor = "primary.contrastText",
     Icon,
     fullWidth = true,
     closeMenu,
 }: Props) {
     return (
-        <Link to={to} style={{ textDecoration: "none" }}>
+        <Link to={to}>
             <Button
                 size={size}
                 startIcon={Icon && <Icon />}

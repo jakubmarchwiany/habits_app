@@ -8,7 +8,7 @@ import { Habit, UserData, userActions } from "./user-slice";
 export const getUserDataAction =
     (setIsLogged: Function): AppThunk =>
     (appDispatch) => {
-        getFetch<{ data: UserData }>("/user/data", {
+        getFetch<{ data: [UserData, UserData] }>("/user/data", {
             customError: true,
         })
             .then(({ data }) => {
@@ -26,6 +26,30 @@ export const createHabit =
         postFetch<{ data: Habit }>({ name }, "/user/habit/create").then(({ data }) => {
             appDispatch(userActions.createHabit(data));
             navigate("/");
+        });
+    };
+
+export const editHabitNameAction =
+    (id: string, newName: string): AppThunk =>
+    (appDispatch) => {
+        postFetch<{ data: UserData }>({ id, newName }, "/user/habit/edit_name").then(() => {
+            appDispatch(userActions.editHabitName({ id, newName }));
+        });
+    };
+
+export const deleteHabitAction =
+    (id: string): AppThunk =>
+    (appDispatch) => {
+        postFetch<{ data: UserData }>({ id }, "/user/habit/delete").then(() => {
+            appDispatch(userActions.deleteHabit({ id }));
+        });
+    };
+
+export const edithabitsOrderAction =
+    (habitsID: string[]): AppThunk =>
+    (appDispatch) => {
+        postFetch<{ data: UserData }>({ habitsID }, "/user/habit/edit_order").then(() => {
+            appDispatch(userActions.editHabitsOrder({ habitsID }));
         });
     };
 

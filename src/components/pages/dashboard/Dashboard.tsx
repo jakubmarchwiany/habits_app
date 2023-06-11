@@ -4,10 +4,11 @@ import { useAppSelector } from "hooks/redux";
 
 function Dashboard() {
     const habitsIds = useAppSelector((state) => state.user.habits.length);
+    const secondHabitsIds = useAppSelector((state) => state.user.secondHabits.length);
 
-    const generateHabits = () => {
+    const generateHabits = (habitsIds: number, isYours: boolean) => {
         return Array.from({ length: habitsIds }, (_, i) => (
-            <HabitPanel key={"habit" + i} habitIndex={i} />
+            <HabitPanel isYours={isYours} key={"habit" + i} habitIndex={i} />
         ));
     };
 
@@ -20,15 +21,23 @@ function Dashboard() {
                 py: { xs: 1, sm: 2, md: 10, lg: 4, xl: 5 },
             }}
         >
-            <Grid2 xs={12} md={5}>
-                {generateHabits()}
+            <Grid2
+                xs={12}
+                md={5}
+                sx={{ border: 3, borderRadius: 5, borderColor: "primary.main" }}
+                p={{ xs: 1, sm: 2, md: 10, lg: 4, xl: 5 }}
+            >
+                {generateHabits(habitsIds, true)}
             </Grid2>
-            {/* <Grid2 xs={12} mdOffset={2} md={5}>
-                {habits &&
-                    habits.map((habit) => {
-                        return <HabitPanel key={habit.id} habit={habit} />;
-                    })}
-            </Grid2> */}
+            <Grid2
+                xs={12}
+                md={5}
+                mdOffset={2}
+                sx={{ border: 3, borderRadius: 5, borderColor: "pink" }}
+                p={{ xs: 1, sm: 2, md: 10, lg: 4, xl: 5 }}
+            >
+                {generateHabits(secondHabitsIds, false)}
+            </Grid2>
         </Grid2>
     );
 }

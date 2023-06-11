@@ -31,6 +31,7 @@ function CreateHabit() {
                 label="Nazwa nawyku"
                 value={habitName}
                 fullWidth
+                autoComplete="off"
                 onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
                     setHabitName(event.target.value);
                 }}
