@@ -1,53 +1,43 @@
-import type { PaletteMode } from "@mui/material";
+import "@fontsource/source-sans-pro";
+import { ThemeOptions } from "@mui/material";
 
-export const getDesignTokens = (mode: PaletteMode) => ({
+export const getTheme = (color: string): ThemeOptions => ({
     palette: {
-        mode,
-        ...(mode === "light"
-            ? {
-                  // palette values for light mode
-                  primary: {
-                      main: "#468faf",
-                      contrastText: "#fff",
-                  },
-                  secondary: {
-                      main: "#fff",
-                      contrastText: "#468faf",
-                  },
-                  background: {
-                      default: "#fff",
-                      paper: "#fafafa",
-                  },
-                  divider: "#D3D3D3",
-                  text: {
-                      primary: "#000",
-                      secondary: "#468faf",
-                  },
-              }
-            : {
-                  // palette values for dark mode
-                  primary: {
-                      main: "#2c5a69",
-                      contrastText: "#fff",
-                  },
-                  secondary: {
-                      main: "#fff",
-                      contrastText: "#fff",
-                  },
-                  background: {
-                      default: "#303030",
-                      paper: "#424242",
-                  },
-                  divider: "#D3D3D3",
-                  text: {
-                      primary: "#fff",
-                      secondary: "#fff",
-                  },
-              }),
+        primary: {
+            main: color,
+        },
+        secondary: {
+            main: "#fff",
+        },
+        text: {
+            primary: "#fff",
+
+        },
+        background: {
+            default: "#303030",
+            paper: "#424242",
+        },
+        divider: "#D3D3D3",
     },
-    // typography: {
-    //     fontFamily: ["Montserrat", "sans-serif"].join(","),
-    // },
+    typography: {
+        fontFamily: ["-apple-system", "Source Sans Pro", "Roboto"].join(","),
+        button: {
+            textTransform: "none",
+            fontSize: "18",
+        },
+    },
+    components: {
+        MuiTextField: {
+            defaultProps: {
+                inputProps: {
+                    style: {
+                        color: color,
+                    },
+                },
+            },
+        },
+    },
+
     breakpoints: {
         values: {
             xs: 0,

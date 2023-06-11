@@ -83,7 +83,9 @@ function LoadingPage({ isLogged }: Props) {
                             onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
                                 setUsername(event.target.value);
                             }}
-                            sx={{ mt: 5 }}
+                            sx={{
+                                mt: 5,
+                            }}
                         />
                         <TextField
                             label="Hasło"
