@@ -18,3 +18,17 @@ input:-webkit-autofill:focus,
 input:-webkit-autofill:active {
     transition: background-color 5000s ease-in-out 0s;
 }
+
+::-webkit-scrollbar {
+    width: 12px;
+}
+
+::-webkit-scrollbar-track {
+    background: #222; /* Change this to your desired background color */
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: #555; /* Change this to your desired thumb color */
+    border-radius: 6px;
+    border: 3px solid #222; /* Change this to your desired border color */
+}

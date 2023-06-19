@@ -1,4 +1,4 @@
-import { sleeper } from "components/utils/sleeper";
+import { sleeper } from "utils/sleeper";
 import toast from "react-hot-toast";
 import Cookies from "js-cookie";
 

@@ -1,6 +1,6 @@
 import { Settings } from "@mui/icons-material";
 import { IconButton, Menu, MenuItem } from "@mui/material";
-import ChangeNameDialog from "components/pages/dashboard/ChangeNameDialog";
+import ChangeNameDialog from "components/pages/habits/ChangeNameDialog";
 import { useAppDispatch } from "hooks/redux";
 import * as React from "react";
 import { toast } from "react-hot-toast";
@@ -8,9 +8,11 @@ import { deleteHabitAction, editHabitNameAction } from "store/user-actions";
 
 type Props = {
     id: string;
+    nDays: number;
+    changeNDays: React.Dispatch<React.SetStateAction<number>>;
 };
 
-function HabitSettings({ id }: Props) {
+function HabitSettings({ id, nDays, changeNDays }: Props) {
     const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
     const [changeNameOpen, setChangeNameOpen] = React.useState(false);
 
@@ -55,6 +57,9 @@ function HabitSettings({ id }: Props) {
                     "aria-labelledby": "basic-button",
                 }}
             >
+                <MenuItem onClick={() => changeNDays(42)}>
+                    {nDays === 21 ? "Pokaż więcej dni" : "Ukryj dni"}
+                </MenuItem>
                 <MenuItem onClick={openChaneNameDialog}>Zmień nazwę</MenuItem>
                 <MenuItem
                     onClick={() => toast("Kliknij dwukrotnie by usunać nawyk")}

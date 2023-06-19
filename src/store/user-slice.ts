@@ -1,5 +1,5 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
-import { findRightIndexByDate } from "components/utils/find_index";
+import { findRightIndexByDate } from "utils/find_index";
 
 export type Habit = {
     id: string;

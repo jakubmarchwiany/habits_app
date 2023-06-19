@@ -1,4 +1,4 @@
-import { authorizationFail } from "components/utils/authorizationFail";
+import { authorizationFail } from "utils/authorizationFail";
 import Cookies from "js-cookie";
 import toast from "react-hot-toast";
 

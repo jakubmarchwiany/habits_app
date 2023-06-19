@@ -9,8 +9,8 @@ import {
     TextField,
     Typography,
 } from "@mui/material";
-import { postFetch } from "components/utils/fetches";
-import { sleeper } from "components/utils/sleeper";
+import { postFetch } from "utils/fetches";
+import { sleeper } from "utils/sleeper";
 import Cookies from "js-cookie";
 import { SyntheticEvent, useState } from "react";
 

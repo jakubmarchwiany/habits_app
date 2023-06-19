@@ -68,7 +68,7 @@ export default function DraggableList() {
             {open && (
                 <>
                     <DragDropContext onDragEnd={onDragEnd}>
-                        <Droppable droppableId="droppable">
+                        <Droppable droppableId="droppable" >
                             {(provided, _snapshot) => (
                                 <Box ref={provided.innerRef}>
                                     {habits?.map((item: { id: string; name: string }, index) => (
