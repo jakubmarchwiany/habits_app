@@ -4,7 +4,7 @@ import CreateHabit from "components/pages/CreateHabit";
 import Error from "components/pages/Error";
 import Plans from "components/pages/Plans";
 import Settings from "components/pages/settings/Settings";
-import Dashboard from "components/pages/dashboard/Dashboard";
+import Dashboard from "components/pages/habits/Habits";
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import { Provider } from "react-redux";

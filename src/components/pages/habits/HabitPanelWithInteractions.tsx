@@ -1,46 +1,32 @@
-import { Stack, Typography, useMediaQuery, useTheme } from "@mui/material";
+import { MoreTime } from "@mui/icons-material";
+import { IconButton, Stack, Typography, useTheme } from "@mui/material";
 import Grid2 from "@mui/material/Unstable_Grid2/Grid2";
-import Day from "components/pages/dashboard/Day";
-import HabitSettings from "components/pages/dashboard/HabitSettings";
+import Day from "components/pages/habits/Day";
+import HabitSettings from "components/pages/habits/HabitSettings";
 import dayjs from "dayjs";
 import { useAppDispatch, useAppSelector } from "hooks/redux";
+import { useState } from "react";
 import { addActivityAction, deleteActivityAction } from "store/user-actions";
 import "./day.css";
 
 type Props = {
     habitIndex: number;
-    isYours: boolean;
 };
 
-let DAY_TO_DISPLAY = 60;
-
-function HabitPanel({ habitIndex, isYours }: Props) {
+function HabitPanelWithInteractions({ habitIndex }: Props) {
+    const [nDays, setNDays] = useState(21);
     const theme = useTheme();
-    const greaterThanMid = useMediaQuery(theme.breakpoints.up("md"));
 
-    if (greaterThanMid) {
-        DAY_TO_DISPLAY = 60;
-    } else {
-        DAY_TO_DISPLAY = 30;
-    }
-
-    const { name, id, activities } = useAppSelector((state) => {
-        if (isYours) {
-            return state.user.habits[habitIndex];
-        } else;
-        {
-            return state.user.secondHabits[habitIndex];
-        }
-    });
+    const { name, id, activities } = useAppSelector((state) => state.user.habits[habitIndex]);
 
     const dispatch = useAppDispatch();
 
     const generateActivityDays = () => {
-        const days = Array(DAY_TO_DISPLAY);
+        const days = Array(nDays);
         const currentDate = dayjs();
         let index = activities.length - 1;
 
-        for (let i = 0; i < DAY_TO_DISPLAY; i++) {
+        for (let i = 0; i < nDays; i++) {
             const date = currentDate.subtract(i, "day");
 
             const isActivityDone =
@@ -77,25 +63,43 @@ function HabitPanel({ habitIndex, isYours }: Props) {
     };
 
     const addActivity = (date: string) => {
-        if (!isYours) return;
         dispatch(addActivityAction(id, date));
     };
 
     const deleteActivity = (date: string) => {
-        if (!isYours) return;
-
         dispatch(deleteActivityAction(id, date));
     };
 
+    const handleNDaysChange = () => {
+        if (nDays === 21) {
+            setNDays(42);
+        } else {
+            setNDays(21);
+        }
+    };
+
     return (
-        <Stack p={2} boxShadow={5} borderRadius={3} mb={2}>
-            <Grid2 container mb={3}>
-                <Grid2 xs={10} xsOffset={1}>
+        <Stack
+            py={2}
+            px={1}
+            boxShadow={5}
+            sx={{ border: 1, borderRadius: 5, borderColor: "primary.main" }}
+        >
+            <Grid2 container mb={2}>
+                <Grid2 xs={1} display={"flex"}>
+                    <IconButton onClick={handleNDaysChange}>
+                        <MoreTime
+                            sx={{ color: nDays === 21 ? "white" : "primary.main" }}
+                            fontSize="medium"
+                        />
+                    </IconButton>
+                </Grid2>
+                <Grid2 xs={10}>
                     <Typography variant="h4" textAlign="center">
                         {name}
                     </Typography>
                 </Grid2>
-                <Grid2 xs={1}>
+                <Grid2 xs={1} display={"flex"} justifyContent={"end"}>
                     <HabitSettings id={id} />
                 </Grid2>
             </Grid2>
@@ -105,4 +109,4 @@ function HabitPanel({ habitIndex, isYours }: Props) {
     );
 }
 
-export default HabitPanel;
+export default HabitPanelWithInteractions;

@@ -1,6 +1,6 @@
 import { Settings } from "@mui/icons-material";
 import { IconButton, Menu, MenuItem } from "@mui/material";
-import ChangeNameDialog from "components/pages/dashboard/ChangeNameDialog";
+import ChangeNameDialog from "components/pages/habits/ChangeNameDialog";
 import { useAppDispatch } from "hooks/redux";
 import * as React from "react";
 import { toast } from "react-hot-toast";

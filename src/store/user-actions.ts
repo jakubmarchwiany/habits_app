@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/ban-types */
 
-import { getFetch, postFetch } from "components/utils/fetches";
+import { getFetch, postFetch } from "utils/fetches";
 import { NavigateFunction } from "react-router-dom";
 import { AppThunk } from "./index";
 import { Habit, UserData, userActions } from "./user-slice";

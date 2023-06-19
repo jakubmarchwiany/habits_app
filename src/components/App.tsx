@@ -1,6 +1,6 @@
 import { Stack, ThemeProvider, createTheme, responsiveFontSizes } from "@mui/material";
 import { getTheme } from "assets/theme";
-import Navbar from "components/layouts/Navbar";
+import SpeedDialNavigator from "components/layouts/SpeedDialNavigator";
 import LoadingPage from "components/pages/LoadingPage";
 import { useAppDispatch } from "hooks/redux";
 import Cookies from "js-cookie";
@@ -34,13 +34,12 @@ function App() {
                 <Stack
                     height="100%"
                     minHeight={"100vh"}
-                    // display="flex"
                     flexDirection="column"
                     color="primary.contrastText"
                     bgcolor={"background.paper"}
                 >
-                    <Navbar />
                     <Outlet />
+                    <SpeedDialNavigator />
                 </Stack>
             ) : (
                 <LoadingPage isLogged={isLogged} />
