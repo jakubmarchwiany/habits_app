@@ -1,4 +1,5 @@
-import { Stack, Typography, useMediaQuery, useTheme } from "@mui/material";
+import { MoreTime } from "@mui/icons-material";
+import { IconButton, Stack, Typography, useTheme } from "@mui/material";
 import Grid2 from "@mui/material/Unstable_Grid2/Grid2";
 import Day from "components/pages/habits/Day";
 import HabitSettings from "components/pages/habits/HabitSettings";
@@ -15,7 +16,6 @@ type Props = {
 function HabitPanelWithInteractions({ habitIndex }: Props) {
     const [nDays, setNDays] = useState(21);
     const theme = useTheme();
-    const greaterThanMid = useMediaQuery(theme.breakpoints.up("md"));
 
     const { name, id, activities } = useAppSelector((state) => state.user.habits[habitIndex]);
 
@@ -86,13 +86,21 @@ function HabitPanelWithInteractions({ habitIndex }: Props) {
             sx={{ border: 1, borderRadius: 5, borderColor: "primary.main" }}
         >
             <Grid2 container mb={2}>
-                <Grid2 xs={10} xsOffset={1}>
+                <Grid2 xs={1} display={"flex"}>
+                    <IconButton onClick={handleNDaysChange}>
+                        <MoreTime
+                            sx={{ color: nDays === 21 ? "white" : "primary.main" }}
+                            fontSize="medium"
+                        />
+                    </IconButton>
+                </Grid2>
+                <Grid2 xs={10}>
                     <Typography variant="h4" textAlign="center">
                         {name}
                     </Typography>
                 </Grid2>
                 <Grid2 xs={1} display={"flex"} justifyContent={"end"}>
-                    <HabitSettings id={id} nDays={nDays} changeNDays={handleNDaysChange} />
+                    <HabitSettings id={id} />
                 </Grid2>
             </Grid2>
 

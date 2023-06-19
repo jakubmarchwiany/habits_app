@@ -8,11 +8,9 @@ import { deleteHabitAction, editHabitNameAction } from "store/user-actions";
 
 type Props = {
     id: string;
-    nDays: number;
-    changeNDays: React.Dispatch<React.SetStateAction<number>>;
 };
 
-function HabitSettings({ id, nDays, changeNDays }: Props) {
+function HabitSettings({ id }: Props) {
     const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
     const [changeNameOpen, setChangeNameOpen] = React.useState(false);
 
@@ -57,9 +55,6 @@ function HabitSettings({ id, nDays, changeNDays }: Props) {
                     "aria-labelledby": "basic-button",
                 }}
             >
-                <MenuItem onClick={() => changeNDays(42)}>
-                    {nDays === 21 ? "Pokaż więcej dni" : "Ukryj dni"}
-                </MenuItem>
                 <MenuItem onClick={openChaneNameDialog}>Zmień nazwę</MenuItem>
                 <MenuItem
                     onClick={() => toast("Kliknij dwukrotnie by usunać nawyk")}
