@@ -17,7 +17,7 @@ function HabitPanelWithInteractions({ habitIndex }: Props) {
     const [nDays, setNDays] = useState(21);
     const theme = useTheme();
 
-    const { name, id, activities } = useAppSelector((state) => state.user.habits[habitIndex]);
+    const { name, _id: id, activities } = useAppSelector((state) => state.user.habits[habitIndex]);
 
     const dispatch = useAppDispatch();
 
@@ -32,7 +32,7 @@ function HabitPanelWithInteractions({ habitIndex }: Props) {
             const isActivityDone =
                 activities.length !== 0 &&
                 index >= 0 &&
-                date.isSame(dayjs(activities[index]), "day");
+                date.isSame(dayjs(activities[index].date), "day");
 
             const dayKey = `${id}-grid-${i}`;
 

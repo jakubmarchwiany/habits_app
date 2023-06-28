@@ -15,7 +15,8 @@ export const getUserDataAction =
                 appDispatch(userActions.setUserData(data));
                 setIsLogged(true);
             })
-            .catch(() => {
+            .catch((e) => {
+                console.log(e)
                 setIsLogged(false);
             });
     };
@@ -40,6 +41,7 @@ export const editHabitNameAction =
 export const deleteHabitAction =
     (id: string): AppThunk =>
     (appDispatch) => {
+        console.log(id)
         postFetch<{ data: UserData }>({ id }, "/user/habit/delete").then(() => {
             appDispatch(userActions.deleteHabit({ id }));
         });

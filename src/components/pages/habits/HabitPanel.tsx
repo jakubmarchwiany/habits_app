@@ -16,7 +16,7 @@ function HabitPanel({ habitIndex }: Props) {
 
     const theme = useTheme();
 
-    const { name, id, activities } = useAppSelector((state) => state.user.secondHabits[habitIndex]);
+    const { name, _id: id, activities } = useAppSelector((state) => state.user.secondHabits[habitIndex]);
 
     const generateActivityDays = () => {
         const days = Array(nDays);

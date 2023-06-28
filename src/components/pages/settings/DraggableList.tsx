@@ -23,7 +23,7 @@ export default function DraggableList() {
     useEffect(() => {
         const habitList = habitsRedux.map((habit) => {
             return {
-                id: habit.id,
+                id: habit._id,
                 name: habit.name,
             };
         });
