@@ -1,14 +1,15 @@
 /* eslint-disable @typescript-eslint/ban-types */
 
-import { getFetch, postFetch } from "utils/fetches";
 import { NavigateFunction } from "react-router-dom";
+import { getFetch, postFetch } from "utils/fetches";
 import { AppThunk } from "./index";
-import { Habit, UserData, userActions } from "./user-slice";
+import { UserData, userActions } from "./user-slice";
+import { Habit } from "store/models/habit";
 
 export const getUserDataAction =
     (setIsLogged: Function): AppThunk =>
     (appDispatch) => {
-        getFetch<{ data: [UserData, UserData] }>("/user/data", {
+        getFetch<{ data: [UserData, UserData] }>("/auth/get_user_data", {
             customError: true,
         })
             .then(({ data }) => {
@@ -16,7 +17,7 @@ export const getUserDataAction =
                 setIsLogged(true);
             })
             .catch((e) => {
-                console.log(e)
+                console.log(e);
                 setIsLogged(false);
             });
     };
@@ -41,7 +42,7 @@ export const editHabitNameAction =
 export const deleteHabitAction =
     (id: string): AppThunk =>
     (appDispatch) => {
-        console.log(id)
+        console.log(id);
         postFetch<{ data: UserData }>({ id }, "/user/habit/delete").then(() => {
             appDispatch(userActions.deleteHabit({ id }));
         });
@@ -56,17 +57,21 @@ export const edithabitsOrderAction =
     };
 
 export const addActivityAction =
-    (id: string, date: string): AppThunk =>
+    (habitID: string, date: string): AppThunk =>
     (appDispatch) => {
-        postFetch<{ data: UserData }>({ id, date }, "/user/habit/activity/add").then(() => {
-            appDispatch(userActions.addActivity({ id, date }));
+        postFetch<{ data: { activityID: string } }>(
+            { habitID, date },
+            "/user/habit/activity/add"
+        ).then(({ data }) => {
+            const { activityID } = data;
+            appDispatch(userActions.addActivity({ habitID, activityID, date }));
         });
     };
 
 export const deleteActivityAction =
-    (id: string, date: string): AppThunk =>
+    (habitID: string, activityID: string): AppThunk =>
     (appDispatch) => {
-        postFetch<{ data: UserData }>({ id, date }, "/user/habit/activity/delete").then(() => {
-            appDispatch(userActions.deleteActivity({ id, date }));
+        postFetch<never>({ id: activityID }, "/user/habit/activity/delete").then(() => {
+            appDispatch(userActions.deleteActivity({ habitID, activityID }));
         });
     };

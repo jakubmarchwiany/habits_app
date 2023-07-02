@@ -1,7 +1,7 @@
 import { MoreTime } from "@mui/icons-material";
 import { IconButton, Stack, Typography, useTheme } from "@mui/material";
 import Grid2 from "@mui/material/Unstable_Grid2";
-import Day from "components/pages/habits/Day";
+import Day from "components/pages/dashboard/Day";
 import dayjs from "dayjs";
 import { useAppSelector } from "hooks/redux";
 import { useState } from "react";
@@ -16,7 +16,11 @@ function HabitPanel({ habitIndex }: Props) {
 
     const theme = useTheme();
 
-    const { name, _id: id, activities } = useAppSelector((state) => state.user.secondHabits[habitIndex]);
+    const {
+        name,
+        _id: id,
+        activities,
+    } = useAppSelector((state) => state.user.secondHabits[habitIndex]);
 
     const generateActivityDays = () => {
         const days = Array(nDays);
@@ -29,7 +33,7 @@ function HabitPanel({ habitIndex }: Props) {
             const isActivityDone =
                 activities.length !== 0 &&
                 index >= 0 &&
-                date.isSame(dayjs(activities[index]), "day");
+                date.isSame(dayjs(activities[index].date), "day");
 
             const dayKey = `${id}-grid-${i}`;
 

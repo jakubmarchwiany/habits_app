@@ -1,11 +1,11 @@
 import { Box } from "@mui/material";
 import Grid2 from "@mui/material/Unstable_Grid2/Grid2";
-import HabitPanel from "components/pages/habits/HabitPanel";
-import HabitPanelWithInteractions from "components/pages/habits/HabitPanelWithInteractions";
+import HabitPanel from "components/pages/dashboard/HabitPanel";
+import HabitPanelWithInteractions from "components/pages/dashboard/HabitPanelWithInteractions";
 import { useAppSelector } from "hooks/redux";
 
 function Dashboard() {
-    const habitsIds = useAppSelector((state) => state.user.habits.length);
+    const habitsIds = useAppSelector((state) => state.user.userHabits.length);
     const secondHabitsIds = useAppSelector((state) => state.user.secondHabits.length);
 
     const generateHabitsWithInteractions = (habitsIds: number) => {

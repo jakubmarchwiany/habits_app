@@ -3,17 +3,17 @@ import { memo } from "react";
 import "./day.css";
 
 type Props = {
-    _id: string;
+    id?: string;
     isDone: boolean;
     date: dayjs.Dayjs;
-    action?: (date: string) => void;
+    action?: (date: string, id: string) => void;
     color: string;
 };
 
-const Day = memo(function Day({ _id, color, isDone, date, action }: Props) {
+const Day = memo(function Day({ id, color, isDone, date, action }: Props) {
     return (
         <div
-            onClick={() => action && action(_id)}
+            onClick={() => action && action(date.format("YYYY-MM-DD"), id!)}
             className={`day`}
             style={{ backgroundColor: isDone ? color : "" }}
             data-tooltip={date.format("MM.DD")}

@@ -22,7 +22,6 @@ function App() {
 
     useEffect(() => {
         if (Cookies.get("authorization") !== undefined) {
-            console.log("User is logged")
             dispatch(getUserDataAction(setIsLogged));
         } else {
             setIsLogged(false);

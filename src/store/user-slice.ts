@@ -1,25 +1,15 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
+import { Habit } from "store/models/habit";
+
 import { findRightIndexByDate } from "utils/find_index";
 
-export type Activity = {
-    _id: string;
-    date: string;
-};
-
-export type Habit = {
-    _id: string;
-    name: string;
-    activities: Activity[];
-};
-
-export type UserState = {
-    // habitsIndex: number[];
-    habits: Habit[];
+type UserState = {
+    userHabits: Habit[];
     secondHabits: Habit[];
 };
 
 const initialState: UserState = {
-    habits: [],
+    userHabits: [],
     secondHabits: [],
 };
 
@@ -32,17 +22,15 @@ const userSlice = createSlice({
     initialState,
     reducers: {
         setUserData(state, action: PayloadAction<[UserData, UserData]>) {
-            const { habits } = action.payload[0];
-
-            state.habits = habits;
+            state.userHabits = action.payload[0].habits;
             state.secondHabits = action.payload[1].habits;
         },
         createHabit(state, action: PayloadAction<Habit>) {
-            state.habits.push(action.payload);
+            state.userHabits.push(action.payload);
         },
         editHabitName(state, action: PayloadAction<{ id: string; newName: string }>) {
             const { id, newName } = action.payload;
-            const habit = state.habits.find((habit) => habit._id === id);
+            const habit = state.userHabits.find((habit) => habit._id === id);
             if (habit) habit.name = newName;
         },
         editHabitsOrder(state, action: PayloadAction<{ habitsID: string[] }>) {
@@ -50,31 +38,34 @@ const userSlice = createSlice({
 
             const sortedHabits = [];
             for (const habitId of habitsID) {
-                const habit = state.habits.find((h) => h._id === habitId);
+                const habit = state.userHabits.find((h) => h._id === habitId);
                 if (habit) {
                     sortedHabits.push(habit);
                 }
             }
-            state.habits = sortedHabits;
+            state.userHabits = sortedHabits;
         },
         deleteHabit(state, action: PayloadAction<{ id: string }>) {
             const { id } = action.payload;
-            state.habits = state.habits.filter((habit) => habit._id !== id);
+            state.userHabits = state.userHabits.filter((habit) => habit._id !== id);
         },
-        addActivity(state, action: PayloadAction<{ id: string; date: string }>) {
-            const { id, date } = action.payload;
-            const habit = state.habits.find((habit) => habit._id === id);
+        addActivity(
+            state,
+            action: PayloadAction<{ habitID: string; activityID: string; date: string }>
+        ) {
+            const { activityID, date, habitID } = action.payload;
+            const habit = state.userHabits.find((habit) => habit._id === habitID);
 
             if (habit) {
                 const index = findRightIndexByDate(date, habit.activities);
-                habit.activities.splice(index, 0, date);
+                habit.activities.splice(index, 0, { date, _id: activityID });
             }
         },
-        deleteActivity(state, action: PayloadAction<{ id: string; date: string }>) {
-            const { id, date } = action.payload;
-            const habit = state.habits.find((habit) => habit._id === id);
+        deleteActivity(state, action: PayloadAction<{ habitID: string; activityID: string }>) {
+            const { habitID, activityID } = action.payload;
+            const habit = state.userHabits.find((habit) => habit._id === habitID);
             if (habit) {
-                habit.activities = habit.activities.filter((a) => a !== date);
+                habit.activities = habit.activities.filter((a) => a._id !== activityID);
             }
         },
     },

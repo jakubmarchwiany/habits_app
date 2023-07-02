@@ -14,7 +14,7 @@ const reorder = (list: any[], startIndex: number, endIndex: number) => {
 };
 
 export default function DraggableList() {
-    const habitsRedux = useAppSelector((state) => state.user.habits);
+    const habitsRedux = useAppSelector((state) => state.user.userHabits);
     const [habits, setHabits] = useState<{ id: string; name: string }[]>([]);
     const [open, setOpen] = useState(false);
 

@@ -1,8 +1,8 @@
 import { MoreTime } from "@mui/icons-material";
 import { IconButton, Stack, Typography, useTheme } from "@mui/material";
 import Grid2 from "@mui/material/Unstable_Grid2/Grid2";
-import Day from "components/pages/habits/Day";
-import HabitSettings from "components/pages/habits/HabitSettings";
+import Day from "components/pages/dashboard/Day";
+import HabitSettings from "components/pages/dashboard/settings/HabitSettings";
 import dayjs from "dayjs";
 import { useAppDispatch, useAppSelector } from "hooks/redux";
 import { useState } from "react";
@@ -17,7 +17,11 @@ function HabitPanelWithInteractions({ habitIndex }: Props) {
     const [nDays, setNDays] = useState(21);
     const theme = useTheme();
 
-    const { name, _id: id, activities } = useAppSelector((state) => state.user.habits[habitIndex]);
+    const {
+        name,
+        _id: habitID,
+        activities,
+    } = useAppSelector((state) => state.user.userHabits[habitIndex]);
 
     const dispatch = useAppDispatch();
 
@@ -34,7 +38,8 @@ function HabitPanelWithInteractions({ habitIndex }: Props) {
                 index >= 0 &&
                 date.isSame(dayjs(activities[index].date), "day");
 
-            const dayKey = `${id}-grid-${i}`;
+            console.log(activities[index]);
+            const dayKey = `${habitID}-grid-${i}`;
 
             days[i] = (
                 <div
@@ -46,6 +51,7 @@ function HabitPanelWithInteractions({ habitIndex }: Props) {
                     }}
                 >
                     <Day
+                        id={isActivityDone ? activities[index]._id : undefined}
                         isDone={isActivityDone}
                         date={date}
                         action={isActivityDone ? deleteActivity : addActivity}
@@ -62,12 +68,12 @@ function HabitPanelWithInteractions({ habitIndex }: Props) {
         return days.reverse();
     };
 
-    const addActivity = (date: string) => {
-        dispatch(addActivityAction(id, date));
+    const addActivity = (date: string, id: string) => {
+        dispatch(addActivityAction(habitID, date));
     };
 
-    const deleteActivity = (date: string) => {
-        dispatch(deleteActivityAction(id, date));
+    const deleteActivity = (date: string, id: string) => {
+        dispatch(deleteActivityAction(habitID, id!));
     };
 
     const handleNDaysChange = () => {
@@ -80,12 +86,12 @@ function HabitPanelWithInteractions({ habitIndex }: Props) {
 
     return (
         <Stack
-            py={2}
-            px={1}
+            p={1}
+            pb={2}
             boxShadow={5}
             sx={{ border: 1, borderRadius: 5, borderColor: "primary.main" }}
         >
-            <Grid2 container mb={2}>
+            <Grid2 container mb={1}>
                 <Grid2 xs={1} display={"flex"}>
                     <IconButton onClick={handleNDaysChange}>
                         <MoreTime
@@ -95,12 +101,12 @@ function HabitPanelWithInteractions({ habitIndex }: Props) {
                     </IconButton>
                 </Grid2>
                 <Grid2 xs={10}>
-                    <Typography variant="h4" textAlign="center">
+                    <Typography variant="h5" textAlign="center">
                         {name}
                     </Typography>
                 </Grid2>
                 <Grid2 xs={1} display={"flex"} justifyContent={"end"}>
-                    <HabitSettings id={id} />
+                    <HabitSettings id={habitID} />
                 </Grid2>
             </Grid2>
 

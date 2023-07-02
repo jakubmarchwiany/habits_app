@@ -96,7 +96,7 @@ function LoadingPage({ isLogged }: Props) {
                             }}
                             sx={{ mt: 2, mb: 1 }}
                         />
-                        <Button type="submit" variant="contained">
+                        <Button type="submit" variant="contained" disabled={username == "" || password == ""}>
                             Zaloguj
                         </Button>
                     </Stack>
