@@ -1,10 +1,9 @@
 import "assets/global.css";
 import App from "components/App";
-import CreateHabit from "components/pages/create_habit/CreateHabit";
 import Error from "components/pages/Error";
-import Plans from "components/pages/Plans";
-import Settings from "components/pages/settings/Settings";
+import CreateHabit from "components/pages/create_habit/CreateHabit";
 import Dashboard from "components/pages/dashboard/Dashboard";
+import Settings from "components/pages/settings/Settings";
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import { Provider } from "react-redux";
@@ -17,7 +16,6 @@ const router = createBrowserRouter([
         element: <App />,
         children: [
             { path: "/", element: <Dashboard /> },
-            { path: "/plans", element: <Plans /> },
             {
                 path: "/create_habit",
                 element: <CreateHabit />,
