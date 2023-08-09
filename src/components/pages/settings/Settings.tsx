@@ -1,5 +1,5 @@
 import { Button, Stack, Typography } from "@mui/material";
-import ColorThemeSettings from "components/pages/settings/SaveColorThemeTextField";
+import ColorThemeSettings from "components/pages/settings/ColorThemeSettings";
 import HabitsOrderManager from "components/pages/settings/habits_order_manager/HabitsOrderManager";
 import { useState } from "react";
 
@@ -13,11 +13,6 @@ function Settings() {
                 px: { xs: 1, md: 3 },
                 py: { xs: 1, md: 3 },
             }}
-            // sx={{
-            //     px: { xs: 5, sm: 30, md: 40, lg: 30, xl: 90 },
-            // }}
-            // alignItems={"center"}
-            // justifyContent={"center"}
         >
             {!isHabitOrderManagerOpen && (
                 <>

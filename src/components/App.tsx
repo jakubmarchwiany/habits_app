@@ -1,7 +1,6 @@
 import { Stack, ThemeProvider, createTheme, responsiveFontSizes } from "@mui/material";
 import { getTheme } from "assets/theme";
 import Navigator from "components/layouts/Navigator";
-import Switcher from "components/layouts/Switcher";
 import LoadingPage from "components/pages/loading_page/LoadingPage";
 import { useAppDispatch } from "hooks/redux";
 import Cookies from "js-cookie";
