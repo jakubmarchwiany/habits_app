@@ -1,55 +1,57 @@
-import { Box } from "@mui/material";
+import { Stack } from "@mui/material";
 import Grid2 from "@mui/material/Unstable_Grid2/Grid2";
+import Switcher from "components/layouts/Switcher";
 import HabitPanel from "components/pages/dashboard/HabitPanel";
 import HabitPanelWithInteractions from "components/pages/dashboard/HabitPanelWithInteractions";
-import { useAppSelector } from "hooks/redux";
+import { useAppDispatch, useAppSelector } from "hooks/redux";
+import { useEffect } from "react";
+import { getUserDataAction } from "store/app-actions";
 
 function Dashboard() {
-    const habitsIds = useAppSelector((state) => state.user.userHabits.length);
-    const secondHabitsIds = useAppSelector((state) => state.user.secondHabits.length);
+    const isUserHabits = useAppSelector((state) => state.app.isUserHabits);
+    const habitsIds = useAppSelector((state) => state.app.userHabits.length);
+    const secondHabitsIds = useAppSelector((state) => state.app.dearHabits.length);
+    const dispatch = useAppDispatch();
+
+    useEffect(() => {
+        if (!isUserHabits) {
+            if (secondHabitsIds === 0) {
+                dispatch(getUserDataAction(undefined, false));
+            }
+        }
+    }, [isUserHabits]);
 
     const generateHabitsWithInteractions = (habitsIds: number) => {
         return Array.from({ length: habitsIds }, (_, i) => (
-            <Grid2 xs={6} md={4} key={"grid-my-habit" + i}>
-                <HabitPanelWithInteractions key={"myHabit" + i} habitIndex={i} />
+            <Grid2 xs={12} md={3} key={"grid_my_habit" + i}>
+                <HabitPanelWithInteractions key={"my_habit" + i} habitIndex={i} />
             </Grid2>
         ));
     };
 
     const generateHabits = (habitsIds: number) => {
         return Array.from({ length: habitsIds }, (_, i) => (
-            <Grid2 xs={12} key={"grid-not-my-habit" + i}>
-                <HabitPanel key={"habit" + i} habitIndex={i} />
+            <Grid2 xs={12} md={3} key={"grid_dear_habit" + i}>
+                <HabitPanel key={"dear_habit" + i} habitIndex={i} />
             </Grid2>
         ));
     };
 
     return (
-        <Grid2
+        <Stack
             component="main"
-            container
             sx={{
-                px: { xs: 1, sm: 2, md: 3, lg: 4, xl: 5 },
-                py: { xs: 1, sm: 2, md: 3, lg: 4, xl: 5 },
+                px: { xs: 1, md: 3 },
+                py: { xs: 1, md: 3 },
             }}
-            columns={20}
         >
-            <Grid2 xs={20} md={14}>
-                <Box>
-                    <Grid2 container columns={12} spacing={2}>
-                        {generateHabitsWithInteractions(habitsIds)}
-                    </Grid2>
-                </Box>
+            <Grid2 container spacing={{ xs: 1, md: 3 }}>
+                {isUserHabits
+                    ? generateHabitsWithInteractions(habitsIds)
+                    : generateHabits(secondHabitsIds)}
             </Grid2>
-
-            <Grid2 xs={20} md={5} mdOffset={1}>
-                <Box>
-                    <Grid2 container columns={12} spacing={2}>
-                        {generateHabits(secondHabitsIds)}
-                    </Grid2>
-                </Box>
-            </Grid2>
-        </Grid2>
+            <Switcher />
+        </Stack>
     );
 }
 

@@ -26,7 +26,7 @@ export async function getFetch<T>(
                 } else {
                     toast.error(data.message, { id: toastId });
 
-                    console.log(response.status, data.message)
+                    console.log(response.status, data.message);
                     if (response.status === 401) await authorizationFail();
 
                     if (options?.customError) reject(data);

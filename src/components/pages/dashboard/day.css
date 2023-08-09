@@ -19,7 +19,7 @@
         --day-height: 5vw;
     }
     .gridDays {
-        row-gap: 0.5em;
+        row-gap: 0.25em;
         column-gap: 0em;
     }
 }

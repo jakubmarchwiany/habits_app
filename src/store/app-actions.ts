@@ -3,22 +3,31 @@
 import { NavigateFunction } from "react-router-dom";
 import { getFetch, postFetch } from "utils/fetches";
 import { AppThunk } from "./index";
-import { UserData, userActions } from "./user-slice";
+import { UserData, appActions } from "./app-slice";
 import { Habit } from "store/models/habit";
 
+const { DAYS_TO_SHOW } = import.meta.env;
+
 export const getUserDataAction =
-    (setIsLogged: Function): AppThunk =>
+    (setIsLogged: Function | undefined, isUser: boolean): AppThunk =>
     (appDispatch) => {
-        getFetch<{ data: [UserData, UserData] }>("/auth/get_user_data", {
-            customError: true,
-        })
+        getFetch<{ data: UserData }>(
+            `/auth/get_user_habits?days=${parseInt(DAYS_TO_SHOW) / 2}&isUser=${isUser}`,
+            {
+                customError: true,
+            }
+        )
             .then(({ data }) => {
-                appDispatch(userActions.setUserData(data));
-                setIsLogged(true);
+                if (isUser) {
+                    appDispatch(appActions.setUserData(data));
+                } else {
+                    appDispatch(appActions.setDearData(data));
+                }
+                setIsLogged && setIsLogged(true);
             })
             .catch((e) => {
                 console.log(e);
-                setIsLogged(false);
+                setIsLogged && setIsLogged(true);
             });
     };
 
@@ -26,7 +35,7 @@ export const createHabit =
     (name: string, navigate: NavigateFunction): AppThunk =>
     (appDispatch) => {
         postFetch<{ data: Habit }>({ name }, "/user/habit/create").then(({ data }) => {
-            appDispatch(userActions.createHabit(data));
+            appDispatch(appActions.createHabit(data));
             navigate("/");
         });
     };
@@ -35,7 +44,7 @@ export const editHabitNameAction =
     (id: string, newName: string): AppThunk =>
     (appDispatch) => {
         postFetch<{ data: UserData }>({ id, newName }, "/user/habit/edit_name").then(() => {
-            appDispatch(userActions.editHabitName({ id, newName }));
+            appDispatch(appActions.editHabitName({ id, newName }));
         });
     };
 
@@ -44,7 +53,7 @@ export const deleteHabitAction =
     (appDispatch) => {
         console.log(id);
         postFetch<{ data: UserData }>({ id }, "/user/habit/delete").then(() => {
-            appDispatch(userActions.deleteHabit({ id }));
+            appDispatch(appActions.deleteHabit({ id }));
         });
     };
 
@@ -52,7 +61,7 @@ export const edithabitsOrderAction =
     (habitsID: string[]): AppThunk =>
     (appDispatch) => {
         postFetch<{ data: UserData }>({ habitsID }, "/user/habit/edit_order").then(() => {
-            appDispatch(userActions.editHabitsOrder({ habitsID }));
+            appDispatch(appActions.editHabitsOrder({ habitsID }));
         });
     };
 
@@ -64,7 +73,7 @@ export const addActivityAction =
             "/user/habit/activity/add"
         ).then(({ data }) => {
             const { activityID } = data;
-            appDispatch(userActions.addActivity({ habitID, activityID, date }));
+            appDispatch(appActions.addActivity({ habitID, activityID, date }));
         });
     };
 
@@ -72,6 +81,6 @@ export const deleteActivityAction =
     (habitID: string, activityID: string): AppThunk =>
     (appDispatch) => {
         postFetch<never>({ id: activityID }, "/user/habit/activity/delete").then(() => {
-            appDispatch(userActions.deleteActivity({ habitID, activityID }));
+            appDispatch(appActions.deleteActivity({ habitID, activityID }));
         });
     };

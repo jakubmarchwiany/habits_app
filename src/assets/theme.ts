@@ -41,7 +41,6 @@ export const getTheme = (color: string): ThemeOptions => ({
             },
         },
     },
-
     breakpoints: {
         values: {
             xs: 0,

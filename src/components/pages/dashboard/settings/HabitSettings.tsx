@@ -4,7 +4,7 @@ import ChangeNameDialog from "components/pages/dashboard/settings/ChangeNameDial
 import { useAppDispatch } from "hooks/redux";
 import * as React from "react";
 import { toast } from "react-hot-toast";
-import { deleteHabitAction, editHabitNameAction } from "store/user-actions";
+import { deleteHabitAction, editHabitNameAction } from "store/app-actions";
 
 type Props = {
     id: string;
@@ -43,8 +43,8 @@ function HabitSettings({ id }: Props) {
 
     return (
         <>
-            <IconButton onClick={handleClick}>
-                <Settings sx={{ color: "white" }} fontSize="medium" />
+            <IconButton onClick={handleClick} sx={{ p: 0 }}>
+                <Settings sx={{ color: "white", fontSize: { xs: "1rem", md: "1.5rem" } }} />
             </IconButton>
             <Menu
                 id="basic-menu"

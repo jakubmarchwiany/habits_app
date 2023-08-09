@@ -1,31 +1,35 @@
 import { MoreTime } from "@mui/icons-material";
-import { IconButton, Stack, Typography, useTheme } from "@mui/material";
-import Grid2 from "@mui/material/Unstable_Grid2/Grid2";
+import { Box, IconButton, Stack, Typography, useTheme } from "@mui/material";
 import Day from "components/pages/dashboard/Day";
 import HabitSettings from "components/pages/dashboard/settings/HabitSettings";
 import dayjs from "dayjs";
 import { useAppDispatch, useAppSelector } from "hooks/redux";
 import { useState } from "react";
-import { addActivityAction, deleteActivityAction } from "store/user-actions";
+
 import "./day.css";
+import { addActivityAction, deleteActivityAction } from "store/app-actions";
 
 type Props = {
     habitIndex: number;
 };
 
+const { VITE_N_DAYS } = import.meta.env;
+
 function HabitPanelWithInteractions({ habitIndex }: Props) {
-    const [nDays, setNDays] = useState(21);
+    const [isMoreDays, setIsMoreDays] = useState<boolean>(false);
     const theme = useTheme();
 
     const {
         name,
         _id: habitID,
         activities,
-    } = useAppSelector((state) => state.user.userHabits[habitIndex]);
+    } = useAppSelector((state) => state.app.userHabits[habitIndex]);
 
     const dispatch = useAppDispatch();
 
     const generateActivityDays = () => {
+        const nDays = isMoreDays ? parseInt(VITE_N_DAYS) : parseInt(VITE_N_DAYS) / 2;
+
         const days = Array(nDays);
         const currentDate = dayjs();
         let index = activities.length - 1;
@@ -38,7 +42,6 @@ function HabitPanelWithInteractions({ habitIndex }: Props) {
                 index >= 0 &&
                 date.isSame(dayjs(activities[index].date), "day");
 
-            console.log(activities[index]);
             const dayKey = `${habitID}-grid-${i}`;
 
             days[i] = (
@@ -76,41 +79,42 @@ function HabitPanelWithInteractions({ habitIndex }: Props) {
         dispatch(deleteActivityAction(habitID, id!));
     };
 
-    const handleNDaysChange = () => {
-        if (nDays === 21) {
-            setNDays(42);
-        } else {
-            setNDays(21);
-        }
-    };
-
     return (
         <Stack
-            p={1}
-            pb={2}
+            px={{ xs: 0.5, md: 1 }}
+            py={{ xs: 0, md: 1 }}
+            pb={{ xs: 1, md: 2 }}
             boxShadow={5}
-            sx={{ border: 1, borderRadius: 5, borderColor: "primary.main" }}
+            sx={{ border: 2, borderRadius: 5, borderColor: "primary.main" }}
         >
-            <Grid2 container mb={1}>
-                <Grid2 xs={1} display={"flex"}>
-                    <IconButton onClick={handleNDaysChange}>
-                        <MoreTime
-                            sx={{ color: nDays === 21 ? "white" : "primary.main" }}
-                            fontSize="medium"
-                        />
-                    </IconButton>
-                </Grid2>
-                <Grid2 xs={10}>
-                    <Typography variant="h5" textAlign="center">
-                        {name}
-                    </Typography>
-                </Grid2>
-                <Grid2 xs={1} display={"flex"} justifyContent={"end"}>
-                    <HabitSettings id={habitID} />
-                </Grid2>
-            </Grid2>
+            <Box
+                sx={{
+                    display: "flex",
+                    flexDirection: "row",
+                    justifyContent: "space-between",
+                    alignItems: "center",
+                }}
+            >
+                <IconButton onClick={() => setIsMoreDays((prev) => !prev)} sx={{ p: 0 }}>
+                    <MoreTime
+                        sx={{
+                            color: isMoreDays ? "primary.main" : "white",
+                            fontSize: { xs: "1rem", md: "1.5rem" },
+                        }}
+                    />
+                </IconButton>
+                <Typography
+                    textAlign="center"
+                    sx={{ wordBreak: "break-word", typography: { xs: "h6", md: "h5" } }}
+                >
+                    {name}
+                </Typography>
+                <HabitSettings id={habitID} />
+            </Box>
 
-            <div className="gridDays">{generateActivityDays()}</div>
+            <Box className="gridDays" mt={{ xs: "0%", md: "3%" }}>
+                {generateActivityDays()}
+            </Box>
         </Stack>
     );
 }

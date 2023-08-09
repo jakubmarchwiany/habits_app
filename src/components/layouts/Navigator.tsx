@@ -1,5 +1,4 @@
 import Box from "@mui/material/Box";
-
 import { Add, Home, Settings } from "@mui/icons-material";
 import { SpeedDial, SpeedDialIcon } from "@mui/material";
 import SpeedDialAction from "@mui/material/SpeedDialAction";
@@ -17,7 +16,7 @@ const actions = [
     { icon: <Settings />, name: Actions.Settings },
 ];
 
-function SpeedDialNavigator() {
+function Navigator() {
     const navigate = useNavigate();
 
     const handleClick = (action: string) => {
@@ -37,14 +36,14 @@ function SpeedDialNavigator() {
     };
 
     return (
-        <Box sx={{ position: "fixed", bottom: "5vh", right: "5vh" }}>
+        <Box sx={{ position: "fixed", bottom: "2%", right: "1%" }}>
             <SpeedDial
                 ariaLabel="SpeedDial"
                 icon={<SpeedDialIcon />}
                 sx={{
                     "& .MuiFab-primary": {
-                        width: { md: 70 },
-                        height: { md: 70 },
+                        width: { xs: "2.5rem", md: "3.5rem" },
+                        height: { xs: "2.5rem", md: "3.5rem" },
                     },
                 }}
             >
@@ -54,11 +53,15 @@ function SpeedDialNavigator() {
                         icon={action.icon}
                         tooltipTitle={action.name}
                         onClick={() => handleClick(action.name)}
-                        sx={{ width: 50, height: 50, color: "white" }}
+                        sx={{
+                            width: { xs: "2rem", md: "2.5rem" },
+                            height: { xs: "2rem", md: "2.5rem" },
+                            color: "white",
+                        }}
                     />
                 ))}
             </SpeedDial>
         </Box>
     );
 }
-export default SpeedDialNavigator;
+export default Navigator;

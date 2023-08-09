@@ -2,7 +2,8 @@ import { Button, Stack, TextField, Typography } from "@mui/material";
 import { useAppDispatch } from "hooks/redux";
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import { createHabit } from "store/user-actions";
+import { createHabit } from "store/app-actions";
+
 
 function CreateHabit() {
     const [habitName, setHabitName] = React.useState("");

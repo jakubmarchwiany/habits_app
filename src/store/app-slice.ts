@@ -5,25 +5,32 @@ import { findRightIndexByDate } from "utils/find_index";
 
 type UserState = {
     userHabits: Habit[];
-    secondHabits: Habit[];
+    dearHabits: Habit[];
+    isUserHabits: boolean;
 };
 
 const initialState: UserState = {
     userHabits: [],
-    secondHabits: [],
+    dearHabits: [],
+    isUserHabits: true,
 };
 
 export type UserData = {
     habits: Habit[];
 };
 
-const userSlice = createSlice({
-    name: "user",
+const appSlice = createSlice({
+    name: "app",
     initialState,
     reducers: {
-        setUserData(state, action: PayloadAction<[UserData, UserData]>) {
-            state.userHabits = action.payload[0].habits;
-            state.secondHabits = action.payload[1].habits;
+        setUserData(state, action: PayloadAction<UserData>) {
+            state.userHabits = action.payload.habits;
+        },
+        setDearData(state, action: PayloadAction<UserData>) {
+            state.dearHabits = action.payload.habits;
+        },
+        toggleHabitsView(state) {
+            state.isUserHabits = !state.isUserHabits;
         },
         createHabit(state, action: PayloadAction<Habit>) {
             state.userHabits.push(action.payload);
@@ -70,5 +77,5 @@ const userSlice = createSlice({
         },
     },
 });
-export const userActions = userSlice.actions;
-export default userSlice.reducer;
+export const appActions = appSlice.actions;
+export default appSlice.reducer;

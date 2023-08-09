@@ -3,7 +3,8 @@ import { DragDropContext, Draggable, DropResult, Droppable } from "@hello-pangea
 import { Box, Button, Typography } from "@mui/material";
 import { useAppDispatch, useAppSelector } from "hooks/redux";
 import { useEffect, useState } from "react";
-import { edithabitsOrderAction } from "store/user-actions";
+import { edithabitsOrderAction } from "store/app-actions";
+
 
 const reorder = (list: any[], startIndex: number, endIndex: number) => {
     const result = Array.from(list);
