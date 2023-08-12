@@ -4,47 +4,71 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import { createHabit } from "store/app-actions";
 
-
 function CreateHabit() {
-    const [habitName, setHabitName] = React.useState("");
+    const [name, setName] = React.useState("");
+    const [description, setDescription] = React.useState("");
+    const [periodInDays, setPeriodInDays] = React.useState(1);
 
     const navigate = useNavigate();
     const dispatch = useAppDispatch();
 
     const handleCreateHabit = () => {
-        dispatch(createHabit(habitName, navigate));
+        dispatch(createHabit(name, description, periodInDays, navigate));
     };
 
     return (
         <Stack
             component="main"
             sx={{
-                px: { xs: 10, sm: 30, md: 40, lg: 50, xl: 70 },
+                px: { xs: 1, md: 3 },
+                py: { xs: 1, md: 3 },
             }}
-            alignItems={"center"}
-            justifyContent={"center"}
+            alignItems="center"
         >
-            <Typography typography="h2" mt={5}>
-                Stwórz nawyk
-            </Typography>
+            <Typography typography="h3">Stwórz nawyk</Typography>
 
             <TextField
                 label="Nazwa nawyku"
-                value={habitName}
-                fullWidth
+                value={name}
+                variant="filled"
                 autoComplete="off"
                 onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-                    setHabitName(event.target.value);
+                    setName(event.target.value);
                 }}
-                sx={{ mt: 5 }}
+                sx={{ mt: { xs: 1, md: 3 }, width: { xs: "90%", md: "25%" } }}
+            />
+
+            <TextField
+                label="Opis nawyku"
+                variant="filled"
+                value={description}
+                multiline
+                rows={4}
+                onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+                    setDescription(event.target.value);
+                }}
+                sx={{ width: { xs: "90%", md: "25%" } }}
+            />
+
+            <TextField
+                label="Co ile dni powtarzać?"
+                variant="filled"
+                type="number"
+                value={periodInDays}
+                onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+                    if (parseInt(event.target.value) < 1) setPeriodInDays(1);
+                    else if (parseInt(event.target.value) > 31) setPeriodInDays(31);
+                    else setPeriodInDays(parseInt(event.target.value));
+                }}
+                InputProps={{ inputProps: { min: 1, max: 31 } }}
+                sx={{ width: { xs: "90%", md: "25%" } }}
             />
 
             <Button
-                fullWidth
                 variant="contained"
                 onClick={handleCreateHabit}
-                sx={{ mt: 1 }}
-                disabled={habitName === ""}
+                sx={{ mt: 0.5, width: { xs: "90%", md: "25%" } }}
+                disabled={name === ""}
             >
                 Stwórz
             </Button>

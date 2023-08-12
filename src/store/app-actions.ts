@@ -32,12 +32,19 @@ export const getUserDataAction =
     };
 
 export const createHabit =
-    (name: string, navigate: NavigateFunction): AppThunk =>
+    (
+        name: string,
+        description: string,
+        periodInDays: number,
+        navigate: NavigateFunction
+    ): AppThunk =>
     (appDispatch) => {
-        postFetch<{ data: Habit }>({ name }, "/user/habit/create").then(({ data }) => {
-            appDispatch(appActions.createHabit(data));
-            navigate("/");
-        });
+        postFetch<{ data: Habit }>({ name, description, periodInDays }, "/user/habit/create").then(
+            ({ data }) => {
+                appDispatch(appActions.createHabit(data));
+                navigate("/");
+            }
+        );
     };
 
 export const editHabitNameAction =
