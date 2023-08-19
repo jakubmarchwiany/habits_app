@@ -6,21 +6,23 @@ import { findRightIndexByDate } from "utils/find_index";
 
 type UserState = {
     myHabits: Habit[];
-    myHabitsGroups: HabitGroup[];
+    myHabitGroups: HabitGroup[];
     dearHabits: Habit[];
-    isUserHabits: boolean;
+    dearHabitGroups: HabitGroup[];
+    isMyHabits: boolean;
 };
 
 const initialState: UserState = {
     myHabits: [],
-    myHabitsGroups: [],
+    myHabitGroups: [],
     dearHabits: [],
-    isUserHabits: true,
+    dearHabitGroups: [],
+    isMyHabits: true,
 };
 
 export type UserData = {
     habits: Habit[];
-    HabitsGroups: HabitGroup[];
+    habitGroups: HabitGroup[];
 };
 
 const appSlice = createSlice({
@@ -29,13 +31,14 @@ const appSlice = createSlice({
     reducers: {
         setUserData(state, action: PayloadAction<UserData>) {
             state.myHabits = action.payload.habits;
-            state.myHabitsGroups = action.payload.HabitsGroups;
+            state.myHabitGroups = action.payload.habitGroups;
         },
         setDearData(state, action: PayloadAction<UserData>) {
             state.dearHabits = action.payload.habits;
+            state.dearHabitGroups = action.payload.habitGroups;
         },
         toggleHabitsView(state) {
-            state.isUserHabits = !state.isUserHabits;
+            state.isMyHabits = !state.isMyHabits;
         },
         createHabit(state, action: PayloadAction<Habit>) {
             state.myHabits.push(action.payload);
@@ -45,21 +48,15 @@ const appSlice = createSlice({
             const habit = state.myHabits.find((habit) => habit._id === id);
             if (habit) habit.name = newName;
         },
-        editHabitsOrder(state, action: PayloadAction<{ habitsID: string[] }>) {
-            const { habitsID } = action.payload;
-
-            const sortedHabits = [];
-            for (const habitId of habitsID) {
-                const habit = state.myHabits.find((h) => h._id === habitId);
-                if (habit) {
-                    sortedHabits.push(habit);
-                }
-            }
-            state.myHabits = sortedHabits;
+        editHabitsOrder(state, action: PayloadAction<HabitGroup[]>) {
+            state.myHabitGroups = action.payload;
         },
         deleteHabit(state, action: PayloadAction<{ id: string }>) {
             const { id } = action.payload;
             state.myHabits = state.myHabits.filter((habit) => habit._id !== id);
+            state.myHabitGroups.forEach((group) => {
+                group.habits = group.habits.filter((habit) => habit !== id);
+            })
         },
         addActivity(
             state,
@@ -69,15 +66,15 @@ const appSlice = createSlice({
             const habit = state.myHabits.find((habit) => habit._id === habitID);
 
             if (habit) {
-                const index = findRightIndexByDate(date, habit.activities);
-                habit.activities.splice(index, 0, { date, _id: activityID });
+                const index = findRightIndexByDate(date, habit.activities!);
+                habit.activities!.splice(index, 0, { date, _id: activityID });
             }
         },
         deleteActivity(state, action: PayloadAction<{ habitID: string; activityID: string }>) {
             const { habitID, activityID } = action.payload;
             const habit = state.myHabits.find((habit) => habit._id === habitID);
             if (habit) {
-                habit.activities = habit.activities.filter((a) => a._id !== activityID);
+                habit.activities = habit.activities!.filter((a) => a._id !== activityID);
             }
         },
     },

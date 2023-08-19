@@ -4,20 +4,23 @@ import { standardSize } from "assets/theme";
 import HabitGroup from "components/pages/settings/habit_groups_manager/HabitGroup";
 import { habitGroups } from "components/pages/settings/habit_groups_manager/habit_groups";
 import { habitItem } from "components/pages/settings/habit_groups_manager/habit_item";
-import { useAppSelector } from "hooks/redux";
+import { useAppDispatch, useAppSelector } from "hooks/redux";
 import { useEffect, useState } from "react";
 import { toast } from "react-hot-toast";
+import { edithabitsOrderAction } from "store/app-actions";
 import { v4 as uuid } from "uuid";
 
 function HabitGroupsManager() {
     const [habitGroups, setHabitGroups] = useState<habitGroups[]>([]);
 
     const habits = useAppSelector((state) => state.app.myHabits);
-    const myHabitGroups = useAppSelector((state) => state.app.myHabitsGroups);
+    const myHabitGroups = useAppSelector((state) => state.app.myHabitGroups);
 
     useEffect(() => {
         prepareGroups();
     }, []);
+
+    const dispatch = useAppDispatch();
 
     const prepareGroups = () => {
         const tmpHabits = habits.map((h) => {
@@ -56,11 +59,14 @@ function HabitGroupsManager() {
             }
         }
 
+        const groupsToFetch = habitGroups.map((group) => {
+            return { name: group.name, habits: group.habits.map((habit) => habit._id) };
+        });
 
-        console.log(habitGroups)
-        // window.alert(habitGroups);
+
+        dispatch(edithabitsOrderAction(groupsToFetch));
     };
-g
+
     return (
         <>
             <Grid2 container spacing={3} mt={1}>

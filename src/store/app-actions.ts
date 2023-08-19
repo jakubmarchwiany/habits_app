@@ -5,6 +5,8 @@ import { getFetch, postFetch } from "utils/fetches";
 import { AppThunk } from "./index";
 import { UserData, appActions } from "./app-slice";
 import { Habit } from "store/models/habit";
+import { habitGroupsFetch } from "components/pages/settings/habit_groups_manager/habit_groups";
+import { HabitGroup } from "store/models/habitGroup";
 
 const { DAYS_TO_SHOW } = import.meta.env;
 
@@ -18,7 +20,7 @@ export const getUserDataAction =
             }
         )
             .then(({ data }) => {
-                console.log(data)
+                // console.log(data)
                 if (isUser) {
                     appDispatch(appActions.setUserData(data));
                 } else {
@@ -66,10 +68,12 @@ export const deleteHabitAction =
     };
 
 export const edithabitsOrderAction =
-    (habitsID: string[]): AppThunk =>
+    (habitGroups: habitGroupsFetch[]): AppThunk =>
     (appDispatch) => {
-        postFetch<{ data: UserData }>({ habitsID }, "/user/habit/edit_order").then(() => {
-            appDispatch(appActions.editHabitsOrder({ habitsID }));
+        console.log(habitGroups);
+        postFetch<{ data: HabitGroup[] }>({ habitGroups }, "/user/habit/create_groups").then(({data}) => {
+            console.log(data)
+            appDispatch(appActions.editHabitsOrder(data));
         });
     };
 

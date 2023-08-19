@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-non-null-assertion */
 import { MoreTime } from "@mui/icons-material";
 import { Box, IconButton, Stack, Typography, useTheme } from "@mui/material";
 import Day from "components/pages/dashboard/Day";
@@ -5,42 +6,38 @@ import HabitSettings from "components/pages/dashboard/settings/HabitSettings";
 import dayjs from "dayjs";
 import { useAppDispatch, useAppSelector } from "hooks/redux";
 import { useState } from "react";
-
-import "./day.css";
 import { addActivityAction, deleteActivityAction } from "store/app-actions";
+import "./day.css";
 
 type Props = {
-    habitIndex: number;
+    habitID: string;
 };
 
 const { VITE_N_DAYS } = import.meta.env;
 
-function HabitPanelWithInteractions({ habitIndex }: Props) {
-    const [isMoreDays, setIsMoreDays] = useState<boolean>(false);
+function HabitPanelWithInteractions({ habitID }: Props) {
+    const habit = useAppSelector((state) => {
+        return state.app.myHabits.find((habit) => habit._id === habitID)!;
+    });
+    const [showMoreDays, setShowMoreDays] = useState<boolean>(false);
+    
     const theme = useTheme();
-
-    const {
-        name,
-        _id: habitID,
-        activities,
-    } = useAppSelector((state) => state.app.myHabits[habitIndex]);
-
     const dispatch = useAppDispatch();
 
     const generateActivityDays = () => {
-        const nDays = isMoreDays ? parseInt(VITE_N_DAYS) : parseInt(VITE_N_DAYS) / 2;
+        const nDays = showMoreDays ? parseInt(VITE_N_DAYS) : parseInt(VITE_N_DAYS) / 2;
 
         const days = Array(nDays);
         const currentDate = dayjs();
-        let index = activities.length - 1;
+        let index = habit.activities.length - 1;
 
         for (let i = 0; i < nDays; i++) {
             const date = currentDate.subtract(i, "day");
 
             const isActivityDone =
-                activities.length !== 0 &&
+                habit!.activities.length !== 0 &&
                 index >= 0 &&
-                date.isSame(dayjs(activities[index].date), "day");
+                date.isSame(dayjs(habit.activities[index].date), "day");
 
             const dayKey = `${habitID}-grid-${i}`;
 
@@ -54,7 +51,7 @@ function HabitPanelWithInteractions({ habitIndex }: Props) {
                     }}
                 >
                     <Day
-                        id={isActivityDone ? activities[index]._id : undefined}
+                        id={isActivityDone ? habit!.activities[index]._id : undefined}
                         isDone={isActivityDone}
                         date={date}
                         action={isActivityDone ? deleteActivity : addActivity}
@@ -95,10 +92,10 @@ function HabitPanelWithInteractions({ habitIndex }: Props) {
                     alignItems: "center",
                 }}
             >
-                <IconButton onClick={() => setIsMoreDays((prev) => !prev)} sx={{ p: 0 }}>
+                <IconButton onClick={() => setShowMoreDays((prev) => !prev)} sx={{ p: 0 }}>
                     <MoreTime
                         sx={{
-                            color: isMoreDays ? "primary.main" : "white",
+                            color: showMoreDays ? "primary.main" : "white",
                             fontSize: { xs: "1rem", md: "1.5rem" },
                         }}
                     />
@@ -107,7 +104,7 @@ function HabitPanelWithInteractions({ habitIndex }: Props) {
                     textAlign="center"
                     sx={{ wordBreak: "break-word", typography: { xs: "h6", md: "h5" } }}
                 >
-                    {name}
+                    {habit!.name}
                 </Typography>
                 <HabitSettings id={habitID} />
             </Box>

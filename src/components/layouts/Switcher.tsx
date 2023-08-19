@@ -4,7 +4,7 @@ import { useAppDispatch, useAppSelector } from "hooks/redux";
 import { appActions } from "store/app-slice";
 
 function Switcher() {
-    const isUserHabits = useAppSelector((state) => state.app.isUserHabits);
+    const isUserHabits = useAppSelector((state) => state.app.isMyHabits);
 
     const dispatch = useAppDispatch();
 
