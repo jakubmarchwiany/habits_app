@@ -23,7 +23,7 @@ function HabitPanelWithInteractions({ habitIndex }: Props) {
         name,
         _id: habitID,
         activities,
-    } = useAppSelector((state) => state.app.userHabits[habitIndex]);
+    } = useAppSelector((state) => state.app.myHabits[habitIndex]);
 
     const dispatch = useAppDispatch();
 

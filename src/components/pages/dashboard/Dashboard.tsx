@@ -9,7 +9,7 @@ import { getUserDataAction } from "store/app-actions";
 
 function Dashboard() {
     const isUserHabits = useAppSelector((state) => state.app.isUserHabits);
-    const habitsIds = useAppSelector((state) => state.app.userHabits.length);
+    const habitsIds = useAppSelector((state) => state.app.myHabits.length);
     const secondHabitsIds = useAppSelector((state) => state.app.dearHabits.length);
     const dispatch = useAppDispatch();
 

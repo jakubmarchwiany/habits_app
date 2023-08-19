@@ -1,6 +1,7 @@
 import SaveIcon from "@mui/icons-material/Save";
 import IconButton from "@mui/material/IconButton";
 import TextField from "@mui/material/TextField";
+import { standardSize } from "assets/theme";
 import React, { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 
@@ -24,19 +25,22 @@ function ColorThemeSettings() {
     return (
         <TextField
             label="Kolor motywu"
-            variant="outlined"
+            variant="filled"
             value={themeColor}
             autoComplete="off"
             onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
                 setThemeColor(event.target.value);
             }}
             InputProps={{
-                // startAdornment: <InputAdornment position="start">#</InputAdornment>,
                 endAdornment: (
                     <IconButton onClick={handleSave}>
                         <SaveIcon sx={{ color: "primary.main" }} />
                     </IconButton>
                 ),
+            }}
+            sx={{
+                width: standardSize,
+                alignSelf: "center",
             }}
         />
     );

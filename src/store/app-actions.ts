@@ -12,12 +12,13 @@ export const getUserDataAction =
     (setIsLogged: Function | undefined, isUser: boolean): AppThunk =>
     (appDispatch) => {
         getFetch<{ data: UserData }>(
-            `/auth/get_user_habits?days=${parseInt(DAYS_TO_SHOW) / 2}&isUser=${isUser}`,
+            `/user/get_habits?days=${parseInt(DAYS_TO_SHOW) / 2}&isUser=${isUser}`,
             {
                 customError: true,
             }
         )
             .then(({ data }) => {
+                console.log(data)
                 if (isUser) {
                     appDispatch(appActions.setUserData(data));
                 } else {

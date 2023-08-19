@@ -1,10 +1,11 @@
 import { Button, Stack, Typography } from "@mui/material";
+import { standardSize } from "assets/theme";
 import ColorThemeSettings from "components/pages/settings/ColorThemeSettings";
-import HabitsOrderManager from "components/pages/settings/habits_order_manager/HabitsOrderManager";
+import HabitGroupsManager from "components/pages/settings/habit_groups_manager/HabitGroupsManager";
 import { useState } from "react";
 
 function Settings() {
-    const [isHabitOrderManagerOpen, setIsHabitOrderManagerOpen] = useState(false);
+    const [isHabitGroupsManagerOpen, setIsHabitGroupsManagerOpen] = useState(false);
 
     return (
         <Stack
@@ -14,19 +15,23 @@ function Settings() {
                 py: { xs: 1, md: 3 },
             }}
         >
-            {!isHabitOrderManagerOpen && (
+            {!isHabitGroupsManagerOpen && (
                 <>
-                    <Typography typography="h2" textAlign={"center"}>
+                    <Typography typography="h2" textAlign={"center"} sx={{ py: { xs: 1, md: 3 } }}>
                         Ustawienia
                     </Typography>
                     <ColorThemeSettings />
                 </>
             )}
-
-            <Button variant="contained" onClick={() => setIsHabitOrderManagerOpen((prev) => !prev)}>
-                {isHabitOrderManagerOpen ? "Zamknij" : "Zarządzaj kolejnością nawyków"}
+            <Button
+                variant="contained"
+                onClick={() => setIsHabitGroupsManagerOpen((prev) => !prev)}
+                sx={{ mt: 0.5, alignSelf: "center", width: standardSize }}
+            >
+                {isHabitGroupsManagerOpen ? "Zamknij" : "Zarządzaj kolejnością nawyków"}
             </Button>
-            {isHabitOrderManagerOpen && <HabitsOrderManager />}
+
+            {isHabitGroupsManagerOpen && <HabitGroupsManager />}
         </Stack>
     );
 }
