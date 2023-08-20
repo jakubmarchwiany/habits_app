@@ -7,7 +7,7 @@ import Cookies from "js-cookie";
 import { useEffect, useMemo, useState } from "react";
 import { Toaster } from "react-hot-toast";
 import { Outlet } from "react-router-dom";
-import { getUserDataAction } from "store/app-actions";
+import { getHabitsAction } from "store/app-actions";
 
 function App() {
     const [isLogged, setIsLogged] = useState<boolean | undefined>(undefined);
@@ -22,7 +22,7 @@ function App() {
 
     useEffect(() => {
         if (Cookies.get("authorization") !== undefined) {
-            dispatch(getUserDataAction(setIsLogged, true));
+            dispatch(getHabitsAction(setIsLogged, true));
         } else {
             setIsLogged(false);
         }

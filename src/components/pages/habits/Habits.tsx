@@ -15,7 +15,13 @@ function Habits() {
     };
 
     return (
-        <Stack component="main">
+        <Stack
+            component="main"
+            sx={{
+                pt: 1,
+                pb: "15vh",
+            }}
+        >
             {generateHabitGroups()}
 
             <Switcher />

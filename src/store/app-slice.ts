@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-non-null-assertion */
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 import { Habit } from "store/models/habit";
 import { HabitGroup } from "store/models/habitGroup";
@@ -7,6 +8,7 @@ import { findRightIndexByDate } from "utils/find_index";
 type UserState = {
     myHabits: Habit[];
     myHabitGroups: HabitGroup[];
+    isDearHabitsDownloaded: boolean;
     dearHabits: Habit[];
     dearHabitGroups: HabitGroup[];
     isMyHabits: boolean;
@@ -15,6 +17,7 @@ type UserState = {
 const initialState: UserState = {
     myHabits: [],
     myHabitGroups: [],
+    isDearHabitsDownloaded: false,
     dearHabits: [],
     dearHabitGroups: [],
     isMyHabits: true,
@@ -36,6 +39,7 @@ const appSlice = createSlice({
         setDearData(state, action: PayloadAction<UserData>) {
             state.dearHabits = action.payload.habits;
             state.dearHabitGroups = action.payload.habitGroups;
+            state.isDearHabitsDownloaded = true;
         },
         toggleHabitsView(state) {
             state.isMyHabits = !state.isMyHabits;
@@ -56,7 +60,7 @@ const appSlice = createSlice({
             state.myHabits = state.myHabits.filter((habit) => habit._id !== id);
             state.myHabitGroups.forEach((group) => {
                 group.habits = group.habits.filter((habit) => habit !== id);
-            })
+            });
         },
         addActivity(
             state,
@@ -66,15 +70,16 @@ const appSlice = createSlice({
             const habit = state.myHabits.find((habit) => habit._id === habitID);
 
             if (habit) {
-                const index = findRightIndexByDate(date, habit.activities!);
-                habit.activities!.splice(index, 0, { date, _id: activityID });
+                const index = findRightIndexByDate(date, habit.activities);
+
+                habit.activities[index] = { date, _id: activityID, done: true };
             }
         },
         deleteActivity(state, action: PayloadAction<{ habitID: string; activityID: string }>) {
             const { habitID, activityID } = action.payload;
             const habit = state.myHabits.find((habit) => habit._id === habitID);
             if (habit) {
-                habit.activities = habit.activities!.filter((a) => a._id !== activityID);
+                habit.activities.find((a) => a._id === activityID)!.done = false;
             }
         },
     },

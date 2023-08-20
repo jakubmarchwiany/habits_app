@@ -5,5 +5,5 @@ export type Habit = {
     name: string;
     description: string;
     periodInDays: number;
-    activities: IActivity[];
+    activities: Activity[];
 };

@@ -1,14 +1,20 @@
 import { Favorite } from "@mui/icons-material";
 import { Fab } from "@mui/material";
 import { useAppDispatch, useAppSelector } from "hooks/redux";
+import { getHabitsAction } from "store/app-actions";
 import { appActions } from "store/app-slice";
 
 function Switcher() {
     const isUserHabits = useAppSelector((state) => state.app.isMyHabits);
+    const isDearHabitsDownloaded = useAppSelector((state) => state.app.isDearHabitsDownloaded);
 
     const dispatch = useAppDispatch();
 
     const toggleHabitsView = async () => {
+        if (!isDearHabitsDownloaded) {
+            dispatch(getHabitsAction(undefined, false));
+        }
+
         dispatch(appActions.toggleHabitsView());
     };
 

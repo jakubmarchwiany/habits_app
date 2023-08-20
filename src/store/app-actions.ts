@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-non-null-assertion */
 /* eslint-disable @typescript-eslint/ban-types */
 
 import { NavigateFunction } from "react-router-dom";
@@ -7,21 +8,24 @@ import { UserData, appActions } from "./app-slice";
 import { Habit } from "store/models/habit";
 import { habitGroupsFetch } from "components/pages/settings/habit_groups_manager/habit_groups";
 import { HabitGroup } from "store/models/habitGroup";
+import dayjs from "dayjs";
+import { Activity } from "store/models/activity";
 
-const { DAYS_TO_SHOW } = import.meta.env;
+const { VITE_DAYS_TO_SHOW } = import.meta.env;
 
-export const getUserDataAction =
-    (setIsLogged: Function | undefined, isUser: boolean): AppThunk =>
+export const getHabitsAction =
+    (setIsLogged: Function | undefined, getMyHabits: boolean): AppThunk =>
     (appDispatch) => {
         getFetch<{ data: UserData }>(
-            `/user/get_habits?days=${parseInt(DAYS_TO_SHOW) / 2}&isUser=${isUser}`,
+            `/user/get_habits?days=${VITE_DAYS_TO_SHOW}&isUser=${getMyHabits}`,
             {
                 customError: true,
             }
         )
             .then(({ data }) => {
-                // console.log(data)
-                if (isUser) {
+                data.habits = prepareHabits(data.habits);
+
+                if (getMyHabits) {
                     appDispatch(appActions.setUserData(data));
                 } else {
                     appDispatch(appActions.setDearData(data));
@@ -30,9 +34,40 @@ export const getUserDataAction =
             })
             .catch((e) => {
                 console.log(e);
-                setIsLogged && setIsLogged(true);
+                setIsLogged && setIsLogged(false);
             });
     };
+
+const prepareHabits = (habits: Habit[]) => {
+    const subtractDate = dayjs().subtract(parseInt(VITE_DAYS_TO_SHOW) - 1, "day");
+    return habits.map((habit) => {
+        let index = 0;
+
+        const activities = Array<Activity>(parseInt(VITE_DAYS_TO_SHOW));
+        for (let i = 0; i < activities.length; i++) {
+            const currentDate = subtractDate.add(i, "day");
+
+            if (
+                index < habit.activities.length &&
+                dayjs(habit.activities[index].date).isSame(currentDate, "day")
+            ) {
+                activities[i] = {
+                    date: habit.activities[index].date.split("T")[0],
+                    _id: habit.activities[index]._id,
+                    done: true,
+                };
+                index += 1;
+            } else {
+                activities[i] = {
+                    date: currentDate.format("YYYY-MM-DD"),
+                    done: false,
+                };
+            }
+        }
+        habit.activities = activities;
+        return habit;
+    });
+};
 
 export const createHabit =
     (
@@ -71,18 +106,20 @@ export const edithabitsOrderAction =
     (habitGroups: habitGroupsFetch[]): AppThunk =>
     (appDispatch) => {
         console.log(habitGroups);
-        postFetch<{ data: HabitGroup[] }>({ habitGroups }, "/user/habit/create_groups").then(({data}) => {
-            console.log(data)
-            appDispatch(appActions.editHabitsOrder(data));
-        });
+        postFetch<{ data: HabitGroup[] }>({ habitGroups }, "/user/habit/create_groups").then(
+            ({ data }) => {
+                console.log(data);
+                appDispatch(appActions.editHabitsOrder(data));
+            }
+        );
     };
 
-export const addActivityAction =
+export const createActivityAction =
     (habitID: string, date: string): AppThunk =>
     (appDispatch) => {
         postFetch<{ data: { activityID: string } }>(
             { habitID, date },
-            "/user/habit/activity/add"
+            "/user/habit/activity/create"
         ).then(({ data }) => {
             const { activityID } = data;
             appDispatch(appActions.addActivity({ habitID, activityID, date }));

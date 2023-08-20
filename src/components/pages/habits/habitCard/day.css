@@ -8,6 +8,7 @@
 
 .gridDays {
     display: grid;
+    justify-items: center;
     row-gap: 0.5em;
     column-gap: 0.5em;
     grid-template-columns: repeat(7, minmax(2vw, 1fr));
