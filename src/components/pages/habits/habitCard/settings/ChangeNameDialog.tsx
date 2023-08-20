@@ -7,11 +7,12 @@ import TextField from "@mui/material/TextField";
 import { useState } from "react";
 
 type Props = {
+    name: string;
     action: (newName: string) => void;
 };
 
-export default function ChangeNameDialog({ action }: Props) {
-    const [newName, setNewName] = useState("");
+export default function ChangeNameDialog({ name, action }: Props) {
+    const [newName, setNewName] = useState(name);
 
     return (
         <Dialog open={true}>

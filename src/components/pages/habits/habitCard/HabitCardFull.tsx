@@ -97,7 +97,7 @@ function HabitCardFull({ habitID }: Props) {
                 >
                     {habit!.name}
                 </Typography>
-                <HabitSettings id={habitID} />
+                <HabitSettings id={habitID} name={habit.name} />
             </Box>
 
             <Box className="gridDays" mt={{ xs: "0%", md: "3%" }}>

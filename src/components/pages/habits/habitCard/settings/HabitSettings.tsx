@@ -8,9 +8,10 @@ import { deleteHabitAction, editHabitNameAction } from "store/app-actions";
 
 type Props = {
     id: string;
+    name: string;
 };
 
-function HabitSettings({ id }: Props) {
+function HabitSettings({ id, name }: Props) {
     const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
     const [changeNameOpen, setChangeNameOpen] = React.useState(false);
 
@@ -64,7 +65,9 @@ function HabitSettings({ id }: Props) {
                 </MenuItem>
             </Menu>
 
-            {changeNameOpen && <ChangeNameDialog action={handleActionChangeNameDialog} />}
+            {changeNameOpen && (
+                <ChangeNameDialog name={name} action={handleActionChangeNameDialog} />
+            )}
         </>
     );
 }

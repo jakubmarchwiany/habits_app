@@ -31,6 +31,7 @@ function HabitCard({ habitID }: Props) {
                     <StyledDIV
                         key={habit._id + index}
                         className={`day`}
+                        sx={{ cursor: "default" }}
                         data-tooltip={activity.date.slice(5)}
                     />
                 );
@@ -39,6 +40,7 @@ function HabitCard({ habitID }: Props) {
                     <div
                         key={habit._id + index}
                         className={`day`}
+                        style={{ cursor: "default" }}
                         data-tooltip={activity.date.slice(5)}
                     />
                 );
