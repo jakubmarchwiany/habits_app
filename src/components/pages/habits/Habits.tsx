@@ -1,9 +1,9 @@
 import { Stack } from "@mui/material";
 import Switcher from "components/layouts/Switcher";
-import HabitGroup from "components/pages/dashboard/HabitGroup";
+import HabitGroup from "components/pages/habits/HabitGroup";
 import { useAppSelector } from "hooks/redux";
 
-function Dashboard() {
+function Habits() {
     const habitGroups = useAppSelector((state) => {
         return state.app.isMyHabits ? state.app.myHabitGroups : state.app.dearHabitGroups;
     });
@@ -23,4 +23,4 @@ function Dashboard() {
     );
 }
 
-export default Dashboard;
+export default Habits;

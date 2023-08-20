@@ -1,6 +1,6 @@
 import { Divider, Stack } from "@mui/material";
 import Grid2 from "@mui/material/Unstable_Grid2";
-import HabitPanelWithInteractions from "components/pages/dashboard/HabitPanelWithInteractions";
+import HabitPanelWithInteractions from "components/pages/habits/HabitPanelWithInteractions";
 import { HabitGroup } from "store/models/habitGroup";
 
 type Props = {

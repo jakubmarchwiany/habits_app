@@ -1,9 +1,9 @@
 import { LockOpenOutlined } from "@mui/icons-material";
-import { Stack, Avatar, Typography, TextField, Button } from "@mui/material";
+import { Avatar, Button, Stack, TextField, Typography } from "@mui/material";
+import Cookies from "js-cookie";
 import React, { SyntheticEvent, useState } from "react";
 import { postFetch } from "utils/fetches";
-import { sleep, sleeper } from "utils/sleeper";
-import Cookies from "js-cookie";
+import { sleep } from "utils/sleeper";
 
 function Login() {
     const [username, setUsername] = useState("");

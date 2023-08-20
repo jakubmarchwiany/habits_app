@@ -1,8 +1,8 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 import { MoreTime } from "@mui/icons-material";
 import { Box, IconButton, Stack, Typography, useTheme } from "@mui/material";
-import Day from "components/pages/dashboard/Day";
-import HabitSettings from "components/pages/dashboard/settings/HabitSettings";
+import Day from "components/pages/habits/Day";
+import HabitSettings from "components/pages/habits/settings/HabitSettings";
 import dayjs from "dayjs";
 import { useAppDispatch, useAppSelector } from "hooks/redux";
 import { useState } from "react";

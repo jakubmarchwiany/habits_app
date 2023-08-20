@@ -1,6 +1,6 @@
 import { MoreTime } from "@mui/icons-material";
 import { Box, IconButton, Stack, Typography, useTheme } from "@mui/material";
-import Day from "components/pages/dashboard/Day";
+import Day from "components/pages/habits/Day";
 import dayjs from "dayjs";
 import { useAppSelector } from "hooks/redux";
 import { useState } from "react";

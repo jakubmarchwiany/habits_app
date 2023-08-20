@@ -1,34 +1,33 @@
-import Box from "@mui/material/Box";
-import { Add, Home, Settings } from "@mui/icons-material";
+import { Dashboard, PostAdd, Settings } from "@mui/icons-material";
 import { SpeedDial, SpeedDialIcon } from "@mui/material";
+import Box from "@mui/material/Box";
 import SpeedDialAction from "@mui/material/SpeedDialAction";
 import { useNavigate } from "react-router-dom";
 
-enum Actions {
-    Dashboard = "Nawyki",
-    Add = "Dodaj nawyk",
+enum Pages {
+    habits = "Nawyki",
+    Create = "Dodaj nawyk",
     Settings = "Ustawienia",
 }
 
 const actions = [
-    { icon: <Home />, name: Actions.Dashboard },
-    { icon: <Add />, name: Actions.Add },
-    { icon: <Settings />, name: Actions.Settings },
+    { icon: <Dashboard />, name: Pages.habits },
+    { icon: <PostAdd />, name: Pages.Create },
+    { icon: <Settings />, name: Pages.Settings },
 ];
 
 function Navigator() {
     const navigate = useNavigate();
 
     const handleClick = (action: string) => {
-        console.log(action);
         switch (action) {
-            case Actions.Dashboard:
+            case Pages.habits:
                 navigate("/");
                 break;
-            case Actions.Add:
+            case Pages.Create:
                 navigate("/create_habit");
                 break;
-            case Actions.Settings:
+            case Pages.Settings:
                 navigate("/settings");
                 break;
             default:

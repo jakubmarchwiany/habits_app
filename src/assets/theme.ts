@@ -52,7 +52,7 @@ export const getTheme = (color: string): ThemeOptions => ({
     },
 });
 
-export const standardSize = { xs: "100%", sm: "85%", md: "70%", lg: "55%", xl: "40%" }
+export const standardSize = { xs: "100%", sm: "85%", md: "70%", lg: "55%", xl: "40%" };
 
 //Light mode
 // "50": "#e4f5fe",
