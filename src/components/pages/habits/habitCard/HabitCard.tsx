@@ -2,8 +2,9 @@
 import { MoreTime } from "@mui/icons-material";
 import { Box, IconButton, Stack, Typography, styled } from "@mui/material";
 import { useAppDispatch, useAppSelector } from "hooks/redux";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "./day.css";
+import GoalRate from "components/pages/habits/habitCard/GoalRate";
 
 const StyledDIV = styled("div")(({ theme }) => ({
     backgroundColor: theme.palette.primary.main,
@@ -13,18 +14,13 @@ type Props = {
     habitID: string;
 };
 
-const { VITE_DAYS_TO_SHOW } = import.meta.env;
-
 function HabitCard({ habitID }: Props) {
     const habit = useAppSelector((state) => {
         return state.app.dearHabits.find((habit) => habit._id === habitID)!;
     });
-
-    const [showMoreDays, setShowMoreDays] = useState<boolean>(false);
+    const [goalRate, setGoalRate] = useState<number>(0);
 
     const generateActivityDays = () => {
-        // const nDays = showMoreDays ? parseInt(VITE_DAYS_TO_SHOW) : parseInt(VITE_DAYS_TO_SHOW) / 2;
-
         const days = habit.activities.map((activity, index) => {
             if (activity.done) {
                 return (
@@ -50,6 +46,29 @@ function HabitCard({ habitID }: Props) {
         return days;
     };
 
+    useEffect(() => {
+        calculateGoalRate();
+    }, [habit]);
+
+    const calculateGoalRate = () => {
+        let sumDone = 0;
+        let sumAll = 0;
+        let flag = false;
+        habit.activities.map((a) => {
+            if (a.done) {
+                sumDone += 1;
+                flag = true;
+            }
+
+            if (flag) {
+                sumAll += 1;
+            }
+        });
+
+        const rate = (sumDone / sumAll) * habit.periodInDays;
+        setGoalRate(rate);
+    };
+
     return (
         <Stack
             px={{ xs: 0.5, md: 1 }}
@@ -73,14 +92,7 @@ function HabitCard({ habitID }: Props) {
                 >
                     {habit.name}
                 </Typography>
-                <IconButton onClick={() => setShowMoreDays((prev) => !prev)} sx={{ p: 0 }}>
-                    <MoreTime
-                        sx={{
-                            color: showMoreDays ? "primary.main" : "white",
-                            fontSize: { xs: "1rem", md: "1.5rem" },
-                        }}
-                    />
-                </IconButton>
+                <GoalRate rate={goalRate} />
             </Box>
 
             <Box className="gridDays" mt={{ xs: "0%", md: "3%" }}>

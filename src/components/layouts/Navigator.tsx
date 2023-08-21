@@ -39,6 +39,7 @@ function Navigator() {
             <SpeedDial
                 ariaLabel="SpeedDial"
                 icon={<SpeedDialIcon />}
+                direction="left"
                 sx={{
                     "& .MuiFab-primary": {
                         width: { xs: "2.5rem", md: "3.5rem" },

@@ -1,12 +1,12 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
-import { MoreTime } from "@mui/icons-material";
-import { Box, IconButton, Stack, Typography } from "@mui/material";
+import { Box, Stack, Typography } from "@mui/material";
 import confetti from "canvas-confetti";
 import Day from "components/pages/habits/habitCard/Day";
 import DayDone from "components/pages/habits/habitCard/DayDone";
+import GoalRate from "components/pages/habits/habitCard/GoalRate";
 import HabitSettings from "components/pages/habits/habitCard/settings/HabitSettings";
 import { useAppDispatch, useAppSelector } from "hooks/redux";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { createActivityAction, deleteActivityAction } from "store/app-actions";
 import "./day.css";
 
@@ -14,23 +14,21 @@ type Props = {
     habitID: string;
 };
 
-const { VITE_DAYS_TO_SHOW } = import.meta.env;
-
 function HabitCardFull({ habitID }: Props) {
+    const [goalRate, setGoalRate] = useState<number>(0);
+    const [shouldDoToday, setShouldDoToday] = useState<boolean>(false);
     const habit = useAppSelector((state) => {
         return state.app.myHabits.find((habit) => habit._id === habitID)!;
     });
 
-    const [showMoreDays, setShowMoreDays] = useState<boolean>(false);
-
     const dispatch = useAppDispatch();
 
     const generateActivityDays = () => {
-        // const nDays = showMoreDays ? parseInt(VITE_DAYS_TO_SHOW) : parseInt(VITE_DAYS_TO_SHOW) / 2;
-
-        const days = habit.activities.map((activity, index) => {
+        const days: JSX.Element[] = [];
+        for (let index = 0; index < habit.activities.length; index++) {
+            const activity = habit.activities[index];
             if (activity.done) {
-                return (
+                days.push(
                     <DayDone
                         key={habit.name + index}
                         _id={activity._id!}
@@ -39,7 +37,7 @@ function HabitCardFull({ habitID }: Props) {
                     />
                 );
             } else {
-                return (
+                days.push(
                     <Day
                         key={habit.name + index}
                         date={activity.date}
@@ -47,7 +45,28 @@ function HabitCardFull({ habitID }: Props) {
                     />
                 );
             }
-        });
+        }
+
+        const lastActivity = habit.activities[habit.activities.length - 1];
+        if (!lastActivity.done && shouldDoToday)
+            days[habit.activities.length - 1] = (
+                <Box
+                    onClick={(event) => createActivity(event, lastActivity.date)}
+                    className={`day`}
+                    data-tooltip={lastActivity.date.slice(5)}
+                    sx={{
+                        animation: "blink 2s infinite",
+                        "@keyframes blink": {
+                            "0%, 100%": {
+                                backgroundColor: "",
+                            },
+                            "50%": {
+                                backgroundColor: "primary.main",
+                            },
+                        },
+                    }}
+                />
+            );
 
         return days;
     };
@@ -67,13 +86,52 @@ function HabitCardFull({ habitID }: Props) {
         dispatch(deleteActivityAction(habitID, _id));
     };
 
+    useEffect(() => {
+        calculateGoalRate();
+        calculateIsTodayToDo();
+    }, [habit]);
+
+    const calculateGoalRate = () => {
+        let sumDone = 0;
+        let sumAll = 0;
+        let flag = false;
+        habit.activities.map((a) => {
+            if (a.done) {
+                sumDone += 1;
+                flag = true;
+            }
+
+            if (flag) {
+                sumAll += 1;
+            }
+        });
+
+        const rate = (sumDone / sumAll) * habit.periodInDays;
+        setGoalRate(rate);
+    };
+
+    const calculateIsTodayToDo = () => {
+        const tmp = habit.activities.slice(habit.periodInDays).reverse();
+
+        let flag = true;
+        for (let i = 0; i < habit.periodInDays; i++) {
+            if (tmp[i].done) flag = false;
+        }
+
+        setShouldDoToday(flag);
+    };
+
     return (
         <Stack
             px={{ xs: 0.5, md: 1 }}
             py={{ xs: 0, md: 1 }}
             pb={{ xs: 1, md: 2 }}
             boxShadow={5}
-            sx={{ border: 2, borderRadius: 5, borderColor: "primary.main" }}
+            sx={{
+                border: 2,
+                borderRadius: 5,
+                borderColor: "primary.main",
+            }}
         >
             <Box
                 sx={{
@@ -83,24 +141,23 @@ function HabitCardFull({ habitID }: Props) {
                     alignItems: "center",
                 }}
             >
-                <IconButton onClick={() => setShowMoreDays((prev) => !prev)} sx={{ p: 0 }}>
-                    <MoreTime
-                        sx={{
-                            color: showMoreDays ? "primary.main" : "white",
-                            fontSize: { xs: "1rem", md: "1.5rem" },
-                        }}
-                    />
-                </IconButton>
+                <GoalRate rate={goalRate} />
+
                 <Typography
                     textAlign="center"
-                    sx={{ wordBreak: "break-word", typography: { xs: "h6", md: "h5" } }}
+                    sx={{
+                        wordBreak: "break-word",
+                        typography: { xs: "h6", md: "h5" },
+                        // color: habit.activities.slice(-1)[0].done ? "primary.main" : "white",
+                    }}
                 >
                     {habit!.name}
                 </Typography>
+
                 <HabitSettings id={habitID} name={habit.name} />
             </Box>
 
-            <Box className="gridDays" mt={{ xs: "0%", md: "3%" }}>
+            <Box className="gridDays" id={"grid-" + habit._id} mt={{ xs: "0%", md: "3%" }}>
                 {generateActivityDays()}
             </Box>
         </Stack>

@@ -79,6 +79,7 @@ export const createHabit =
     (appDispatch) => {
         postFetch<{ data: Habit }>({ name, description, periodInDays }, "/user/habit/create").then(
             ({ data }) => {
+                data = prepareHabits([data])[0];
                 appDispatch(appActions.createHabit(data));
                 navigate("/");
             }
