@@ -106,14 +106,20 @@ function HabitCardFull({ habitID }: Props) {
     };
 
     const calculateIsTodayToDo = () => {
-        const tmp = habit.activities.slice(habit.periodInDays).reverse();
+        if (habit.activities[habit.activities.length - 1].done) {
+            setShouldDoToday(false);
+        } else {
+            const habitLength = habit.activities.length;
+            const periodInDays = habit.periodInDays;
 
-        let flag = true;
-        for (let i = 0; i < habit.periodInDays; i++) {
-            if (tmp[i].done) flag = false;
+            for (let i = habitLength - 2; i >= habitLength - periodInDays; i--) {
+                if (habit.activities[i].done) {
+                    setShouldDoToday(false);
+                    return;
+                }
+            }
+            setShouldDoToday(true);
         }
-
-        setShouldDoToday(flag);
     };
 
     return (
