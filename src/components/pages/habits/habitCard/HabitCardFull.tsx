@@ -9,6 +9,7 @@ import { useAppDispatch, useAppSelector } from "hooks/redux";
 import { useEffect, useState } from "react";
 import { createActivityAction, deleteActivityAction } from "store/app-actions";
 import "./day.css";
+import { Activity } from "store/models/activity";
 
 type Props = {
     habitID: string;
@@ -24,33 +25,28 @@ function HabitCardFull({ habitID }: Props) {
     const dispatch = useAppDispatch();
 
     const generateActivityDays = () => {
-        const days: JSX.Element[] = [];
-        for (let index = 0; index < habit.activities.length; index++) {
-            const activity = habit.activities[index];
+        const renderDayComponent = (activity: Activity, index: number) => {
+            const CommonProps = {
+                key: `${habit.name}-${index}`,
+                date: activity.date,
+            };
+
             if (activity.done) {
-                days.push(
-                    <DayDone
-                        key={habit.name + index}
-                        _id={activity._id!}
-                        date={activity.date}
-                        deleteActivity={deleteActivity}
-                    />
+                return (
+                    <DayDone {...CommonProps} _id={activity._id!} deleteActivity={deleteActivity} />
                 );
             } else {
-                days.push(
-                    <Day
-                        key={habit.name + index}
-                        date={activity.date}
-                        createActivity={createActivity}
-                    />
-                );
+                return <Day {...CommonProps} createActivity={createActivity} />;
             }
-        }
+        };
+
+        const days = habit.activities.map((activity, index) => renderDayComponent(activity, index));
 
         const lastActivity = habit.activities[habit.activities.length - 1];
-        if (!lastActivity.done && shouldDoToday)
+        if (!lastActivity.done && shouldDoToday) {
             days[habit.activities.length - 1] = (
                 <Box
+                    key={`${habit.name}-${habit.activities.length - 1}`}
                     onClick={(event) => createActivity(event, lastActivity.date)}
                     className={`day`}
                     data-tooltip={lastActivity.date.slice(5)}
@@ -67,6 +63,7 @@ function HabitCardFull({ habitID }: Props) {
                     }}
                 />
             );
+        }
 
         return days;
     };
@@ -94,19 +91,17 @@ function HabitCardFull({ habitID }: Props) {
     const calculateGoalRate = () => {
         let sumDone = 0;
         let sumAll = 0;
-        let flag = false;
-        habit.activities.map((a) => {
-            if (a.done) {
-                sumDone += 1;
-                flag = true;
-            }
 
-            if (flag) {
+        for (const activity of habit.activities) {
+            if (activity.done) {
+                sumDone += 1;
+                sumAll += 1;
+            } else if (sumDone > 0) {
                 sumAll += 1;
             }
-        });
+        }
 
-        const rate = (sumDone / sumAll) * habit.periodInDays;
+        const rate = sumDone > 0 ? (sumDone / sumAll) * habit.periodInDays : 1;
         setGoalRate(rate);
     };
 

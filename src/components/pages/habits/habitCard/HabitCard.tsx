@@ -53,19 +53,17 @@ function HabitCard({ habitID }: Props) {
     const calculateGoalRate = () => {
         let sumDone = 0;
         let sumAll = 0;
-        let flag = false;
-        habit.activities.map((a) => {
-            if (a.done) {
-                sumDone += 1;
-                flag = true;
-            }
 
-            if (flag) {
+        for (const activity of habit.activities) {
+            if (activity.done) {
+                sumDone += 1;
+                sumAll += 1;
+            } else if (sumDone > 0) {
                 sumAll += 1;
             }
-        });
+        }
 
-        const rate = (sumDone / sumAll) * habit.periodInDays;
+        const rate = sumDone > 0 ? (sumDone / sumAll) * habit.periodInDays : 1;
         setGoalRate(rate);
     };
 
