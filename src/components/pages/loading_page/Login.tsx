@@ -1,5 +1,13 @@
 import { LockOpenOutlined } from "@mui/icons-material";
-import { Avatar, Button, Stack, TextField, Typography } from "@mui/material";
+import {
+    Avatar,
+    Button,
+    Checkbox,
+    FormControlLabel,
+    Stack,
+    TextField,
+    Typography,
+} from "@mui/material";
 import Cookies from "js-cookie";
 import React, { SyntheticEvent, useState } from "react";
 import { postFetch } from "utils/fetches";
@@ -8,6 +16,7 @@ import { sleep } from "utils/sleeper";
 function Login() {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
+    const [rememberMe, setRememberMe] = useState(false);
 
     const handleLogin = (event: SyntheticEvent) => {
         event.preventDefault();
@@ -15,7 +24,7 @@ function Login() {
         postFetch<{ token: string }>({ username, password }, `/auth/login`).then(
             async ({ token }) => {
                 Cookies.set("authorization", token, {
-                    expires: 31,
+                    expires: rememberMe ? 31 : undefined,
                     path: "/",
                 });
                 await sleep(1000);
@@ -65,6 +74,16 @@ function Login() {
                 >
                     Zaloguj
                 </Button>
+                <FormControlLabel
+                    control={
+                        <Checkbox
+                            value={rememberMe}
+                            onChange={(e) => setRememberMe(e.target.checked)}
+                        />
+                    }
+                    label="Nie wylogowuj mnie"
+                    sx={{ color: "white" }}
+                />
             </Stack>
         </Stack>
     );
