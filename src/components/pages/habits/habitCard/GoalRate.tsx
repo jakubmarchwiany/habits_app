@@ -5,14 +5,23 @@ import {
     SentimentVeryDissatisfied,
     SentimentVerySatisfied,
 } from "@mui/icons-material";
+import { Tooltip } from "@mui/material";
 import * as React from "react";
 
-const customIcons: React.ReactElement[] = [
-    <SentimentVeryDissatisfied sx={{ color: "#FF0000", fontSize: { xs: "1rem", md: "1.5rem" } }} />,
-    <SentimentDissatisfied sx={{ color: "#FF6600", fontSize: { xs: "1rem", md: "1.5rem" } }} />,
-    <SentimentSatisfied sx={{ color: "#FFFF00", fontSize: { xs: "1rem", md: "1.5rem" } }} />,
-    <SentimentSatisfiedAlt sx={{ color: "#33FF33", fontSize: { xs: "1rem", md: "1.5rem" } }} />,
-    <SentimentVerySatisfied sx={{ color: "#00FF00", fontSize: { xs: "1rem", md: "1.5rem" } }} />,
+const rateIcons: React.ReactElement[] = [
+    <SentimentVeryDissatisfied />,
+    <SentimentDissatisfied />,
+    <SentimentSatisfied />,
+    <SentimentSatisfiedAlt />,
+    <SentimentVerySatisfied />,
+];
+
+const THRESHOLDVALUES = [
+    { value: 0.2, color: "#FF0000" },
+    { value: 0.4, color: "#FF6600" },
+    { value: 0.6, color: "#FFFF00" },
+    { value: 0.8, color: "#33FF33" },
+    { value: Number.MAX_VALUE, color: "#00FF00" },
 ];
 
 type Props = {
@@ -20,19 +29,16 @@ type Props = {
 };
 
 export default function GoalRate({ rate }: Props) {
-    let index;
+    const index = THRESHOLDVALUES.findIndex((threshold) => rate < threshold.value);
 
-    if (rate < 0.2) {
-        index = 0;
-    } else if (rate < 0.4) {
-        index = 1;
-    } else if (rate < 0.6) {
-        index = 2;
-    } else if (rate < 0.8) {
-        index = 3;
-    } else {
-        index = 4;
-    }
+    const icon = rateIcons[index];
+    const color = THRESHOLDVALUES[index].color;
 
-    return customIcons[index];
+    return (
+        <Tooltip title={`Cel osiągnięty w ${Math.floor(rate * 100)}%`} placement="top">
+            {React.cloneElement(icon, {
+                sx: { fontSize: { xs: "1rem", md: "1.5rem" }, color: color },
+            })}
+        </Tooltip>
+    );
 }
