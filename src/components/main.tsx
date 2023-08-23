@@ -4,6 +4,7 @@ import Error from "components/pages/Error";
 import CreateHabit from "components/pages/create_habit/CreateHabit";
 import Habits from "components/pages/habits/Habits";
 import Settings from "components/pages/settings/Settings";
+import ShowHabit from "components/pages/show_habit/ShowHabit";
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import { Provider } from "react-redux";
@@ -21,7 +22,9 @@ const router = createBrowserRouter([
                 element: <CreateHabit />,
             },
             { path: "/settings", element: <Settings /> },
+            { path: "/habit/:_id", element: <ShowHabit /> },
         ],
+
         errorElement: <Error />,
     },
 ]);

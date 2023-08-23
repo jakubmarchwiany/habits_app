@@ -88,6 +88,7 @@ const appSlice = createSlice({
 
             if (habit) {
                 const index = findRightIndexByDate(date, habit.activities);
+                console.log(index)
 
                 habit.activities[index] = { date, _id: activityID, done: true };
             }

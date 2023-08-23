@@ -28,6 +28,8 @@ function HabitCardFull({ habitID, flagIndex, setShowFlag }: Props) {
 
     const dispatch = useAppDispatch();
 
+    console.log(habit.activities.length)
+
     const generateActivityDays = () => {
         const renderDayComponent = (activity: Activity, index: number) => {
             const CommonProps = {

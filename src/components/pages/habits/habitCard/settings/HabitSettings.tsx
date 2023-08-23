@@ -4,6 +4,7 @@ import EditHabitDialog from "components/pages/habits/habitCard/settings/EditHabi
 import { useAppDispatch } from "hooks/redux";
 import * as React from "react";
 import { toast } from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
 import { deleteHabitAction, editHabitAction } from "store/app-actions";
 import { Habit } from "store/models/habit";
 
@@ -17,6 +18,7 @@ function HabitSettings({ habit }: Props) {
     const open = Boolean(anchorEl);
 
     const dispatch = useAppDispatch();
+    const navigate = useNavigate();
 
     const openHabitSettings = (event: React.MouseEvent<HTMLButtonElement>) => {
         setAnchorEl(event.currentTarget);
@@ -44,6 +46,10 @@ function HabitSettings({ habit }: Props) {
         closeHabitSettings();
     };
 
+    const showHabit = () => {
+        navigate(`/habit/${habit._id}`);
+    }
+
     return (
         <>
             <IconButton onClick={openHabitSettings} sx={{ p: 0 }}>
@@ -59,6 +65,7 @@ function HabitSettings({ habit }: Props) {
                             "aria-labelledby": "basic-button",
                         }}
                     >
+                        <MenuItem onClick={showHabit}>Pokaż wszystko</MenuItem>
                         <MenuItem onClick={openEditHabitDialog}>Edytuj</MenuItem>
                         <MenuItem
                             onClick={() => toast.error("Kliknij dwukrotnie by usunać nawyk")}
