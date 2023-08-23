@@ -4,7 +4,7 @@ import { useAppDispatch, useAppSelector } from "hooks/redux";
 import { getHabitsAction } from "store/app-actions";
 import { appActions } from "store/app-slice";
 
-function Switcher() {
+function UserSwitcher() {
     const isUserHabits = useAppSelector((state) => state.app.isMyHabits);
     const isDearHabitsDownloaded = useAppSelector((state) => state.app.isDearHabitsDownloaded);
 
@@ -18,6 +18,7 @@ function Switcher() {
         dispatch(appActions.toggleHabitsView());
     };
 
+    
     return (
         <Fab
             sx={{
@@ -28,8 +29,8 @@ function Switcher() {
                 position: "fixed",
                 width: { xs: "2rem", md: "2.5rem" },
                 height: { xs: "2rem", md: "2.5rem" },
-                bottom: "2%",
-                left: "1%",
+                bottom: "10px",
+                left: "10px",
             }}
             onClick={toggleHabitsView}
         >
@@ -39,10 +40,9 @@ function Switcher() {
                     height: { xs: "1rem", md: "1.5rem" },
                     color: "white",
                 }}
-                fontSize="small"
             />
         </Fab>
     );
 }
 
-export default Switcher;
+export default UserSwitcher;

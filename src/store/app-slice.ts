@@ -12,6 +12,7 @@ type UserState = {
     dearHabits: Habit[];
     dearHabitGroups: HabitGroup[];
     isMyHabits: boolean;
+    showAllHabits: boolean;
 };
 
 const initialState: UserState = {
@@ -21,6 +22,7 @@ const initialState: UserState = {
     dearHabits: [],
     dearHabitGroups: [],
     isMyHabits: true,
+    showAllHabits: false,
 };
 
 export type UserData = {
@@ -44,22 +46,37 @@ const appSlice = createSlice({
         toggleHabitsView(state) {
             state.isMyHabits = !state.isMyHabits;
         },
+        setShowAllHabits(state, action: PayloadAction<boolean>) {
+            state.showAllHabits = action.payload;
+        },
         createHabit(state, action: PayloadAction<Habit>) {
             state.myHabits.push(action.payload);
         },
-        editHabitName(state, action: PayloadAction<{ id: string; newName: string }>) {
-            const { id, newName } = action.payload;
-            const habit = state.myHabits.find((habit) => habit._id === id);
-            if (habit) habit.name = newName;
+        editHabit(
+            state,
+            action: PayloadAction<{
+                _id: string;
+                name: string;
+                description: string;
+                periodInDays: number;
+            }>
+        ) {
+            const { _id, name, description, periodInDays } = action.payload;
+            const habit = state.myHabits.find((habit) => habit._id === _id);
+            if (habit) {
+                habit.name = name;
+                habit.description = description;
+                habit.periodInDays = periodInDays;
+            }
         },
         editHabitsOrder(state, action: PayloadAction<HabitGroup[]>) {
             state.myHabitGroups = action.payload;
         },
-        deleteHabit(state, action: PayloadAction<{ id: string }>) {
-            const { id } = action.payload;
-            state.myHabits = state.myHabits.filter((habit) => habit._id !== id);
+        deleteHabit(state, action: PayloadAction<{ _id: string }>) {
+            const { _id } = action.payload;
+            state.myHabits = state.myHabits.filter((habit) => habit._id !== _id);
             state.myHabitGroups.forEach((group) => {
-                group.habits = group.habits.filter((habit) => habit !== id);
+                group.habits = group.habits.filter((habit) => habit !== _id);
             });
         },
         addActivity(

@@ -41,6 +41,7 @@ function CreateHabit() {
             <TextField
                 label="Opis nawyku"
                 variant="filled"
+                placeholder="Opisz swój nawyk np. (3 litry wody dziennie)"
                 value={description}
                 multiline
                 rows={4}

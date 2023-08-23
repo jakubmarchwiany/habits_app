@@ -81,36 +81,39 @@ export const createHabit =
             ({ data }) => {
                 data = prepareHabits([data])[0];
                 appDispatch(appActions.createHabit(data));
-                navigate("/");
+                navigate("/settings?openGroupManager=true");
             }
         );
     };
 
-export const editHabitNameAction =
-    (id: string, newName: string): AppThunk =>
+export const editHabitAction =
+    (_id: string, name: string, description: string, periodInDays: number): AppThunk =>
     (appDispatch) => {
-        postFetch<{ data: UserData }>({ id, newName }, "/user/habit/edit_name").then(() => {
-            appDispatch(appActions.editHabitName({ id, newName }));
+        postFetch<{ data: UserData }>(
+            { _id, name, description, periodInDays },
+            "/user/habit/edit"
+        ).then(() => {
+            appDispatch(appActions.editHabit({ _id, name, description, periodInDays }));
         });
     };
 
 export const deleteHabitAction =
-    (id: string): AppThunk =>
+    (_id: string): AppThunk =>
     (appDispatch) => {
-        console.log(id);
-        postFetch<{ data: UserData }>({ id }, "/user/habit/delete").then(() => {
-            appDispatch(appActions.deleteHabit({ id }));
+        postFetch<{ data: UserData }>({ _id }, "/user/habit/delete").then(() => {
+            appDispatch(appActions.deleteHabit({ _id }));
         });
     };
 
 export const edithabitsOrderAction =
-    (habitGroups: habitGroupsFetch[]): AppThunk =>
+    (habitGroups: habitGroupsFetch[], navigate: NavigateFunction): AppThunk =>
     (appDispatch) => {
         console.log(habitGroups);
         postFetch<{ data: HabitGroup[] }>({ habitGroups }, "/user/habit/create_groups").then(
             ({ data }) => {
                 console.log(data);
                 appDispatch(appActions.editHabitsOrder(data));
+                navigate("/");
             }
         );
     };
@@ -130,7 +133,7 @@ export const createActivityAction =
 export const deleteActivityAction =
     (habitID: string, activityID: string): AppThunk =>
     (appDispatch) => {
-        postFetch<never>({ id: activityID }, "/user/habit/activity/delete").then(() => {
+        postFetch<never>({ _id: activityID }, "/user/habit/activity/delete").then(() => {
             appDispatch(appActions.deleteActivity({ habitID, activityID }));
         });
     };

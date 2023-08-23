@@ -7,6 +7,7 @@ import { habitItem } from "components/pages/settings/habit_groups_manager/habit_
 import { useAppDispatch, useAppSelector } from "hooks/redux";
 import { useEffect, useState } from "react";
 import { toast } from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
 import { edithabitsOrderAction } from "store/app-actions";
 import { v4 as uuid } from "uuid";
 
@@ -15,6 +16,8 @@ function HabitGroupsManager() {
 
     const habits = useAppSelector((state) => state.app.myHabits);
     const myHabitGroups = useAppSelector((state) => state.app.myHabitGroups);
+
+    const navigate = useNavigate();
 
     useEffect(() => {
         prepareGroups();
@@ -63,8 +66,7 @@ function HabitGroupsManager() {
             return { name: group.name, habits: group.habits.map((habit) => habit._id) };
         });
 
-
-        dispatch(edithabitsOrderAction(groupsToFetch));
+        dispatch(edithabitsOrderAction(groupsToFetch, navigate));
     };
 
     return (

@@ -1,72 +1,77 @@
 import { Settings } from "@mui/icons-material";
 import { IconButton, Menu, MenuItem } from "@mui/material";
-import ChangeNameDialog from "components/pages/habits/habitCard/settings/ChangeNameDialog";
+import EditHabitDialog from "components/pages/habits/habitCard/settings/EditHabitDialog";
 import { useAppDispatch } from "hooks/redux";
 import * as React from "react";
 import { toast } from "react-hot-toast";
-import { deleteHabitAction, editHabitNameAction } from "store/app-actions";
+import { deleteHabitAction, editHabitAction } from "store/app-actions";
+import { Habit } from "store/models/habit";
 
 type Props = {
-    id: string;
-    name: string;
+    habit: Habit;
 };
 
-function HabitSettings({ id, name }: Props) {
+function HabitSettings({ habit }: Props) {
     const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
-    const [changeNameOpen, setChangeNameOpen] = React.useState(false);
-
+    const [editHabitOpen, setEditHabitOpen] = React.useState(false);
     const open = Boolean(anchorEl);
 
     const dispatch = useAppDispatch();
 
-    const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+    const openHabitSettings = (event: React.MouseEvent<HTMLButtonElement>) => {
         setAnchorEl(event.currentTarget);
     };
 
-    const handleClose = () => {
+    const closeHabitSettings = () => {
         setAnchorEl(null);
     };
 
-    const openChaneNameDialog = () => {
-        setChangeNameOpen(true);
+    const openEditHabitDialog = () => {
+        setEditHabitOpen(true);
     };
 
-    const handleActionChangeNameDialog = (newName: string) => {
-        setChangeNameOpen(false);
-        if (newName === "") return;
-        dispatch(editHabitNameAction(id, newName));
+    const editHabitHandle = (name?: string, description?: string, periodInDays?: number) => {
+        setEditHabitOpen(false);
+
+        if (name && periodInDays)
+            dispatch(editHabitAction(habit._id, name, description!, periodInDays));
+
+        closeHabitSettings();
     };
 
-    const handleDeleteHabit = () => {
-        dispatch(deleteHabitAction(id));
-        handleClose();
+    const deleteHabit = () => {
+        dispatch(deleteHabitAction(habit._id));
+        closeHabitSettings();
     };
 
     return (
         <>
-            <IconButton onClick={handleClick} sx={{ p: 0 }}>
+            <IconButton onClick={openHabitSettings} sx={{ p: 0 }}>
                 <Settings sx={{ color: "white", fontSize: { xs: "1rem", md: "1.5rem" } }} />
             </IconButton>
-            <Menu
-                id="basic-menu"
-                anchorEl={anchorEl}
-                open={open}
-                onClose={handleClose}
-                MenuListProps={{
-                    "aria-labelledby": "basic-button",
-                }}
-            >
-                <MenuItem onClick={openChaneNameDialog}>Zmień nazwę</MenuItem>
-                <MenuItem
-                    onClick={() => toast("Kliknij dwukrotnie by usunać nawyk")}
-                    onDoubleClick={handleDeleteHabit}
-                >
-                    Usuń
-                </MenuItem>
-            </Menu>
+            {open && (
+                <>
+                    <Menu
+                        anchorEl={anchorEl}
+                        open={open}
+                        onClose={closeHabitSettings}
+                        MenuListProps={{
+                            "aria-labelledby": "basic-button",
+                        }}
+                    >
+                        <MenuItem onClick={openEditHabitDialog}>Edytuj</MenuItem>
+                        <MenuItem
+                            onClick={() => toast.error("Kliknij dwukrotnie by usunać nawyk")}
+                            onDoubleClick={deleteHabit}
+                        >
+                            Usuń
+                        </MenuItem>
+                    </Menu>
 
-            {changeNameOpen && (
-                <ChangeNameDialog name={name} action={handleActionChangeNameDialog} />
+                    {editHabitOpen && (
+                        <EditHabitDialog habit={habit} editHabitHandle={editHabitHandle} />
+                    )}
+                </>
             )}
         </>
     );
