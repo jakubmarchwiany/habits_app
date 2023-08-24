@@ -1,4 +1,4 @@
-import { Dashboard, Navigation, PostAdd, Settings } from "@mui/icons-material";
+import { Dashboard, PostAdd, Settings } from "@mui/icons-material";
 import { SpeedDial, SpeedDialIcon } from "@mui/material";
 import Box from "@mui/material/Box";
 import SpeedDialAction from "@mui/material/SpeedDialAction";
@@ -38,7 +38,7 @@ function Navigator() {
         <Box sx={{ position: "fixed", bottom: "10px", right: "10px" }}>
             <SpeedDial
                 ariaLabel="SpeedDial"
-                icon={<Navigation />}
+                icon={<SpeedDialIcon />}
                 direction="left"
                 sx={{
                     "& .MuiFab-primary": {
