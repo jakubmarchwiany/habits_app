@@ -1,13 +1,13 @@
 import { Stack, ThemeProvider, createTheme, responsiveFontSizes } from "@mui/material";
 import { getTheme } from "assets/theme";
-import SpeedDialNavigator from "components/layouts/SpeedDialNavigator";
-import LoadingPage from "components/pages/LoadingPage";
+import Navigator from "components/layouts/Navigator";
+import LoadingPage from "components/pages/loading_page/LoadingPage";
 import { useAppDispatch } from "hooks/redux";
 import Cookies from "js-cookie";
 import { useEffect, useMemo, useState } from "react";
 import { Toaster } from "react-hot-toast";
 import { Outlet } from "react-router-dom";
-import { getUserDataAction } from "store/user-actions";
+import { getHabitsAction } from "store/app-actions";
 
 function App() {
     const [isLogged, setIsLogged] = useState<boolean | undefined>(undefined);
@@ -22,7 +22,7 @@ function App() {
 
     useEffect(() => {
         if (Cookies.get("authorization") !== undefined) {
-            dispatch(getUserDataAction(setIsLogged));
+            dispatch(getHabitsAction(setIsLogged, true));
         } else {
             setIsLogged(false);
         }
@@ -39,7 +39,7 @@ function App() {
                     bgcolor={"background.paper"}
                 >
                     <Outlet />
-                    <SpeedDialNavigator />
+                    <Navigator />
                 </Stack>
             ) : (
                 <LoadingPage isLogged={isLogged} />
