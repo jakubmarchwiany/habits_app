@@ -1,4 +1,4 @@
-import { Favorite, Visibility, VisibilityOff } from "@mui/icons-material";
+import { Visibility, VisibilityOff } from "@mui/icons-material";
 import { Fab, Tooltip } from "@mui/material";
 import { useAppDispatch, useAppSelector } from "hooks/redux";
 import React, { useEffect } from "react";
