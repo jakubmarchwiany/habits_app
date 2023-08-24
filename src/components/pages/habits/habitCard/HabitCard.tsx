@@ -1,11 +1,10 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
-import { MoreTime } from "@mui/icons-material";
-import { Box, IconButton, Stack, Typography, styled } from "@mui/material";
-import { useAppDispatch, useAppSelector } from "hooks/redux";
+import { Box, Stack, Typography, styled } from "@mui/material";
+import Grid2 from "@mui/material/Unstable_Grid2";
+import GoalRate from "components/pages/habits/habitCard/GoalRate";
+import { useAppSelector } from "hooks/redux";
 import { useEffect, useState } from "react";
 import "./day.css";
-import GoalRate from "components/pages/habits/habitCard/GoalRate";
-import Grid2 from "@mui/material/Unstable_Grid2";
 
 const StyledDIV = styled("div")(({ theme }) => ({
     backgroundColor: theme.palette.primary.main,

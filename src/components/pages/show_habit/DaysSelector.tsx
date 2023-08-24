@@ -17,7 +17,7 @@ type Props = {
 function DaysSelector({ nDays, setNDays }: Props) {
     const [value, setValue] = useState(nDays);
 
-    const handleChange = (event: Event, newValue: number | number[]) => {
+    const handleChange = (_event: Event, newValue: number | number[]) => {
         if (typeof newValue === "number") setValue(newValue);
     };
 
