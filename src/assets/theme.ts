@@ -11,7 +11,6 @@ export const getTheme = (color: string): ThemeOptions => ({
         },
         text: {
             primary: "#fff",
-
         },
         background: {
             default: "#303030",
@@ -29,6 +28,11 @@ export const getTheme = (color: string): ThemeOptions => ({
     components: {
         MuiTextField: {
             defaultProps: {
+                InputLabelProps: {
+                    style: {
+                        color: "#fff",
+                    },
+                },
                 inputProps: {
                     style: {
                         color: color,
@@ -37,17 +41,18 @@ export const getTheme = (color: string): ThemeOptions => ({
             },
         },
     },
-
     breakpoints: {
         values: {
             xs: 0,
-            sm: 769,
+            sm: 768,
             md: 1024,
             lg: 1216,
             xl: 1408,
         },
     },
 });
+
+export const standardSize = { xs: "100%", sm: "85%", md: "70%", lg: "55%", xl: "40%" };
 
 //Light mode
 // "50": "#e4f5fe",
