@@ -37,7 +37,7 @@ export default function GoalRate({ rate }: Props) {
     return (
         <Tooltip title={`Cel osiągnięty w ${Math.floor(rate * 100)}%`} placement="top">
             {React.cloneElement(icon, {
-                sx: { fontSize: { xs: "1rem", md: "1.5rem" }, color: color },
+                sx: { fontSize: { xs: "1.5rem", md: "1.5rem" }, color: color, p: 0, m: 0 },
             })}
         </Tooltip>
     );

@@ -68,6 +68,41 @@ function HabitCard({ habitID, flagIndex, setShowFlag }: Props) {
             );
         }
 
+        const activities = [...habit.activities];
+
+        const dateLastDoneActivity = activities.reverse().findIndex((activity) => activity.done);
+
+        if (
+            dateLastDoneActivity === -1 ||
+            dateLastDoneActivity === 0 ||
+            dateLastDoneActivity === 1 ||
+            dateLastDoneActivity - habit.periodInDays <= 0
+        )
+            return days;
+
+        if (!activities[dateLastDoneActivity - habit.periodInDays].done) {
+            const index = days.length - dateLastDoneActivity - 1 + habit.periodInDays;
+
+            days[index] = (
+                <Box
+                    key={`${habit.name}-${index}`}
+                    className={`day`}
+                    data-tooltip={habit.activities[index].date.slice(5)}
+                    sx={{
+                        animation: "blinkk 2s infinite",
+                        "@keyframes blinkk": {
+                            "0%, 100%": {
+                                backgroundColor: "",
+                            },
+                            "50%": {
+                                backgroundColor: "red",
+                            },
+                        },
+                    }}
+                />
+            );
+        }
+
         return days;
     };
 
@@ -117,17 +152,20 @@ function HabitCard({ habitID, flagIndex, setShowFlag }: Props) {
     return (
         <Grid2 xs={12} md={3} key={"habit_panel_" + habit}>
             <Stack
-                px={{ xs: 0.5, md: 1 }}
-                py={{ xs: 0, md: 1 }}
-                pb={{ xs: 1, md: 2 }}
+                pt={{ xs: 1, md: 1 }}
                 boxShadow={5}
-                sx={{ border: 2, borderRadius: 5, borderColor: "#FFB6C1" }}
+                sx={{
+                    border: 2,
+                    borderRadius: 3,
+                    borderColor: "#FFB6C1",
+                }}
             >
                 <Box
                     sx={{
                         display: "flex",
                         flexDirection: "row",
                         justifyContent: "space-between",
+                        mx: 1,
                         alignItems: "center",
                     }}
                 >
@@ -135,14 +173,14 @@ function HabitCard({ habitID, flagIndex, setShowFlag }: Props) {
 
                     <Typography
                         textAlign="center"
-                        sx={{ wordBreak: "break-word", typography: { xs: "h6", md: "h5" } }}
+                        sx={{ wordBreak: "break-word", typography: { xs: "h4", md: "h4" } }}
                     >
                         {habit.name}
                     </Typography>
                     <div />
                 </Box>
 
-                <Box className="gridDays" mt={{ xs: "0%", md: "3%" }}>
+                <Box className="gridDays" mt={1}>
                     {generateActivityDays()}
                 </Box>
             </Stack>

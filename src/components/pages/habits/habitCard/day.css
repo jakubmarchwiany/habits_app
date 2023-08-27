@@ -1,55 +1,27 @@
 .day {
     cursor: pointer;
-    box-shadow: 0px 0px 0.7em rgba(0, 0, 0, 0.5);
+    box-shadow: 0px 0px 0.3em rgba(0, 0, 0, 0.5);
     border-radius: 5px;
-    width: var(--day-width, 1.5vw);
-    height: var(--day-height, 1.5vw);
+    margin: 5px;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+
 }
 
 .gridDays {
     display: grid;
-    justify-items: center;
-    row-gap: 0.5em;
-    column-gap: 0.5em;
-    grid-template-columns: repeat(7, minmax(2vw, 1fr));
+    grid-template-columns: auto auto auto auto auto auto auto;
 }
 
 @media (min-width: 0px) {
     .day {
-        --day-width: 5vw;
-        --day-height: 5vw;
-    }
-    .gridDays {
-        row-gap: 0.25em;
-        column-gap: 0em;
+        /* padding: 1rem; */
     }
 }
 
 @media (min-width: 769px) {
     .day {
-        --day-width: 3vw;
-        --day-height: 3vw;
-    }
-}
-
-@media (min-width: 1024px) {
-    .day {
-        --day-width: 2.5vw;
-        --day-height: 2.5vw;
-    }
-}
-
-@media (min-width: 1216px) {
-    .day {
-        --day-width: 2vw;
-        --day-height: 2vw;
-    }
-}
-
-@media (min-width: 1408px) {
-    .day {
-        --day-width: 1.5vw;
-        --day-height: 1.5vw;
+        /* padding: 1rem; */
     }
 }
 

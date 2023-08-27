@@ -1,67 +1,184 @@
-import { Dashboard, PostAdd, Settings } from "@mui/icons-material";
-import { SpeedDial, SpeedDialIcon } from "@mui/material";
-import Box from "@mui/material/Box";
-import SpeedDialAction from "@mui/material/SpeedDialAction";
-import { useNavigate } from "react-router-dom";
+import {
+    ArrowDropUp,
+    Dashboard,
+    Favorite,
+    PostAdd,
+    Settings,
+    Visibility,
+    VisibilityOff,
+} from "@mui/icons-material";
+import { Drawer, IconButton, List, ListItem, ListItemIcon, ListItemText } from "@mui/material";
+import { useAppDispatch, useAppSelector } from "hooks/redux";
+import { useEffect, useState } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
+import { getHabitsAction } from "store/app-actions";
+import { appActions } from "store/app-slice";
 
-enum Pages {
+enum Actions {
     habits = "Nawyki",
     Create = "Dodaj nawyk",
     Settings = "Ustawienia",
 }
 
 const actions = [
-    { icon: <Dashboard />, name: Pages.habits },
-    { icon: <PostAdd />, name: Pages.Create },
-    { icon: <Settings />, name: Pages.Settings },
+    { icon: <Dashboard />, name: Actions.habits, path: "/" },
+    { icon: <PostAdd />, name: Actions.Create, path: "/create_habit" },
+    { icon: <Settings />, name: Actions.Settings, path: "/settings" },
 ];
 
 function Navigator() {
+    const [open, setOpen] = useState(false);
+    const isUserHabits = useAppSelector((state) => state.app.isMyHabits);
+    const isDearHabitsDownloaded = useAppSelector((state) => state.app.isDearHabitsDownloaded);
+    const showAllHabits = useAppSelector((state) => state.app.showAllHabits);
+
+    const dispatch = useAppDispatch();
     const navigate = useNavigate();
+    const location = useLocation();
+
+    useEffect(() => {
+        const showAllHabits = localStorage.getItem("showAllHabits");
+
+        if (showAllHabits === null) {
+            localStorage.setItem("showAllHabits", "true");
+            dispatch(appActions.setShowAllHabits(true));
+        } else {
+            dispatch(appActions.setShowAllHabits(JSON.parse(showAllHabits)));
+        }
+    }, []);
+
+    const togggleShowAllHabits = async () => {
+        localStorage.setItem("showAllHabits", (!showAllHabits).toString());
+
+        dispatch(appActions.setShowAllHabits(!showAllHabits));
+    };
+
+    const toggleDrawer = (isOpen: boolean) => () => {
+        setOpen(isOpen);
+    };
+
+    const toggleHabitsView = async () => {
+        if (!isDearHabitsDownloaded) {
+            dispatch(getHabitsAction(undefined, false));
+        }
+
+        dispatch(appActions.toggleHabitsView());
+    };
 
     const handleClick = (action: string) => {
         switch (action) {
-            case Pages.habits:
+            case Actions.habits:
                 navigate("/");
                 break;
-            case Pages.Create:
+            case Actions.Create:
                 navigate("/create_habit");
                 break;
-            case Pages.Settings:
+            case Actions.Settings:
                 navigate("/settings");
+                break;
+            case "UserSwitcher":
+                toggleHabitsView();
+                break;
+            case "ShowAllSwitcher":
+                togggleShowAllHabits();
                 break;
             default:
         }
     };
 
     return (
-        <Box sx={{ position: "fixed", bottom: "10px", right: "10px" }}>
-            <SpeedDial
-                ariaLabel="SpeedDial"
-                icon={<SpeedDialIcon />}
-                direction="left"
+        <>
+            <IconButton
+                aria-label="delete"
+                size="large"
+                onClick={toggleDrawer(true)}
                 sx={{
-                    "& .MuiFab-primary": {
-                        width: { xs: "2.5rem", md: "3.5rem" },
-                        height: { xs: "2.5rem", md: "3.5rem" },
-                    },
+                    position: "fixed",
+                    left: "50%",
+                    top: "95%",
+                    transform: "translate(-50%, -50%)",
+                    fontSize: "5rem",
+                    color: "white",
+                    boxShadow: 0,
+                    borderRadius: 0,
                 }}
             >
-                {actions.map((action) => (
-                    <SpeedDialAction
-                        key={action.name}
-                        icon={action.icon}
-                        tooltipTitle={action.name}
-                        onClick={() => handleClick(action.name)}
-                        sx={{
-                            width: { xs: "2rem", md: "2.5rem" },
-                            height: { xs: "2rem", md: "2.5rem" },
-                            color: "white",
-                        }}
-                    />
-                ))}
-            </SpeedDial>
-        </Box>
+                <ArrowDropUp fontSize="inherit" />
+            </IconButton>
+            <Drawer anchor="bottom" open={open} onClose={toggleDrawer(false)}>
+                <List>
+                    {actions.map(
+                        (action) =>
+                            action.path !== location.pathname && (
+                                <ListItem
+                                    style={{ display: "flex", justifyContent: "flex-end" }}
+                                    button
+                                    key={action.name}
+                                    onClick={() => {
+                                        toggleDrawer(false)();
+                                        handleClick(action.name);
+                                    }}
+                                >
+                                    <ListItemIcon sx={{ color: "white" }}>
+                                        {action.icon}
+                                    </ListItemIcon>
+                                    <ListItemText primary={action.name} />
+                                </ListItem>
+                            )
+                    )}
+
+                    {location.pathname === "/" && (
+                        <>
+                            <ListItem
+                                button
+                                key={"UserSwitcher"}
+                                onClick={() => {
+                                    toggleDrawer(false)();
+                                    handleClick("UserSwitcher");
+                                }}
+                            >
+                                <ListItemIcon
+                                    sx={{
+                                        color: "white",
+                                    }}
+                                >
+                                    <Favorite />
+                                </ListItemIcon>
+                                <ListItemText
+                                    primary={
+                                        isUserHabits
+                                            ? "Zobacz nawyki bobcia"
+                                            : "Wróć do swoich nawyków"
+                                    }
+                                />
+                            </ListItem>
+                            <ListItem
+                                button
+                                key={"ShowAllSwitcher"}
+                                onClick={() => {
+                                    toggleDrawer(false)();
+                                    handleClick("ShowAllSwitcher");
+                                }}
+                            >
+                                <ListItemIcon
+                                    sx={{
+                                        color: "white",
+                                    }}
+                                >
+                                    {showAllHabits ? <Visibility /> : <VisibilityOff />}
+                                </ListItemIcon>
+                                <ListItemText
+                                    primary={
+                                        showAllHabits ? "Do zrobienia dzisiaj" : "Wszystkie nawyki"
+                                    }
+                                />
+                            </ListItem>
+                        </>
+                    )}
+                </List>
+            </Drawer>
+        </>
     );
 }
+
 export default Navigator;
