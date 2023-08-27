@@ -1,7 +1,4 @@
 import { Stack } from "@mui/material";
-import ShowAllSwitcher from "components/layouts/ShowAllSwitcher";
-import UserSwitcher from "components/layouts/UserSwitcher";
-
 import HabitGroup from "components/pages/habits/HabitGroup";
 import { useAppSelector } from "hooks/redux";
 
@@ -20,14 +17,11 @@ function Habits() {
         <Stack
             component="main"
             sx={{
-                pt: 1,
+                pt: { xs: 0, sm: 2 },
                 pb: "15vh",
             }}
         >
             {generateHabitGroups()}
-
-            <UserSwitcher />
-            <ShowAllSwitcher />
         </Stack>
     );
 }

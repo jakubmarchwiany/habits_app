@@ -44,18 +44,30 @@ function HabitGroup({ group }: Props) {
     };
 
     const setShowFlag = (index: number, value: boolean) => {
-        const newShowFlags = [...showFlags];
-        newShowFlags[index] = value;
-        setShowFlags(newShowFlags);
+        setShowFlags((prev) => {
+            let newShowFlags = [...prev];
+            newShowFlags[index] = value;
+
+            return newShowFlags;
+        });
     };
 
+    console.log(group.name, showFlags);
     const showGroup = showAllHabits || showFlags.some((flag) => flag);
 
     return (
         <Stack sx={{ display: showGroup ? "" : "none" }}>
             <Divider
                 sx={{
-                    fontSize: "2rem",
+                    fontSize: { xs: "2rem", md: "2.5rem" },
+                    "&.MuiDivider-root": {
+                        "&::before": {
+                            borderTopWidth: { xs: 3, md: 4 },
+                        },
+                        "&::after": {
+                            borderTopWidth: { xs: 3, md: 4 },
+                        },
+                    },
                 }}
             >
                 {group.name}
@@ -63,11 +75,12 @@ function HabitGroup({ group }: Props) {
 
             <Grid2
                 container
-                spacing={2}
+                spacing={{ xs: 1, md: 2 }}
+                rowSpacing={2}
                 id={"habit_group_grid_" + group._id}
                 key={"habit_group_grid_" + group._id}
                 mx={{ xs: 1, md: 3 }}
-                mt={3}
+                mt={1.5}
                 mb={1}
             >
                 {generateHabits()}

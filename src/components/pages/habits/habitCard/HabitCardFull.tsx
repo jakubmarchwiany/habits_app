@@ -28,11 +28,10 @@ function HabitCardFull({ habitID, flagIndex, setShowFlag }: Props) {
 
     const dispatch = useAppDispatch();
 
-    console.log(habit.activities.length)
-
     const generateActivityDays = () => {
         const renderDayComponent = (activity: Activity, index: number) => {
             const CommonProps = {
+                id: `${habit.name}-${index}`,
                 key: `${habit.name}-${index}`,
                 date: activity.date,
             };
@@ -64,6 +63,42 @@ function HabitCardFull({ habitID, flagIndex, setShowFlag }: Props) {
                             },
                             "50%": {
                                 backgroundColor: "primary.main",
+                            },
+                        },
+                    }}
+                />
+            );
+        }
+
+        const activities = [...habit.activities];
+
+        const dateLastDoneActivity = activities.reverse().findIndex((activity) => activity.done);
+
+        if (
+            dateLastDoneActivity === -1 ||
+            dateLastDoneActivity === 0 ||
+            dateLastDoneActivity === 1 ||
+            dateLastDoneActivity - habit.periodInDays <= 0
+        )
+            return days;
+
+        if (!activities[dateLastDoneActivity - habit.periodInDays].done) {
+            const index = days.length - dateLastDoneActivity - 1 + habit.periodInDays;
+
+            days[index] = (
+                <Box
+                    key={`${habit.name}-${index}`}
+                    onClick={(event) => createActivity(event, habit.activities[index].date)}
+                    className={`day`}
+                    data-tooltip={habit.activities[index].date.slice(5)}
+                    sx={{
+                        animation: "blinkk 2s infinite",
+                        "@keyframes blinkk": {
+                            "0%, 100%": {
+                                backgroundColor: "",
+                            },
+                            "50%": {
+                                backgroundColor: "red",
                             },
                         },
                     }}
@@ -138,17 +173,15 @@ function HabitCardFull({ habitID, flagIndex, setShowFlag }: Props) {
             <Grid2
                 xs={12}
                 md={3}
-                key={"habit_panel_" + habit}
+                key={"habit_panel_" + habit._id}
                 sx={{ display: showAllHabits ? "" : shouldDoToday ? "" : "none" }}
             >
                 <Stack
-                    px={{ xs: 0.5, md: 1 }}
-                    py={{ xs: 0, md: 1 }}
-                    pb={{ xs: 1, md: 2 }}
+                    pt={{ xs: 1, md: 1 }}
                     boxShadow={5}
                     sx={{
                         border: 2,
-                        borderRadius: 5,
+                        borderRadius: 3,
                         borderColor: "primary.main",
                     }}
                 >
@@ -157,6 +190,7 @@ function HabitCardFull({ habitID, flagIndex, setShowFlag }: Props) {
                             display: "flex",
                             flexDirection: "row",
                             justifyContent: "space-between",
+                            mx: 1,
                             alignItems: "center",
                         }}
                     >
@@ -180,7 +214,7 @@ function HabitCardFull({ habitID, flagIndex, setShowFlag }: Props) {
                                 textAlign="center"
                                 sx={{
                                     wordBreak: "break-word",
-                                    typography: { xs: "h6", md: "h5" },
+                                    typography: { xs: "h4", md: "h4" },
                                     // color: habit.activities.slice(-1)[0].done ? "primary.main" : "white",
                                 }}
                             >
@@ -190,7 +224,7 @@ function HabitCardFull({ habitID, flagIndex, setShowFlag }: Props) {
                         <HabitSettings habit={habit} />
                     </Box>
 
-                    <Box className="gridDays" id={"grid-" + habit._id} mt={{ xs: "0%", md: "3%" }}>
+                    <Box className="gridDays" mt={1}>
                         {generateActivityDays()}
                     </Box>
                 </Stack>

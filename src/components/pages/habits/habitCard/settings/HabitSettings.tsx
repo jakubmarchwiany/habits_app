@@ -48,12 +48,14 @@ function HabitSettings({ habit }: Props) {
 
     const showHabit = () => {
         navigate(`/habit/${habit._id}`);
-    }
+    };
 
     return (
         <>
-            <IconButton onClick={openHabitSettings} sx={{ p: 0 }}>
-                <Settings sx={{ color: "white", fontSize: { xs: "1rem", md: "1.5rem" } }} />
+            <IconButton onClick={openHabitSettings} sx={{ p: 0, m: 0 }}>
+                <Settings
+                    sx={{ color: "white", fontSize: { xs: "1.5rem", md: "1.5rem" }}}
+                />
             </IconButton>
             {open && (
                 <>
