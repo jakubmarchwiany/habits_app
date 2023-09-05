@@ -52,7 +52,6 @@ function HabitGroup({ group }: Props) {
         });
     };
 
-    console.log(group.name, showFlags);
     const showGroup = showAllHabits || showFlags.some((flag) => flag);
 
     return (

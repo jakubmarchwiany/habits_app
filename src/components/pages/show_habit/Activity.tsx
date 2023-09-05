@@ -7,6 +7,7 @@ import { Activity as IActivity } from "store/models/activity";
 import { Habit } from "store/models/habit";
 import { postFetch } from "utils/fetches";
 import { findRightIndexByDate } from "utils/find_index";
+import "../habits/habitCard/day.css";
 
 type Props = {
     habit: Habit;
@@ -22,10 +23,7 @@ const StyledDIV = styled("div")(({ theme }) => ({
 const customStyle = (n: number) => {
     return {
         display: "grid",
-        justifyItems: "center",
-        rowGap: "0.5em",
-        columnGap: "0.5em",
-        gridTemplateColumns: `repeat(${n}, minmax(2vw, 1fr))`,
+        gridTemplateColumns: `repeat(${n}, minmax(2vw, auto))`,
         mt: { xs: 3, md: 5 },
     };
 };
@@ -41,7 +39,7 @@ function Activity({ nDays, habit, activity, setActivity }: Props) {
         for (let i = 0; i < days.length; ++i) {
             const currentDate = subtractDate.add(i, "day");
             const CommonProps = {
-                key: `${habit.name}-${i}`,
+                key: `${habit._id}-${i}`,
                 date: currentDate.format("YYYY-MM-DD"),
             };
 
@@ -68,6 +66,7 @@ function Activity({ nDays, habit, activity, setActivity }: Props) {
                 );
             }
         }
+        console.log(days)
 
         return days;
     };
@@ -122,10 +121,12 @@ function Activity({ nDays, habit, activity, setActivity }: Props) {
         if (nDays > 93) columns = 14;
         else columns = 7;
     }
+    console.log('render')
 
     return (
-        <Stack>
+        <Stack width={"100%"}>
             <Box mt={{ xs: "0%", md: "5%" }} sx={() => customStyle(columns)}>
+            {/* <Box className="gridDays" mt={1}> */}
                 {generateActivityDays()}
             </Box>
         </Stack>

@@ -13,18 +13,6 @@
     grid-template-columns: auto auto auto auto auto auto auto;
 }
 
-@media (min-width: 0px) {
-    .day {
-        /* padding: 1rem; */
-    }
-}
-
-@media (min-width: 769px) {
-    .day {
-        /* padding: 1rem; */
-    }
-}
-
 .day {
     position: relative;
 }
