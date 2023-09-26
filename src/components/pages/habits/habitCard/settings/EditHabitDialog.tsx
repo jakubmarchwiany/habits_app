@@ -9,8 +9,8 @@ import { useState } from "react";
 import { Habit } from "store/models/habit";
 
 type Props = {
-    habit: Habit;
     editHabitHandle: (name?: string, description?: string, periodInDays?: number) => void;
+    habit: Habit;
 };
 
 export default function EditHabitDialog({ habit, editHabitHandle: action }: Props) {

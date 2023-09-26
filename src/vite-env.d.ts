@@ -1,10 +1,10 @@
 /// <reference types="vite/client" />
 
-interface ImportMetaEnv {
+type ImportMetaEnv = {
     readonly VITE_API_ENDPOINT: string;
     readonly VITE_DAYS_TO_SHOW: string;
-}
+};
 
-interface ImportMeta {
+type ImportMeta = {
     readonly env: ImportMetaEnv;
-}
+};

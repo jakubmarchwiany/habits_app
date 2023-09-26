@@ -1,3 +1,5 @@
+import "../habits/habitCard/day.css";
+
 import { Box, Stack, styled, useMediaQuery, useTheme } from "@mui/material";
 import confetti from "canvas-confetti";
 import dayjs from "dayjs";
@@ -6,14 +8,13 @@ import { appActions } from "store/app-slice";
 import { Activity as IActivity } from "store/models/activity";
 import { Habit } from "store/models/habit";
 import { postFetch } from "utils/fetches";
-import { findRightIndexByDate } from "utils/find_index";
+import { findIndexToDate } from "utils/find_index_to_date";
 import { ENV } from "utils/validate_env";
-import "../habits/habitCard/day.css";
 
 type Props = {
+    activity: IActivity[];
     habit: Habit;
     nDays: number;
-    activity: IActivity[];
     setActivity: React.Dispatch<React.SetStateAction<IActivity[]>>;
 };
 
@@ -31,11 +32,11 @@ const customStyle = (n: number) => {
 
 const { VITE_N_DAYS_FROM_TODAY } = ENV;
 
-function Activity({ nDays, habit, activity, setActivity }: Props) {
+function Activity({ nDays, habit, activity, setActivity }: Props): JSX.Element {
     const generateActivityDays = () => {
         let index = 0;
         const subtractDate = dayjs().subtract(nDays, "day");
-        const days = Array(nDays);
+        const days = Array<JSX.Element>(nDays);
 
         for (let i = 0; i < days.length; ++i) {
             const currentDate = subtractDate.add(i, "day");
@@ -87,11 +88,11 @@ function Activity({ nDays, habit, activity, setActivity }: Props) {
             { habitID, date },
             "/user/habit/activity/create"
         ).then(({ data }) => {
-            if (Math.abs(dayjs(date).diff(dayjs(), "day")) < parseInt(VITE_N_DAYS_FROM_TODAY)) {
+            if (Math.abs(dayjs(date).diff(dayjs(), "day")) < VITE_N_DAYS_FROM_TODAY) {
                 const activityID = data.activityID;
                 dispatch(appActions.addActivity({ habitID, activityID, date }));
             }
-            const index = findRightIndexByDate(date, activity);
+            const index = findIndexToDate(date, activity);
             const tmp = [...activity];
             tmp.splice(index, 0, { date, done: true, _id: data.activityID });
             setActivity(tmp);
@@ -100,7 +101,7 @@ function Activity({ nDays, habit, activity, setActivity }: Props) {
 
     const deleteActivity = (_id: string, date: string) => {
         postFetch<never>({ _id }, "/user/habit/activity/delete").then(() => {
-            if (Math.abs(dayjs(date).diff(dayjs(), "day")) < parseInt(VITE_N_DAYS_FROM_TODAY)) {
+            if (Math.abs(dayjs(date).diff(dayjs(), "day")) < VITE_N_DAYS_FROM_TODAY) {
                 const habitID = habit._id;
                 const activityID = _id;
                 dispatch(appActions.deleteActivity({ habitID, activityID }));

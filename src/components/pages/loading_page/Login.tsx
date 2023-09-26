@@ -6,12 +6,12 @@ import {
     FormControlLabel,
     Stack,
     TextField,
-    Typography,
+    Typography
 } from "@mui/material";
 import Cookies from "js-cookie";
 import React, { SyntheticEvent, useState } from "react";
 import { postFetch } from "utils/fetches";
-import { sleep } from "utils/sleeper";
+import { sleep } from "utils/sleep";
 
 function Login() {
     const [username, setUsername] = useState("");
@@ -25,7 +25,7 @@ function Login() {
             async ({ token }) => {
                 Cookies.set("authorization", token, {
                     expires: rememberMe ? 31 : undefined,
-                    path: "/",
+                    path: "/"
                 });
                 await sleep(1000);
                 window.location.reload();
@@ -40,7 +40,7 @@ function Login() {
                     bgcolor: "primary.main",
                     width: "5rem",
                     height: "5rem",
-                    color: "white",
+                    color: "white"
                 }}
             >
                 <LockOpenOutlined fontSize="large" />

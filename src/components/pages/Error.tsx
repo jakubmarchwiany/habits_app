@@ -12,7 +12,7 @@ function Error() {
                 justifyContent: "center",
                 minHeight: "100vh",
                 minWidth: "100vw",
-                color: "gray",
+                color: "gray"
             }}
         >
             <Typography sx={{ fontSize: "5vw", marginBottom: "1rem" }}>

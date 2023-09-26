@@ -1,6 +1,3 @@
-/* eslint-disable @typescript-eslint/no-non-null-assertion */
-/* eslint-disable @typescript-eslint/ban-types */
-
 import { habitGroupsFetch } from "components/pages/settings/habit_groups_manager/habit_groups";
 import * as dayjs from "dayjs";
 import { NavigateFunction } from "react-router-dom";
@@ -9,19 +6,23 @@ import { Habit } from "store/models/habit";
 import { HabitGroup } from "store/models/habitGroup";
 import { getFetch, postFetch } from "utils/fetches";
 import { ENV } from "utils/validate_env";
-import { UserData, appActions } from "./app-slice";
+
+import { appActions, UserData } from "./app-slice";
 import { AppThunk } from "./index";
 
 const { VITE_N_DAYS_FROM_TODAY } = ENV;
 
 export const getHabitsAction =
-    (setIsLogged: Function | undefined, isMyHabits: boolean): AppThunk =>
+    (setIsLogged: (arg0: boolean) => void, isMyHabits: boolean): AppThunk =>
     (appDispatch) => {
         const dateFrom = dayjs().startOf("day").subtract(VITE_N_DAYS_FROM_TODAY, "days");
 
-        getFetch<{ data: UserData }>(`/user/get_habits?isUser=${isMyHabits}&dateFrom=${dateFrom}`, {
-            customError: true
-        })
+        getFetch<{ data: UserData }>(
+            `/user/get_habits?isUser=${isMyHabits}&dateFrom=${dateFrom.toString()}`,
+            {
+                customError: true
+            }
+        )
             .then(({ data }) => {
                 data.habits = prepareHabits(data.habits);
 
@@ -30,10 +31,11 @@ export const getHabitsAction =
                 } else {
                     appDispatch(appActions.setDearData(data));
                 }
-                setIsLogged && setIsLogged(true);
+
+                setIsLogged(true);
             })
-            .catch((e) => {
-                setIsLogged && setIsLogged(false);
+            .catch(() => {
+                setIsLogged(false);
             });
     };
 
@@ -51,8 +53,8 @@ const prepareHabits = (habits: Habit[]) => {
                 dayjs(habit.activities[index].date).isSame(currentDate, "day")
             ) {
                 activities[i] = {
-                    date: habit.activities[index].date.split("T")[0],
                     _id: habit.activities[index]._id,
+                    date: habit.activities[index].date.split("T")[0],
                     done: true
                 };
                 index += 1;
@@ -63,6 +65,7 @@ const prepareHabits = (habits: Habit[]) => {
                 };
             }
         }
+
         habit.activities = activities;
         return habit;
     });
@@ -76,7 +79,7 @@ export const createHabit =
         navigate: NavigateFunction
     ): AppThunk =>
     (appDispatch) => {
-        postFetch<{ data: Habit }>({ name, description, periodInDays }, "/user/habit/create").then(
+        postFetch<{ data: Habit }>({ description, name, periodInDays }, "/user/habit/create").then(
             ({ data }) => {
                 data = prepareHabits([data])[0];
                 appDispatch(appActions.createHabit(data));
@@ -89,10 +92,10 @@ export const editHabitAction =
     (_id: string, name: string, description: string, periodInDays: number): AppThunk =>
     (appDispatch) => {
         postFetch<{ data: UserData }>(
-            { _id, name, description, periodInDays },
+            { _id, description, name, periodInDays },
             "/user/habit/edit"
         ).then(() => {
-            appDispatch(appActions.editHabit({ _id, name, description, periodInDays }));
+            appDispatch(appActions.editHabit({ _id, description, name, periodInDays }));
         });
     };
 
@@ -121,11 +124,11 @@ export const createActivityAction =
     (habitID: string, date: string): AppThunk =>
     (appDispatch) => {
         postFetch<{ data: { activityID: string } }>(
-            { habitID, date },
+            { date, habitID },
             "/user/habit/activity/create"
         ).then(({ data }) => {
             const { activityID } = data;
-            appDispatch(appActions.addActivity({ habitID, activityID, date }));
+            appDispatch(appActions.addActivity({ activityID, date, habitID }));
         });
     };
 
@@ -133,6 +136,6 @@ export const deleteActivityAction =
     (habitID: string, activityID: string): AppThunk =>
     (appDispatch) => {
         postFetch<never>({ _id: activityID }, "/user/habit/activity/delete").then(() => {
-            appDispatch(appActions.deleteActivity({ habitID, activityID }));
+            appDispatch(appActions.deleteActivity({ activityID, habitID }));
         });
     };

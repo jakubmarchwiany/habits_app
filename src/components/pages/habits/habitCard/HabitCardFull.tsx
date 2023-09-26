@@ -1,4 +1,6 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
+import "./day.css";
+
 import { Box, Stack, Tooltip, Typography, Zoom } from "@mui/material";
 import Grid2 from "@mui/material/Unstable_Grid2";
 import confetti from "canvas-confetti";
@@ -10,11 +12,10 @@ import { useAppDispatch, useAppSelector } from "hooks/redux";
 import { useEffect, useState } from "react";
 import { createActivityAction, deleteActivityAction } from "store/app-actions";
 import { Activity } from "store/models/activity";
-import "./day.css";
 
 type Props = {
-    habitID: string;
     flagIndex: number;
+    habitID: string;
     setShowFlag: (index: number, value: boolean) => void;
 };
 
@@ -218,7 +219,7 @@ function HabitCardFull({ habitID, flagIndex, setShowFlag }: Props) {
                                     // color: habit.activities.slice(-1)[0].done ? "primary.main" : "white",
                                 }}
                             >
-                                {habit!.name}
+                                {habit.name}
                             </Typography>
                         </Tooltip>
                         <HabitSettings habit={habit} />

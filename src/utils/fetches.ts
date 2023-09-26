@@ -1,22 +1,24 @@
-import { authorizationFail } from "utils/authorizationFail";
 import Cookies from "js-cookie";
 import toast from "react-hot-toast";
 
-const { VITE_API_ENDPOINT } = import.meta.env;
+import { authorizationFail } from "./authorization_fail";
+import { ENV } from "./validate_env";
+
+const { VITE_API_ENDPOINT } = ENV;
 
 export async function getFetch<T>(
     url: string,
     options?: { customError?: boolean }
 ): Promise<T & { message: string }> {
-    return new Promise((resolve, reject) => {
+    return await new Promise((resolve, reject) => {
         const toastId = toast.loading("Ładowanie...");
         fetch(VITE_API_ENDPOINT + url, {
             method: "GET",
             credentials: "include",
             headers: {
                 "Content-Type": "application/json",
-                Authorization: `Bearer ${Cookies.get("authorization")}`,
-            },
+                Authorization: `Bearer ${Cookies.get("authorization")}`
+            }
         })
             .then(async (response) => {
                 const data = (await response.json()) as T & { message: string };
@@ -25,16 +27,14 @@ export async function getFetch<T>(
                     resolve(data);
                 } else {
                     toast.error(data.message, { id: toastId });
-
-                    console.log(response.status, data.message);
                     if (response.status === 401) await authorizationFail();
 
-                    if (options?.customError) reject(data);
+                    if (options?.customError !== undefined) reject(data);
                 }
             })
             .catch((error) => {
-                toast.error("Serwer nie odpowiada :(", { id: toastId });
-                if (options?.customError) reject(error);
+                toast.error("Coś poszło nie tak :(", { id: toastId });
+                if (options?.customError !== undefined) reject(error);
             });
     });
 }
@@ -44,16 +44,16 @@ export async function postFetch<T>(
     url: string,
     options?: { customError?: boolean }
 ): Promise<T & { message: string }> {
-    return new Promise((resolve, reject) => {
+    return await new Promise((resolve, reject) => {
         const toastId = toast.loading("Ładowanie...");
         fetch(VITE_API_ENDPOINT + url, {
             method: "POST",
             credentials: "include",
             headers: {
                 "Content-Type": "application/json",
-                Authorization: `Bearer ${Cookies.get("authorization")}`,
+                Authorization: `Bearer ${Cookies.get("authorization")}`
             },
-            body: JSON.stringify(body),
+            body: JSON.stringify(body)
         })
             .then(async (response) => {
                 const data = (await response.json()) as T & { message: string };
@@ -64,13 +64,12 @@ export async function postFetch<T>(
                     toast.error(data.message, { id: toastId });
                     if (response.status === 401) await authorizationFail();
 
-                    if (options?.customError) reject(data);
+                    if (options?.customError !== undefined) reject(data);
                 }
             })
             .catch((error) => {
-                console.log(error);
-                toast.error("Serwer nie odpowiada :(", { id: toastId });
-                if (options?.customError) reject(error);
+                toast.error("Coś poszło nie tak :(", { id: toastId });
+                if (options?.customError !== undefined) reject(error);
             });
     });
 }

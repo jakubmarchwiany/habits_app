@@ -21,7 +21,7 @@ function CreateHabit() {
             component="main"
             sx={{
                 px: { xs: 1, md: 3 },
-                py: { xs: 1, md: 3 },
+                py: { xs: 1, md: 3 }
             }}
             alignItems="center"
         >

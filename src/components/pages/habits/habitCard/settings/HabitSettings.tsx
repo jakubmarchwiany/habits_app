@@ -53,9 +53,7 @@ function HabitSettings({ habit }: Props) {
     return (
         <>
             <IconButton onClick={openHabitSettings} sx={{ p: 0, m: 0 }}>
-                <Settings
-                    sx={{ color: "white", fontSize: { xs: "1.5rem", md: "1.5rem" }}}
-                />
+                <Settings sx={{ color: "white", fontSize: { xs: "1.5rem", md: "1.5rem" } }} />
             </IconButton>
             {open && (
                 <>
@@ -64,7 +62,7 @@ function HabitSettings({ habit }: Props) {
                         open={open}
                         onClose={closeHabitSettings}
                         MenuListProps={{
-                            "aria-labelledby": "basic-button",
+                            "aria-labelledby": "basic-button"
                         }}
                     >
                         <MenuItem onClick={showHabit}>Pokaż wszystko</MenuItem>

@@ -5,7 +5,7 @@ import {
     PostAdd,
     Settings,
     Visibility,
-    VisibilityOff,
+    VisibilityOff
 } from "@mui/icons-material";
 import { Drawer, IconButton, List, ListItem, ListItemIcon, ListItemText } from "@mui/material";
 import { useAppDispatch, useAppSelector } from "hooks/redux";
@@ -15,15 +15,15 @@ import { getHabitsAction } from "store/app-actions";
 import { appActions } from "store/app-slice";
 
 enum Actions {
-    habits = "Nawyki",
     Create = "Dodaj nawyk",
     Settings = "Ustawienia",
+    habits = "Nawyki"
 }
 
 const actions = [
     { icon: <Dashboard />, name: Actions.habits, path: "/" },
     { icon: <PostAdd />, name: Actions.Create, path: "/create_habit" },
-    { icon: <Settings />, name: Actions.Settings, path: "/settings" },
+    { icon: <Settings />, name: Actions.Settings, path: "/settings" }
 ];
 
 function Navigator() {
@@ -39,15 +39,17 @@ function Navigator() {
     useEffect(() => {
         const showAllHabits = localStorage.getItem("showAllHabits");
 
-        if (showAllHabits === null) {
+        if (showAllHabits !== null) {
+            const boolean = JSON.parse(showAllHabits) as boolean;
+
+            dispatch(appActions.setShowAllHabits(boolean));
+        } else {
             localStorage.setItem("showAllHabits", "true");
             dispatch(appActions.setShowAllHabits(true));
-        } else {
-            dispatch(appActions.setShowAllHabits(JSON.parse(showAllHabits)));
         }
     }, []);
 
-    const togggleShowAllHabits = async () => {
+    const togggleShowAllHabits = () => {
         localStorage.setItem("showAllHabits", (!showAllHabits).toString());
 
         dispatch(appActions.setShowAllHabits(!showAllHabits));
@@ -57,9 +59,9 @@ function Navigator() {
         setOpen(isOpen);
     };
 
-    const toggleHabitsView = async () => {
+    const toggleHabitsView = (): void => {
         if (!isDearHabitsDownloaded) {
-            dispatch(getHabitsAction(undefined, false));
+            dispatch(getHabitsAction(() => {}, false));
         }
 
         dispatch(appActions.toggleHabitsView());
@@ -100,7 +102,7 @@ function Navigator() {
                     fontSize: "5rem",
                     color: "white",
                     boxShadow: 0,
-                    borderRadius: 0,
+                    borderRadius: 0
                 }}
             >
                 <ArrowDropUp fontSize="inherit" />
@@ -111,7 +113,10 @@ function Navigator() {
                         (action) =>
                             action.path !== location.pathname && (
                                 <ListItem
-                                    style={{ display: "flex", justifyContent: "flex-end" }}
+                                    style={{
+                                        display: "flex",
+                                        justifyContent: "flex-end"
+                                    }}
                                     button
                                     key={action.name}
                                     onClick={() => {
@@ -139,7 +144,7 @@ function Navigator() {
                             >
                                 <ListItemIcon
                                     sx={{
-                                        color: "white",
+                                        color: "white"
                                     }}
                                 >
                                     <Favorite />
@@ -162,7 +167,7 @@ function Navigator() {
                             >
                                 <ListItemIcon
                                     sx={{
-                                        color: "white",
+                                        color: "white"
                                     }}
                                 >
                                     {showAllHabits ? <Visibility /> : <VisibilityOff />}

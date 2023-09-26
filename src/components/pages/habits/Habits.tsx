@@ -1,5 +1,5 @@
 import { Stack } from "@mui/material";
-import HabitGroup from "components/pages/habits/HabitGroup";
+import HabitGroupPanel from "components/pages/habits/HabitGroup";
 import { useAppSelector } from "hooks/redux";
 
 function Habits() {
@@ -9,7 +9,7 @@ function Habits() {
 
     const generateHabitGroups = () => {
         return habitGroups.slice(0, 1).map((group) => {
-            return <HabitGroup group={group} key={"habit_group_" + group._id} />;
+            return <HabitGroupPanel group={group} key={"habit_group_" + group._id} />;
         });
     };
 

@@ -3,7 +3,7 @@ import {
     SentimentSatisfied,
     SentimentSatisfiedAlt,
     SentimentVeryDissatisfied,
-    SentimentVerySatisfied,
+    SentimentVerySatisfied
 } from "@mui/icons-material";
 import { Tooltip } from "@mui/material";
 import * as React from "react";
@@ -13,7 +13,7 @@ const rateIcons: React.ReactElement[] = [
     <SentimentDissatisfied />,
     <SentimentSatisfied />,
     <SentimentSatisfiedAlt />,
-    <SentimentVerySatisfied />,
+    <SentimentVerySatisfied />
 ];
 
 const THRESHOLDVALUES = [
@@ -21,7 +21,7 @@ const THRESHOLDVALUES = [
     { value: 0.4, color: "#FF6600" },
     { value: 0.6, color: "#FFFF00" },
     { value: 0.8, color: "#33FF33" },
-    { value: Number.MAX_VALUE, color: "#00FF00" },
+    { value: Number.MAX_VALUE, color: "#00FF00" }
 ];
 
 type Props = {
@@ -37,7 +37,7 @@ export default function GoalRate({ rate }: Props) {
     return (
         <Tooltip title={`Cel osiągnięty w ${Math.floor(rate * 100)}%`} placement="top">
             {React.cloneElement(icon, {
-                sx: { fontSize: { xs: "1.5rem", md: "1.5rem" }, color: color, p: 0, m: 0 },
+                sx: { fontSize: { xs: "1.5rem", md: "1.5rem" }, color: color, p: 0, m: 0 }
             })}
         </Tooltip>
     );

@@ -1,8 +1,7 @@
-import { Stack, ThemeProvider, createTheme, responsiveFontSizes } from "@mui/material";
+import { createTheme, responsiveFontSizes, Stack, ThemeProvider } from "@mui/material";
 import { getTheme } from "assets/theme";
 import Navigator from "components/layouts/Navigator";
 import LoadingPage from "components/pages/loading_page/LoadingPage";
-import dayjs from "dayjs";
 import { useAppDispatch } from "hooks/redux";
 import Cookies from "js-cookie";
 import { useEffect, useMemo, useState } from "react";

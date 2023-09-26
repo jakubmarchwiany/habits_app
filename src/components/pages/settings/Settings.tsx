@@ -2,29 +2,26 @@ import { Button, Stack, Typography } from "@mui/material";
 import { standardSize } from "assets/theme";
 import ColorThemeSettings from "components/pages/settings/ColorThemeSettings";
 import HabitGroupsManager from "components/pages/settings/habit_groups_manager/HabitGroupsManager";
-import Cookies from "js-cookie";
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
-import { sleep } from "utils/sleeper";
+import { deleteCookieAndRefresh } from "utils/authorization_fail";
+import { sleep } from "utils/sleep";
 
 function Settings() {
     const [isHabitGroupsManagerOpen, setIsHabitGroupsManagerOpen] = useState(false);
 
     useEffect(() => {
-        let urlParams = new URLSearchParams(window.location.search);
+        const urlParams = new URLSearchParams(window.location.search);
 
         if (urlParams.get("openGroupManager") === "true") {
             setIsHabitGroupsManagerOpen(true);
         }
     });
 
- 
-
     const loguout = async () => {
-        Cookies.remove("authorization");
         toast.success("Wylogowano pomyślnie");
         await sleep(500);
-        window.location.href = "/";
+        deleteCookieAndRefresh();
     };
 
     return (
@@ -32,7 +29,7 @@ function Settings() {
             component="main"
             sx={{
                 px: { xs: 1, md: 3 },
-                py: { xs: 1, md: 3 },
+                py: { xs: 1, md: 3 }
             }}
         >
             {!isHabitGroupsManagerOpen && (

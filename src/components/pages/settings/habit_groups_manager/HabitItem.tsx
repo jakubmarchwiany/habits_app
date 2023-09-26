@@ -4,12 +4,12 @@ import { habitItem } from "components/pages/settings/habit_groups_manager/habit_
 import { DragEvent } from "react";
 
 type Props = {
-    itemIndex: number;
+    groupHabitsLength: number;
     groupIndex: number;
     habit: habitItem;
-    groupHabitsLength: number;
-    moveHabitItem: (oldIndex: number, newIndex: number, groupIndex: number) => void;
     handleDragStart: (e: DragEvent<HTMLDivElement>, habit: habitItem, groupIndex: number) => void;
+    itemIndex: number;
+    moveHabitItem: (oldIndex: number, newIndex: number, groupIndex: number) => void;
 };
 
 function HabitItem({
@@ -18,7 +18,7 @@ function HabitItem({
     groupIndex,
     groupHabitsLength,
     handleDragStart,
-    moveHabitItem,
+    moveHabitItem
 }: Props) {
     return (
         <Stack
@@ -32,7 +32,7 @@ function HabitItem({
                 backgroundColor: "hsl(0, 0%, 20%)",
                 border: 2,
                 my: 0.5,
-                borderColor: "primary.main",
+                borderColor: "primary.main"
             }}
         >
             <Typography>{habit.name}</Typography>
@@ -52,7 +52,7 @@ function HabitItem({
                     disabled={itemIndex === groupHabitsLength - 1}
                     sx={{
                         color: itemIndex === groupHabitsLength - 1 ? "" : "primary.main",
-                        p: 0,
+                        p: 0
                     }}
                 >
                     <ArrowDropDown />

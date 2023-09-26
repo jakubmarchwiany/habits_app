@@ -1,9 +1,9 @@
 import { Delete } from "@mui/icons-material";
 import { Button, IconButton, Stack, TextField } from "@mui/material";
 import Grid2 from "@mui/material/Unstable_Grid2";
-import HabitItem from "components/pages/settings/habit_groups_manager/HabitItem";
 import { habitGroups } from "components/pages/settings/habit_groups_manager/habit_groups";
 import { habitItem } from "components/pages/settings/habit_groups_manager/habit_item";
+import HabitItem from "components/pages/settings/habit_groups_manager/HabitItem";
 import React from "react";
 import toast from "react-hot-toast";
 
@@ -22,7 +22,7 @@ function HabitGroup({ habitGroups, setHabitGroups, group, groupIndex }: Props) {
     const handleDrop = (event: React.DragEvent<HTMLDivElement>, newGroupIndex: number) => {
         event.preventDefault();
         const itemString = event.dataTransfer.getData("text/plain");
-        const item: [number, habitItem] = JSON.parse(itemString);
+        const item = JSON.parse(itemString) as [number, habitItem];
 
         if (item[0] === newGroupIndex) return;
 
@@ -134,7 +134,7 @@ function HabitGroup({ habitGroups, setHabitGroups, group, groupIndex }: Props) {
                     onClick={() => moveGroup(groupIndex, groupIndex + 1)}
                     disabled={groupIndex === habitGroups.length - 1}
                     sx={{
-                        color: groupIndex === habitGroups.length - 1 ? "" : "primary.main",
+                        color: groupIndex === habitGroups.length - 1 ? "" : "primary.main"
                     }}
                 >
                     {">"}

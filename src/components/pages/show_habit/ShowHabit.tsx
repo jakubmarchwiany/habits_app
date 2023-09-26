@@ -21,11 +21,11 @@ function ShowHabit() {
     useEffect(() => {
         const dateFrom = dayjs().startOf("day").subtract(nDaysFromToday, "days");
 
-        getFetch<{ data: IActivity[] }>(`/user/habits/${_id}/activities?dateFrom=${dateFrom}`).then(
-            ({ data }) => {
-                setActivity(data);
-            }
-        );
+        getFetch<{ data: IActivity[] }>(
+            `/user/habits/${_id}/activities?dateFrom=${dateFrom.toString()}`
+        ).then(({ data }) => {
+            setActivity(data);
+        });
     }, [nDaysFromToday]);
 
     return (

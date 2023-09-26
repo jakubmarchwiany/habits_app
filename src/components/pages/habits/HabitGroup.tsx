@@ -4,18 +4,17 @@ import HabitCard from "components/pages/habits/habitCard/HabitCard";
 import HabitCardFull from "components/pages/habits/habitCard/HabitCardFull";
 import { useAppSelector } from "hooks/redux";
 import { useState } from "react";
-
 import { HabitGroup } from "store/models/habitGroup";
 
 type Props = {
     group: HabitGroup;
 };
 
-function HabitGroup({ group }: Props) {
+export default function HabitGroupPanel({ group }: Props) {
     const isUserHabits = useAppSelector((state) => state.app.isMyHabits);
     const showAllHabits = useAppSelector((state) => state.app.showAllHabits);
 
-    const [showFlags, setShowFlags] = useState(Array(group.habits.length).fill(false));
+    const [showFlags, setShowFlags] = useState<boolean[]>(Array(group.habits.length).fill(false));
 
     const generateHabits = () => {
         if (isUserHabits) {
@@ -45,7 +44,7 @@ function HabitGroup({ group }: Props) {
 
     const setShowFlag = (index: number, value: boolean) => {
         setShowFlags((prev) => {
-            let newShowFlags = [...prev];
+            const newShowFlags = [...prev];
             newShowFlags[index] = value;
 
             return newShowFlags;
@@ -61,12 +60,12 @@ function HabitGroup({ group }: Props) {
                     fontSize: { xs: "2rem", md: "2.5rem" },
                     "&.MuiDivider-root": {
                         "&::before": {
-                            borderTopWidth: { xs: 3, md: 4 },
+                            borderTopWidth: { xs: 3, md: 4 }
                         },
                         "&::after": {
-                            borderTopWidth: { xs: 3, md: 4 },
-                        },
-                    },
+                            borderTopWidth: { xs: 3, md: 4 }
+                        }
+                    }
                 }}
             >
                 {group.name}
@@ -87,5 +86,3 @@ function HabitGroup({ group }: Props) {
         </Stack>
     );
 }
-
-export default HabitGroup;

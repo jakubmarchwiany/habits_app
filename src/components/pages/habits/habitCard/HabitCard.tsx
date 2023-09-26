@@ -1,18 +1,19 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
-import { Box, Stack, Typography, styled } from "@mui/material";
+import "./day.css";
+
+import { Box, Stack, styled, Typography } from "@mui/material";
 import Grid2 from "@mui/material/Unstable_Grid2";
 import GoalRate from "components/pages/habits/habitCard/GoalRate";
 import { useAppSelector } from "hooks/redux";
 import { useEffect, useState } from "react";
-import "./day.css";
 
 const StyledDIV = styled("div")(({ theme }) => ({
-    backgroundColor: theme.palette.primary.main,
+    backgroundColor: theme.palette.primary.main
 }));
 
 type Props = {
-    habitID: string;
     flagIndex: number;
+    habitID: string;
     setShowFlag: (index: number, value: boolean) => void;
 };
 
@@ -24,7 +25,6 @@ function HabitCard({ habitID, flagIndex, setShowFlag }: Props) {
     const [shouldDoToday, setShouldDoToday] = useState<boolean>(false);
 
     const generateActivityDays = () => {
-       
         const days = habit.activities.map((activity, index) => {
             if (activity.done) {
                 return (
@@ -58,12 +58,12 @@ function HabitCard({ habitID, flagIndex, setShowFlag }: Props) {
                         animation: "blink 2s infinite",
                         "@keyframes blink": {
                             "0%, 100%": {
-                                backgroundColor: "",
+                                backgroundColor: ""
                             },
                             "50%": {
-                                backgroundColor: "primary.main",
-                            },
-                        },
+                                backgroundColor: "primary.main"
+                            }
+                        }
                     }}
                 />
             );
@@ -93,17 +93,17 @@ function HabitCard({ habitID, flagIndex, setShowFlag }: Props) {
                         animation: "blinkk 2s infinite",
                         "@keyframes blinkk": {
                             "0%, 100%": {
-                                backgroundColor: "",
+                                backgroundColor: ""
                             },
                             "50%": {
-                                backgroundColor: "red",
-                            },
-                        },
+                                backgroundColor: "red"
+                            }
+                        }
                     }}
                 />
             );
         }
-        console.log(days)
+        console.log(days);
         return days;
     };
 
@@ -151,14 +151,14 @@ function HabitCard({ habitID, flagIndex, setShowFlag }: Props) {
     };
 
     return (
-        <Grid2 xs={12} md={3} key={"habit_panel_" + habit}>
+        <Grid2 xs={12} md={3} key={`habit_card_${habit._id}`}>
             <Stack
                 pt={{ xs: 1, md: 1 }}
                 boxShadow={5}
                 sx={{
                     border: 2,
                     borderRadius: 3,
-                    borderColor: "#FFB6C1",
+                    borderColor: "#FFB6C1"
                 }}
             >
                 <Box
@@ -167,7 +167,7 @@ function HabitCard({ habitID, flagIndex, setShowFlag }: Props) {
                         flexDirection: "row",
                         justifyContent: "space-between",
                         mx: 1,
-                        alignItems: "center",
+                        alignItems: "center"
                     }}
                 >
                     <GoalRate rate={goalRate} />

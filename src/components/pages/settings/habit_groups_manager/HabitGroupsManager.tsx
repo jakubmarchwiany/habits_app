@@ -1,9 +1,9 @@
 import { Button } from "@mui/material";
 import Grid2 from "@mui/material/Unstable_Grid2/Grid2";
 import { standardSize } from "assets/theme";
-import HabitGroup from "components/pages/settings/habit_groups_manager/HabitGroup";
 import { habitGroups } from "components/pages/settings/habit_groups_manager/habit_groups";
 import { habitItem } from "components/pages/settings/habit_groups_manager/habit_item";
+import HabitGroup from "components/pages/settings/habit_groups_manager/HabitGroup";
 import { useAppDispatch, useAppSelector } from "hooks/redux";
 import { useEffect, useState } from "react";
 import { toast } from "react-hot-toast";
@@ -89,7 +89,7 @@ function HabitGroupsManager() {
                             width: "100%",
                             height: "100%",
                             border: 2,
-                            borderColor: "primary.main",
+                            borderColor: "primary.main"
                         }}
                         onClick={addNewGroup}
                     >

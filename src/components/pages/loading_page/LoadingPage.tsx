@@ -15,7 +15,7 @@ function LoadingPage({ isLogged }: Props) {
                 justifyContent: "center",
                 alignItems: "center",
                 height: "100vh",
-                backgroundColor: "#424242",
+                backgroundColor: "#424242"
             }}
         >
             {isLogged === undefined ? (

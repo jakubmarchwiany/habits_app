@@ -1,8 +1,9 @@
-import { styled } from "@mui/material/styles";
 import "./day.css";
 
+import { styled } from "@mui/material/styles";
+
 const StyledDIV = styled("div")(({ theme }) => ({
-    backgroundColor: theme.palette.primary.main,
+    backgroundColor: theme.palette.primary.main
 }));
 
 type Props = {

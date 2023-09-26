@@ -5,7 +5,6 @@
     margin: 5px;
     padding-top: 1rem;
     padding-bottom: 1rem;
-
 }
 
 .gridDays {
@@ -31,7 +30,9 @@
     white-space: nowrap;
     visibility: hidden;
     opacity: 0;
-    transition: opacity 1s, visibility 0.3s;
+    transition:
+        opacity 1s,
+        visibility 0.3s;
 }
 
 .day:hover::after {

@@ -36,11 +36,11 @@ function ColorThemeSettings() {
                     <IconButton onClick={handleSave}>
                         <SaveIcon sx={{ color: "primary.main" }} />
                     </IconButton>
-                ),
+                )
             }}
             sx={{
                 width: standardSize,
-                alignSelf: "center",
+                alignSelf: "center"
             }}
         />
     );
