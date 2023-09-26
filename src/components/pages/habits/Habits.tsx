@@ -8,7 +8,7 @@ function Habits() {
     });
 
     const generateHabitGroups = () => {
-        return habitGroups.map((group) => {
+        return habitGroups.slice(0, 1).map((group) => {
             return <HabitGroup group={group} key={"habit_group_" + group._id} />;
         });
     };
@@ -18,7 +18,7 @@ function Habits() {
             component="main"
             sx={{
                 pt: { xs: 0, sm: 2 },
-                pb: "15vh",
+                pb: "15vh"
             }}
         >
             {generateHabitGroups()}

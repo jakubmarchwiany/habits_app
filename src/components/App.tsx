@@ -2,6 +2,7 @@ import { Stack, ThemeProvider, createTheme, responsiveFontSizes } from "@mui/mat
 import { getTheme } from "assets/theme";
 import Navigator from "components/layouts/Navigator";
 import LoadingPage from "components/pages/loading_page/LoadingPage";
+import dayjs from "dayjs";
 import { useAppDispatch } from "hooks/redux";
 import Cookies from "js-cookie";
 import { useEffect, useMemo, useState } from "react";
@@ -53,8 +54,8 @@ function App() {
                     style: {
                         background: theme.palette.background.default,
                         color: theme.palette.primary.contrastText,
-                        minWidth: "250px",
-                    },
+                        minWidth: "250px"
+                    }
                 }}
             />
         </ThemeProvider>

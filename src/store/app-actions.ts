@@ -1,31 +1,31 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 /* eslint-disable @typescript-eslint/ban-types */
 
-import { NavigateFunction } from "react-router-dom";
-import { getFetch, postFetch } from "utils/fetches";
-import { AppThunk } from "./index";
-import { UserData, appActions } from "./app-slice";
-import { Habit } from "store/models/habit";
 import { habitGroupsFetch } from "components/pages/settings/habit_groups_manager/habit_groups";
-import { HabitGroup } from "store/models/habitGroup";
-import dayjs from "dayjs";
+import * as dayjs from "dayjs";
+import { NavigateFunction } from "react-router-dom";
 import { Activity } from "store/models/activity";
+import { Habit } from "store/models/habit";
+import { HabitGroup } from "store/models/habitGroup";
+import { getFetch, postFetch } from "utils/fetches";
+import { ENV } from "utils/validate_env";
+import { UserData, appActions } from "./app-slice";
+import { AppThunk } from "./index";
 
-const { VITE_DAYS_TO_SHOW } = import.meta.env;
+const { VITE_N_DAYS_FROM_TODAY } = ENV;
 
 export const getHabitsAction =
-    (setIsLogged: Function | undefined, getMyHabits: boolean): AppThunk =>
+    (setIsLogged: Function | undefined, isMyHabits: boolean): AppThunk =>
     (appDispatch) => {
-        getFetch<{ data: UserData }>(
-            `/user/get_habits?days=${VITE_DAYS_TO_SHOW}&isUser=${getMyHabits}`,
-            {
-                customError: true,
-            }
-        )
+        const dateFrom = dayjs().startOf("day").subtract(VITE_N_DAYS_FROM_TODAY, "days");
+
+        getFetch<{ data: UserData }>(`/user/get_habits?isUser=${isMyHabits}&dateFrom=${dateFrom}`, {
+            customError: true
+        })
             .then(({ data }) => {
                 data.habits = prepareHabits(data.habits);
 
-                if (getMyHabits) {
+                if (isMyHabits) {
                     appDispatch(appActions.setUserData(data));
                 } else {
                     appDispatch(appActions.setDearData(data));
@@ -33,17 +33,16 @@ export const getHabitsAction =
                 setIsLogged && setIsLogged(true);
             })
             .catch((e) => {
-                console.log(e);
                 setIsLogged && setIsLogged(false);
             });
     };
 
 const prepareHabits = (habits: Habit[]) => {
-    const subtractDate = dayjs().subtract(parseInt(VITE_DAYS_TO_SHOW) - 1, "day");
+    const subtractDate = dayjs().subtract(VITE_N_DAYS_FROM_TODAY, "day");
     return habits.map((habit) => {
         let index = 0;
 
-        const activities = Array<Activity>(parseInt(VITE_DAYS_TO_SHOW));
+        const activities = Array<Activity>(VITE_N_DAYS_FROM_TODAY);
         for (let i = 0; i < activities.length; i++) {
             const currentDate = subtractDate.add(i, "day");
 
@@ -54,13 +53,13 @@ const prepareHabits = (habits: Habit[]) => {
                 activities[i] = {
                     date: habit.activities[index].date.split("T")[0],
                     _id: habit.activities[index]._id,
-                    done: true,
+                    done: true
                 };
                 index += 1;
             } else {
                 activities[i] = {
                     date: currentDate.format("YYYY-MM-DD"),
-                    done: false,
+                    done: false
                 };
             }
         }

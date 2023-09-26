@@ -24,6 +24,7 @@ function HabitCard({ habitID, flagIndex, setShowFlag }: Props) {
     const [shouldDoToday, setShouldDoToday] = useState<boolean>(false);
 
     const generateActivityDays = () => {
+       
         const days = habit.activities.map((activity, index) => {
             if (activity.done) {
                 return (
@@ -102,7 +103,7 @@ function HabitCard({ habitID, flagIndex, setShowFlag }: Props) {
                 />
             );
         }
-
+        console.log(days)
         return days;
     };
 

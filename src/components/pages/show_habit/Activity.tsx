@@ -7,6 +7,7 @@ import { Activity as IActivity } from "store/models/activity";
 import { Habit } from "store/models/habit";
 import { postFetch } from "utils/fetches";
 import { findRightIndexByDate } from "utils/find_index";
+import { ENV } from "utils/validate_env";
 import "../habits/habitCard/day.css";
 
 type Props = {
@@ -17,30 +18,30 @@ type Props = {
 };
 
 const StyledDIV = styled("div")(({ theme }) => ({
-    backgroundColor: theme.palette.primary.main,
+    backgroundColor: theme.palette.primary.main
 }));
 
 const customStyle = (n: number) => {
     return {
         display: "grid",
         gridTemplateColumns: `repeat(${n}, minmax(2vw, auto))`,
-        mt: { xs: 3, md: 5 },
+        mt: { xs: 3, md: 5 }
     };
 };
 
-const { VITE_DAYS_TO_SHOW } = import.meta.env;
+const { VITE_N_DAYS_FROM_TODAY } = ENV;
 
 function Activity({ nDays, habit, activity, setActivity }: Props) {
     const generateActivityDays = () => {
         let index = 0;
-        const subtractDate = dayjs().subtract(nDays - 1, "day");
+        const subtractDate = dayjs().subtract(nDays, "day");
         const days = Array(nDays);
 
         for (let i = 0; i < days.length; ++i) {
             const currentDate = subtractDate.add(i, "day");
             const CommonProps = {
                 key: `${habit._id}-${i}`,
-                date: currentDate.format("YYYY-MM-DD"),
+                date: currentDate.format("YYYY-MM-DD")
             };
 
             if (index < activity.length && dayjs(activity[index].date).isSame(currentDate, "day")) {
@@ -66,7 +67,6 @@ function Activity({ nDays, habit, activity, setActivity }: Props) {
                 );
             }
         }
-        console.log(days)
 
         return days;
     };
@@ -79,7 +79,7 @@ function Activity({ nDays, habit, activity, setActivity }: Props) {
             startVelocity: 15,
             spread: 360,
             ticks: 75,
-            origin: { x: e.clientX / window.innerWidth, y: e.clientY / window.innerHeight },
+            origin: { x: e.clientX / window.innerWidth, y: e.clientY / window.innerHeight }
         });
         const habitID = habit._id;
 
@@ -87,7 +87,7 @@ function Activity({ nDays, habit, activity, setActivity }: Props) {
             { habitID, date },
             "/user/habit/activity/create"
         ).then(({ data }) => {
-            if (Math.abs(dayjs(date).diff(dayjs(), "day")) < parseInt(VITE_DAYS_TO_SHOW)) {
+            if (Math.abs(dayjs(date).diff(dayjs(), "day")) < parseInt(VITE_N_DAYS_FROM_TODAY)) {
                 const activityID = data.activityID;
                 dispatch(appActions.addActivity({ habitID, activityID, date }));
             }
@@ -100,7 +100,7 @@ function Activity({ nDays, habit, activity, setActivity }: Props) {
 
     const deleteActivity = (_id: string, date: string) => {
         postFetch<never>({ _id }, "/user/habit/activity/delete").then(() => {
-            if (Math.abs(dayjs(date).diff(dayjs(), "day")) < parseInt(VITE_DAYS_TO_SHOW)) {
+            if (Math.abs(dayjs(date).diff(dayjs(), "day")) < parseInt(VITE_N_DAYS_FROM_TODAY)) {
                 const habitID = habit._id;
                 const activityID = _id;
                 dispatch(appActions.deleteActivity({ habitID, activityID }));
@@ -121,12 +121,11 @@ function Activity({ nDays, habit, activity, setActivity }: Props) {
         if (nDays > 93) columns = 14;
         else columns = 7;
     }
-    console.log('render')
 
     return (
         <Stack width={"100%"}>
             <Box mt={{ xs: "0%", md: "5%" }} sx={() => customStyle(columns)}>
-            {/* <Box className="gridDays" mt={1}> */}
+                {/* <Box className="gridDays" mt={1}> */}
                 {generateActivityDays()}
             </Box>
         </Stack>

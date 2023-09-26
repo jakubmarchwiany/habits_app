@@ -33,7 +33,7 @@ function HabitCardFull({ habitID, flagIndex, setShowFlag }: Props) {
             const CommonProps = {
                 id: `${habit.name}-${index}`,
                 key: `${habit.name}-${index}`,
-                date: activity.date,
+                date: activity.date
             };
 
             if (activity.done) {
@@ -46,7 +46,7 @@ function HabitCardFull({ habitID, flagIndex, setShowFlag }: Props) {
         };
 
         const days = habit.activities.map((activity, index) => renderDayComponent(activity, index));
-
+        console.log(days);
         const lastActivity = habit.activities[habit.activities.length - 1];
         if (!lastActivity.done && shouldDoToday) {
             days[habit.activities.length - 1] = (
@@ -59,12 +59,12 @@ function HabitCardFull({ habitID, flagIndex, setShowFlag }: Props) {
                         animation: "blink 2s infinite",
                         "@keyframes blink": {
                             "0%, 100%": {
-                                backgroundColor: "",
+                                backgroundColor: ""
                             },
                             "50%": {
-                                backgroundColor: "primary.main",
-                            },
-                        },
+                                backgroundColor: "primary.main"
+                            }
+                        }
                     }}
                 />
             );
@@ -95,12 +95,12 @@ function HabitCardFull({ habitID, flagIndex, setShowFlag }: Props) {
                         animation: "blinkk 2s infinite",
                         "@keyframes blinkk": {
                             "0%, 100%": {
-                                backgroundColor: "",
+                                backgroundColor: ""
                             },
                             "50%": {
-                                backgroundColor: "red",
-                            },
-                        },
+                                backgroundColor: "red"
+                            }
+                        }
                     }}
                 />
             );
@@ -115,7 +115,7 @@ function HabitCardFull({ habitID, flagIndex, setShowFlag }: Props) {
             startVelocity: 15,
             spread: 360,
             ticks: 75,
-            origin: { x: e.clientX / window.innerWidth, y: e.clientY / window.innerHeight },
+            origin: { x: e.clientX / window.innerWidth, y: e.clientY / window.innerHeight }
         });
         dispatch(createActivityAction(habitID, date));
     };
@@ -182,7 +182,7 @@ function HabitCardFull({ habitID, flagIndex, setShowFlag }: Props) {
                     sx={{
                         border: 2,
                         borderRadius: 3,
-                        borderColor: "primary.main",
+                        borderColor: "primary.main"
                     }}
                 >
                     <Box
@@ -191,7 +191,7 @@ function HabitCardFull({ habitID, flagIndex, setShowFlag }: Props) {
                             flexDirection: "row",
                             justifyContent: "space-between",
                             mx: 1,
-                            alignItems: "center",
+                            alignItems: "center"
                         }}
                     >
                         <GoalRate rate={goalRate} />
@@ -214,7 +214,7 @@ function HabitCardFull({ habitID, flagIndex, setShowFlag }: Props) {
                                 textAlign="center"
                                 sx={{
                                     wordBreak: "break-word",
-                                    typography: { xs: "h4", md: "h4" },
+                                    typography: { xs: "h4", md: "h4" }
                                     // color: habit.activities.slice(-1)[0].done ? "primary.main" : "white",
                                 }}
                             >

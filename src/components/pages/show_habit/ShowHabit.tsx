@@ -1,27 +1,32 @@
 import { Stack, Typography } from "@mui/material";
 import Activity from "components/pages/show_habit/Activity";
-import { Activity as IActivity } from "store/models/activity";
 import DaysSelector from "components/pages/show_habit/DaysSelector";
+import dayjs from "dayjs";
+import { useAppSelector } from "hooks/redux";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { Habit } from "store/models/habit";
+import { Activity as IActivity } from "store/models/activity";
 import { getFetch } from "utils/fetches";
 
 function ShowHabit() {
     const { _id } = useParams<{ _id: string }>();
 
-    const [habit, setHabit] = useState<Habit>();
+    const habit = useAppSelector((state) => {
+        return state.app.myHabits.find((e) => e._id === _id);
+    });
+
     const [activity, setActivity] = useState<IActivity[]>([]);
-    const [nDays, setNDays] = useState(31);
+    const [nDaysFromToday, setNDaysFromToday] = useState(31);
 
     useEffect(() => {
-        getFetch<{ data: { habit: Habit; activity: IActivity[] } }>(
-            `/user/habit/${_id}?nDays=${nDays}`
-        ).then(({ data }) => {
-            setHabit(data.habit);
-            setActivity(data.activity);
-        });
-    }, [nDays]);
+        const dateFrom = dayjs().startOf("day").subtract(nDaysFromToday, "days");
+
+        getFetch<{ data: IActivity[] }>(`/user/habits/${_id}/activities?dateFrom=${dateFrom}`).then(
+            ({ data }) => {
+                setActivity(data);
+            }
+        );
+    }, [nDaysFromToday]);
 
     return (
         habit &&
@@ -42,11 +47,11 @@ function ShowHabit() {
                     <Typography variant="h4" mt={2} mb={3}>
                         Założenia co {habit?.periodInDays} dni
                     </Typography>
-                    <DaysSelector nDays={nDays} setNDays={setNDays} />
+                    <DaysSelector nDays={nDaysFromToday} setNDays={setNDaysFromToday} />
 
                     <Activity
                         habit={habit}
-                        nDays={nDays}
+                        nDays={nDaysFromToday}
                         activity={activity}
                         setActivity={setActivity}
                     />
