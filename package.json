@@ -1,18 +1,4 @@
 {
-    "name": "bobciowo",
-    "version": "1.0.1",
-    "private": true,
-    "type": "module",
-    "scripts": {
-        "build": "tsc && vite build",
-        "dev": "vite",
-        "lint": "eslint .",
-        "lint:fix": "eslint . --fix",
-        "lint:knip": "knip",
-        "lint:packages": "pnpm dedupe --check",
-        "lint:prettier": "prettier . --write",
-        "preview": "vite preview"
-    },
     "dependencies": {
         "@emotion/react": "^11.11.1",
         "@emotion/styled": "^11.11.0",
@@ -20,7 +6,6 @@
         "@mui/icons-material": "^5.14.11",
         "@mui/material": "^5.14.11",
         "@reduxjs/toolkit": "^1.9.6",
-        "@vitejs/plugin-react": "^4.1.0",
         "canvas-confetti": "^1.6.0",
         "dayjs": "^1.11.10",
         "envalid": "^8.0.0",
@@ -43,8 +28,13 @@
         "@types/react-dom": "^18.2.7",
         "@types/uuid": "^9.0.4",
         "@typescript-eslint/eslint-plugin": "^6.7.3",
+        "@vitejs/plugin-react": "^4.1.0",
         "eslint": "^8.50.0",
+        "eslint-config-prettier": "^9.0.0",
         "eslint-plugin-jsonc": "^2.9.0",
+        "eslint-plugin-jsx-a11y": "^6.7.1",
+        "eslint-plugin-react": "^7.33.2",
+        "eslint-plugin-react-hooks": "^4.6.0",
         "eslint-plugin-simple-import-sort": "^10.0.0",
         "eslint-plugin-typescript-sort-keys": "^3.0.0",
         "knip": "2.25.2",
@@ -54,5 +44,19 @@
     },
     "lint-staged": {
         "*": "prettier --ignore-unknown --write"
-    }
+    },
+    "name": "bobciowo",
+    "private": true,
+    "scripts": {
+        "build": "tsc && vite build",
+        "dev": "vite",
+        "lint": "eslint .",
+        "lint:fix": "eslint . --fix",
+        "lint:knip": "knip",
+        "lint:packages": "pnpm dedupe --check",
+        "lint:prettier": "prettier . --write",
+        "preview": "vite preview"
+    },
+    "type": "module",
+    "version": "1.0.1"
 }
