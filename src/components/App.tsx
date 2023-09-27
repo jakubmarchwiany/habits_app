@@ -1,32 +1,14 @@
-import { createTheme, responsiveFontSizes, Stack, ThemeProvider } from "@mui/material";
-import { getTheme } from "assets/theme";
+import { Stack, ThemeProvider } from "@mui/material";
 import { Navigator } from "components/layouts/Navigator";
 import { LoadingPage } from "components/pages/loading_page/LoadingPage";
-import { useAppDispatch } from "hooks/redux";
-import Cookies from "js-cookie";
-import { useEffect, useMemo, useState } from "react";
+import { useStateIsLogged } from "hooks/useIsLoggedState";
+import { useThemeColor } from "hooks/useThemeColor";
 import { Toaster } from "react-hot-toast";
 import { Outlet } from "react-router-dom";
-import { getHabitsAction } from "store/app-actions";
 
 export function App(): JSX.Element {
-    const [isLogged, setIsLogged] = useState<boolean | undefined>(undefined);
-
-    const dispatch = useAppDispatch();
-
-    const theme = useMemo(() => {
-        const color = localStorage.getItem("themeColor") || "#00AB5f";
-
-        return responsiveFontSizes(createTheme(getTheme(color)));
-    }, []);
-
-    useEffect(() => {
-        if (Cookies.get("authorization") !== undefined) {
-            dispatch(getHabitsAction(setIsLogged, true));
-        } else {
-            setIsLogged(false);
-        }
-    }, []);
+    const [isLogged] = useStateIsLogged();
+    const theme = useThemeColor();
 
     return (
         <ThemeProvider theme={theme}>
@@ -53,7 +35,7 @@ export function App(): JSX.Element {
                     style: {
                         background: theme.palette.background.default,
                         color: theme.palette.primary.contrastText,
-                        minWidth: "250px"
+                        maxWidth: "100vw"
                     }
                 }}
             />
