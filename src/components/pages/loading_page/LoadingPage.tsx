@@ -1,11 +1,11 @@
 import { Box, CircularProgress, Container } from "@mui/material";
-import Login from "components/pages/loading_page/Login";
+import { Login } from "components/pages/loading_page/Login";
 
 type Props = {
     isLogged: boolean | undefined;
 };
 
-function LoadingPage({ isLogged }: Props) {
+export function LoadingPage({ isLogged }: Props): JSX.Element {
     return (
         <Container
             component="main"
@@ -28,4 +28,3 @@ function LoadingPage({ isLogged }: Props) {
         </Container>
     );
 }
-export default LoadingPage;

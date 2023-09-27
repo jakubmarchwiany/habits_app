@@ -39,12 +39,14 @@ export const getHabitsAction =
             });
     };
 
-const prepareHabits = (habits: Habit[]) => {
+const prepareHabits = (habits: Habit[]): Habit[] => {
     const subtractDate = dayjs().subtract(VITE_N_DAYS_FROM_TODAY, "day");
+
     return habits.map((habit) => {
         let index = 0;
 
         const activities = Array<Activity>(VITE_N_DAYS_FROM_TODAY);
+
         for (let i = 0; i < activities.length; i++) {
             const currentDate = subtractDate.add(i, "day");
 
@@ -57,6 +59,7 @@ const prepareHabits = (habits: Habit[]) => {
                     date: habit.activities[index].date.split("T")[0],
                     done: true
                 };
+
                 index += 1;
             } else {
                 activities[i] = {
@@ -67,6 +70,7 @@ const prepareHabits = (habits: Habit[]) => {
         }
 
         habit.activities = activities;
+
         return habit;
     });
 };
@@ -82,7 +86,9 @@ export const createHabit =
         postFetch<{ data: Habit }>({ description, name, periodInDays }, "/user/habit/create").then(
             ({ data }) => {
                 data = prepareHabits([data])[0];
+
                 appDispatch(appActions.createHabit(data));
+
                 navigate("/settings?openGroupManager=true");
             }
         );
@@ -111,10 +117,13 @@ export const edithabitsOrderAction =
     (habitGroups: habitGroupsFetch[], navigate: NavigateFunction): AppThunk =>
     (appDispatch) => {
         console.log(habitGroups);
+
         postFetch<{ data: HabitGroup[] }>({ habitGroups }, "/user/habit/create_groups").then(
             ({ data }) => {
                 console.log(data);
+
                 appDispatch(appActions.editHabitsOrder(data));
+
                 navigate("/");
             }
         );
@@ -128,6 +137,7 @@ export const createActivityAction =
             "/user/habit/activity/create"
         ).then(({ data }) => {
             const { activityID } = data;
+
             appDispatch(appActions.addActivity({ activityID, date, habitID }));
         });
     };

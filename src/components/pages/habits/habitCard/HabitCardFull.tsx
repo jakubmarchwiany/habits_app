@@ -4,10 +4,10 @@ import "./day.css";
 import { Box, Stack, Tooltip, Typography, Zoom } from "@mui/material";
 import Grid2 from "@mui/material/Unstable_Grid2";
 import confetti from "canvas-confetti";
-import Day from "components/pages/habits/habitCard/Day";
-import DayDone from "components/pages/habits/habitCard/DayDone";
-import GoalRate from "components/pages/habits/habitCard/GoalRate";
-import HabitSettings from "components/pages/habits/habitCard/settings/HabitSettings";
+import { Day } from "components/pages/habits/habitCard/Day";
+import { DayDone } from "components/pages/habits/habitCard/DayDone";
+import { GoalRate } from "components/pages/habits/habitCard/GoalRate";
+import { HabitSettings } from "components/pages/habits/habitCard/settings/HabitSettings";
 import { useAppDispatch, useAppSelector } from "hooks/redux";
 import { useEffect, useState } from "react";
 import { createActivityAction, deleteActivityAction } from "store/app-actions";
@@ -19,7 +19,7 @@ type Props = {
     setShowFlag: (index: number, value: boolean) => void;
 };
 
-function HabitCardFull({ habitID, flagIndex, setShowFlag }: Props) {
+export function HabitCardFull({ habitID, flagIndex, setShowFlag }: Props): JSX.Element {
     const [goalRate, setGoalRate] = useState<number>(0);
     const [shouldDoToday, setShouldDoToday] = useState<boolean>(false);
     const habit = useAppSelector((state) => {
@@ -29,8 +29,8 @@ function HabitCardFull({ habitID, flagIndex, setShowFlag }: Props) {
 
     const dispatch = useAppDispatch();
 
-    const generateActivityDays = () => {
-        const renderDayComponent = (activity: Activity, index: number) => {
+    const generateActivityDays = (): JSX.Element[] => {
+        const renderDayComponent = (activity: Activity, index: number): JSX.Element => {
             const CommonProps = {
                 id: `${habit.name}-${index}`,
                 key: `${habit.name}-${index}`,
@@ -47,13 +47,16 @@ function HabitCardFull({ habitID, flagIndex, setShowFlag }: Props) {
         };
 
         const days = habit.activities.map((activity, index) => renderDayComponent(activity, index));
+
         console.log(days);
+
         const lastActivity = habit.activities[habit.activities.length - 1];
+
         if (!lastActivity.done && shouldDoToday) {
             days[habit.activities.length - 1] = (
                 <Box
                     key={`${habit.name}-${habit.activities.length - 1}`}
-                    onClick={(event) => createActivity(event, lastActivity.date)}
+                    onClick={(event): void => createActivity(event, lastActivity.date)}
                     className={`day`}
                     data-tooltip={lastActivity.date.slice(5)}
                     sx={{
@@ -80,8 +83,9 @@ function HabitCardFull({ habitID, flagIndex, setShowFlag }: Props) {
             dateLastDoneActivity === 0 ||
             dateLastDoneActivity === 1 ||
             dateLastDoneActivity - habit.periodInDays <= 0
-        )
+        ) {
             return days;
+        }
 
         if (!activities[dateLastDoneActivity - habit.periodInDays].done) {
             const index = days.length - dateLastDoneActivity - 1 + habit.periodInDays;
@@ -89,7 +93,7 @@ function HabitCardFull({ habitID, flagIndex, setShowFlag }: Props) {
             days[index] = (
                 <Box
                     key={`${habit.name}-${index}`}
-                    onClick={(event) => createActivity(event, habit.activities[index].date)}
+                    onClick={(event): void => createActivity(event, habit.activities[index].date)}
                     className={`day`}
                     data-tooltip={habit.activities[index].date.slice(5)}
                     sx={{
@@ -110,7 +114,10 @@ function HabitCardFull({ habitID, flagIndex, setShowFlag }: Props) {
         return days;
     };
 
-    const createActivity = (e: React.MouseEvent<HTMLDivElement, MouseEvent>, date: string) => {
+    const createActivity = (
+        e: React.MouseEvent<HTMLDivElement, MouseEvent>,
+        date: string
+    ): void => {
         confetti({
             particleCount: 20,
             startVelocity: 15,
@@ -118,25 +125,28 @@ function HabitCardFull({ habitID, flagIndex, setShowFlag }: Props) {
             ticks: 75,
             origin: { x: e.clientX / window.innerWidth, y: e.clientY / window.innerHeight }
         });
+
         dispatch(createActivityAction(habitID, date));
     };
 
-    const deleteActivity = (_id: string) => {
+    const deleteActivity = (_id: string): void => {
         dispatch(deleteActivityAction(habitID, _id));
     };
 
     useEffect(() => {
         calculateGoalRate();
+
         calculateIsTodayToDo();
     }, [habit]);
 
-    const calculateGoalRate = () => {
+    const calculateGoalRate = (): void => {
         let sumDone = 0;
         let sumAll = 0;
 
         for (const activity of habit.activities) {
             if (activity.done) {
                 sumDone += 1;
+
                 sumAll += 1;
             } else if (sumDone > 0) {
                 sumAll += 1;
@@ -144,12 +154,14 @@ function HabitCardFull({ habitID, flagIndex, setShowFlag }: Props) {
         }
 
         const rate = sumDone > 0 ? (sumDone / sumAll) * habit.periodInDays : 1;
+
         setGoalRate(rate);
     };
 
-    const calculateIsTodayToDo = () => {
+    const calculateIsTodayToDo = (): void => {
         if (habit.activities[habit.activities.length - 1].done) {
             setShouldDoToday(false);
+
             setShowFlag(flagIndex, false);
         } else {
             const habitLength = habit.activities.length;
@@ -158,80 +170,81 @@ function HabitCardFull({ habitID, flagIndex, setShowFlag }: Props) {
             for (let i = habitLength - 2; i >= habitLength - periodInDays; i--) {
                 if (habit.activities[i].done) {
                     setShouldDoToday(false);
+
                     setShowFlag(flagIndex, false);
+
                     return;
                 }
             }
             setShouldDoToday(true);
+
             setShowFlag(flagIndex, true);
         }
     };
 
     const show = showAllHabits ? true : shouldDoToday ? true : false;
 
-    return (
-        show && (
-            <Grid2
-                xs={12}
-                md={3}
-                key={"habit_panel_" + habit._id}
-                sx={{ display: showAllHabits ? "" : shouldDoToday ? "" : "none" }}
+    return show ? (
+        <Grid2
+            xs={12}
+            md={3}
+            key={"habit_panel_" + habit._id}
+            sx={{ display: showAllHabits ? "" : shouldDoToday ? "" : "none" }}
+        >
+            <Stack
+                pt={{ xs: 1, md: 1 }}
+                boxShadow={5}
+                sx={{
+                    border: 2,
+                    borderRadius: 3,
+                    borderColor: "primary.main"
+                }}
             >
-                <Stack
-                    pt={{ xs: 1, md: 1 }}
-                    boxShadow={5}
+                <Box
                     sx={{
-                        border: 2,
-                        borderRadius: 3,
-                        borderColor: "primary.main"
+                        display: "flex",
+                        flexDirection: "row",
+                        justifyContent: "space-between",
+                        mx: 1,
+                        alignItems: "center"
                     }}
                 >
-                    <Box
-                        sx={{
-                            display: "flex",
-                            flexDirection: "row",
-                            justifyContent: "space-between",
-                            mx: 1,
-                            alignItems: "center"
-                        }}
+                    <GoalRate rate={goalRate} />
+                    <Tooltip
+                        title={
+                            <>
+                                <Typography variant="h6">Opis</Typography>
+                                <Typography variant="body1">{habit.description}</Typography>
+
+                                <Typography variant="h6">
+                                    Powtarzany co {habit.periodInDays} dni
+                                </Typography>
+                            </>
+                        }
+                        placement="top"
+                        TransitionComponent={Zoom}
+                        sx={{ fontSize: "50px" }}
                     >
-                        <GoalRate rate={goalRate} />
-                        <Tooltip
-                            title={
-                                <>
-                                    <Typography variant="h6">Opis</Typography>
-                                    <Typography variant="body1">{habit.description}</Typography>
-
-                                    <Typography variant="h6">
-                                        Powtarzany co {habit.periodInDays} dni
-                                    </Typography>
-                                </>
-                            }
-                            placement="top"
-                            TransitionComponent={Zoom}
-                            sx={{ fontSize: "50px" }}
+                        <Typography
+                            textAlign="center"
+                            sx={{
+                                wordBreak: "break-word",
+                                typography: { xs: "h4", md: "h4" }
+                                // color: habit.activities.slice(-1)[0].done ? "primary.main" : "white",
+                            }}
                         >
-                            <Typography
-                                textAlign="center"
-                                sx={{
-                                    wordBreak: "break-word",
-                                    typography: { xs: "h4", md: "h4" }
-                                    // color: habit.activities.slice(-1)[0].done ? "primary.main" : "white",
-                                }}
-                            >
-                                {habit.name}
-                            </Typography>
-                        </Tooltip>
-                        <HabitSettings habit={habit} />
-                    </Box>
+                            {habit.name}
+                        </Typography>
+                    </Tooltip>
+                    <HabitSettings habit={habit} />
+                </Box>
 
-                    <Box className="gridDays" mt={1}>
-                        {generateActivityDays()}
-                    </Box>
-                </Stack>
-            </Grid2>
-        )
+                <Box className="gridDays" mt={1}>
+                    {generateActivityDays()}
+                </Box>
+            </Stack>
+        </Grid2>
+    ) : (
+        <></>
     );
 }
-
-export default HabitCardFull;

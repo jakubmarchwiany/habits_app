@@ -3,7 +3,7 @@ import Grid2 from "@mui/material/Unstable_Grid2/Grid2";
 import { standardSize } from "assets/theme";
 import { habitGroups } from "components/pages/settings/habit_groups_manager/habit_groups";
 import { habitItem } from "components/pages/settings/habit_groups_manager/habit_item";
-import HabitGroup from "components/pages/settings/habit_groups_manager/HabitGroup";
+import { HabitGroup } from "components/pages/settings/habit_groups_manager/HabitGroup";
 import { useAppDispatch, useAppSelector } from "hooks/redux";
 import { useEffect, useState } from "react";
 import { toast } from "react-hot-toast";
@@ -11,7 +11,7 @@ import { useNavigate } from "react-router-dom";
 import { edithabitsOrderAction } from "store/app-actions";
 import { v4 as uuid } from "uuid";
 
-function HabitGroupsManager() {
+export function HabitGroupsManager(): JSX.Element {
     const [habitGroups, setHabitGroups] = useState<habitGroups[]>([]);
 
     const habits = useAppSelector((state) => state.app.myHabits);
@@ -25,7 +25,7 @@ function HabitGroupsManager() {
 
     const dispatch = useAppDispatch();
 
-    const prepareGroups = () => {
+    const prepareGroups = (): void => {
         const tmpHabits = habits.map((h) => {
             return { _id: h._id, name: h.name };
         }) as habitItem[];
@@ -35,11 +35,14 @@ function HabitGroupsManager() {
 
             group.habits.forEach((habitId) => {
                 const habit = tmpHabits.find((h) => h._id === habitId);
+
                 if (habit) {
                     groupHabits.push({ _id: habit._id, name: habit.name });
+
                     tmpHabits.splice(tmpHabits.indexOf(habit), 1);
                 }
             });
+
             return { _id: group._id, name: group.name, habits: groupHabits };
         });
 
@@ -48,16 +51,19 @@ function HabitGroupsManager() {
         setHabitGroups(tmpGroups);
     };
 
-    const addNewGroup = () => {
+    const addNewGroup = (): void => {
         const updatedLists = [...habitGroups];
+
         updatedLists.push({ _id: uuid(), name: "nowa grupa", habits: [] });
+
         setHabitGroups(updatedLists);
     };
 
-    const handleSave = () => {
+    const handleSave = (): void => {
         for (let i = 0; i < habitGroups.length; i++) {
             if (habitGroups[i].habits.length === 0) {
                 toast.error("Grupa musi zawierać przynajmniej jeden nawyk");
+
                 return;
             }
         }
@@ -107,4 +113,3 @@ function HabitGroupsManager() {
         </>
     );
 }
-export default HabitGroupsManager;

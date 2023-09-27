@@ -1,7 +1,7 @@
 import { Divider, Stack } from "@mui/material";
 import Grid2 from "@mui/material/Unstable_Grid2";
-import HabitCard from "components/pages/habits/habitCard/HabitCard";
-import HabitCardFull from "components/pages/habits/habitCard/HabitCardFull";
+import { HabitCard } from "components/pages/habits/habitCard/HabitCard";
+import { HabitCardFull } from "components/pages/habits/habitCard/HabitCardFull";
 import { useAppSelector } from "hooks/redux";
 import { useState } from "react";
 import { HabitGroup } from "store/models/habitGroup";
@@ -10,13 +10,13 @@ type Props = {
     group: HabitGroup;
 };
 
-export default function HabitGroupPanel({ group }: Props) {
+export function HabitGroupPanel({ group }: Props): JSX.Element {
     const isUserHabits = useAppSelector((state) => state.app.isMyHabits);
     const showAllHabits = useAppSelector((state) => state.app.showAllHabits);
 
     const [showFlags, setShowFlags] = useState<boolean[]>(Array(group.habits.length).fill(false));
 
-    const generateHabits = () => {
+    const generateHabits = (): JSX.Element[] => {
         if (isUserHabits) {
             return group.habits.map((habit, index) => {
                 return (
@@ -42,9 +42,10 @@ export default function HabitGroupPanel({ group }: Props) {
         }
     };
 
-    const setShowFlag = (index: number, value: boolean) => {
+    const setShowFlag = (index: number, value: boolean): void => {
         setShowFlags((prev) => {
             const newShowFlags = [...prev];
+
             newShowFlags[index] = value;
 
             return newShowFlags;

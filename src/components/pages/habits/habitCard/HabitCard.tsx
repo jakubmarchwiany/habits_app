@@ -3,7 +3,7 @@ import "./day.css";
 
 import { Box, Stack, styled, Typography } from "@mui/material";
 import Grid2 from "@mui/material/Unstable_Grid2";
-import GoalRate from "components/pages/habits/habitCard/GoalRate";
+import { GoalRate } from "components/pages/habits/habitCard/GoalRate";
 import { useAppSelector } from "hooks/redux";
 import { useEffect, useState } from "react";
 
@@ -17,14 +17,14 @@ type Props = {
     setShowFlag: (index: number, value: boolean) => void;
 };
 
-function HabitCard({ habitID, flagIndex, setShowFlag }: Props) {
+export function HabitCard({ habitID, flagIndex, setShowFlag }: Props): JSX.Element {
     const habit = useAppSelector((state) => {
         return state.app.dearHabits.find((habit) => habit._id === habitID)!;
     });
     const [goalRate, setGoalRate] = useState<number>(0);
     const [shouldDoToday, setShouldDoToday] = useState<boolean>(false);
 
-    const generateActivityDays = () => {
+    const generateActivityDays = (): JSX.Element[] => {
         const days = habit.activities.map((activity, index) => {
             if (activity.done) {
                 return (
@@ -48,6 +48,7 @@ function HabitCard({ habitID, flagIndex, setShowFlag }: Props) {
         });
 
         const lastActivity = habit.activities[habit.activities.length - 1];
+
         if (!lastActivity.done && shouldDoToday) {
             days[habit.activities.length - 1] = (
                 <Box
@@ -78,8 +79,9 @@ function HabitCard({ habitID, flagIndex, setShowFlag }: Props) {
             dateLastDoneActivity === 0 ||
             dateLastDoneActivity === 1 ||
             dateLastDoneActivity - habit.periodInDays <= 0
-        )
+        ) {
             return days;
+        }
 
         if (!activities[dateLastDoneActivity - habit.periodInDays].done) {
             const index = days.length - dateLastDoneActivity - 1 + habit.periodInDays;
@@ -104,21 +106,24 @@ function HabitCard({ habitID, flagIndex, setShowFlag }: Props) {
             );
         }
         console.log(days);
+
         return days;
     };
 
     useEffect(() => {
         calculateGoalRate();
+
         calculateIsTodayToDo();
     }, [habit]);
 
-    const calculateGoalRate = () => {
+    const calculateGoalRate = (): void => {
         let sumDone = 0;
         let sumAll = 0;
 
         for (const activity of habit.activities) {
             if (activity.done) {
                 sumDone += 1;
+
                 sumAll += 1;
             } else if (sumDone > 0) {
                 sumAll += 1;
@@ -126,12 +131,14 @@ function HabitCard({ habitID, flagIndex, setShowFlag }: Props) {
         }
 
         const rate = sumDone > 0 ? (sumDone / sumAll) * habit.periodInDays : 1;
+
         setGoalRate(rate);
     };
 
-    const calculateIsTodayToDo = () => {
+    const calculateIsTodayToDo = (): void => {
         if (habit.activities[habit.activities.length - 1].done) {
             setShouldDoToday(false);
+
             setShowFlag(flagIndex, false);
         } else {
             const habitLength = habit.activities.length;
@@ -140,12 +147,14 @@ function HabitCard({ habitID, flagIndex, setShowFlag }: Props) {
             for (let i = habitLength - 2; i >= habitLength - periodInDays; i--) {
                 if (habit.activities[i].done) {
                     setShouldDoToday(false);
+
                     setShowFlag(flagIndex, false);
 
                     return;
                 }
             }
             setShouldDoToday(true);
+
             setShowFlag(flagIndex, true);
         }
     };
@@ -188,5 +197,3 @@ function HabitCard({ habitID, flagIndex, setShowFlag }: Props) {
         </Grid2>
     );
 }
-
-export default HabitCard;

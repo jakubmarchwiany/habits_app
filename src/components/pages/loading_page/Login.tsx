@@ -13,12 +13,12 @@ import React, { SyntheticEvent, useState } from "react";
 import { postFetch } from "utils/fetches";
 import { sleep } from "utils/sleep";
 
-function Login() {
+export function Login(): JSX.Element {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const [rememberMe, setRememberMe] = useState(false);
 
-    const handleLogin = (event: SyntheticEvent) => {
+    const handleLogin = (event: SyntheticEvent): void => {
         event.preventDefault();
 
         postFetch<{ token: string }>({ username, password }, `/auth/login`).then(
@@ -27,7 +27,9 @@ function Login() {
                     expires: rememberMe ? 31 : undefined,
                     path: "/"
                 });
+
                 await sleep(1000);
+
                 window.location.reload();
             }
         );
@@ -54,7 +56,7 @@ function Login() {
                     label="Nazwa użytkownika"
                     value={username}
                     variant="filled"
-                    onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+                    onChange={(event: React.ChangeEvent<HTMLInputElement>): void => {
                         setUsername(event.target.value);
                     }}
                 />
@@ -63,7 +65,7 @@ function Login() {
                     type="password"
                     variant="filled"
                     value={password}
-                    onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+                    onChange={(event: React.ChangeEvent<HTMLInputElement>): void => {
                         setPassword(event.target.value);
                     }}
                 />
@@ -78,7 +80,7 @@ function Login() {
                     control={
                         <Checkbox
                             value={rememberMe}
-                            onChange={(e) => setRememberMe(e.target.checked)}
+                            onChange={(e): void => setRememberMe(e.target.checked)}
                         />
                     }
                     label="Nie wylogowuj mnie"
@@ -88,4 +90,3 @@ function Login() {
         </Stack>
     );
 }
-export default Login;

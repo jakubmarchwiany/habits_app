@@ -1,13 +1,13 @@
 import { Stack } from "@mui/material";
-import HabitGroupPanel from "components/pages/habits/HabitGroup";
+import { HabitGroupPanel } from "components/pages/habits/HabitGroup";
 import { useAppSelector } from "hooks/redux";
 
-function Habits() {
+export function Habits(): JSX.Element {
     const habitGroups = useAppSelector((state) => {
         return state.app.isMyHabits ? state.app.myHabitGroups : state.app.dearHabitGroups;
     });
 
-    const generateHabitGroups = () => {
+    const generateHabitGroups = (): JSX.Element[] => {
         return habitGroups.slice(0, 1).map((group) => {
             return <HabitGroupPanel group={group} key={"habit_group_" + group._id} />;
         });
@@ -25,5 +25,3 @@ function Habits() {
         </Stack>
     );
 }
-
-export default Habits;

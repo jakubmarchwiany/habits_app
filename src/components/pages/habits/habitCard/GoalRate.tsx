@@ -28,7 +28,7 @@ type Props = {
     rate: number;
 };
 
-export default function GoalRate({ rate }: Props) {
+export function GoalRate({ rate }: Props): JSX.Element {
     const index = THRESHOLDVALUES.findIndex((threshold) => rate < threshold.value);
 
     const icon = rateIcons[index];

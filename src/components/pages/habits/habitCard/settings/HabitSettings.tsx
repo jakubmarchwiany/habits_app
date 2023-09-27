@@ -1,6 +1,6 @@
 import { Settings } from "@mui/icons-material";
 import { IconButton, Menu, MenuItem } from "@mui/material";
-import EditHabitDialog from "components/pages/habits/habitCard/settings/EditHabitDialog";
+import { EditHabitDialog } from "components/pages/habits/habitCard/settings/EditHabitDialog";
 import { useAppDispatch } from "hooks/redux";
 import * as React from "react";
 import { toast } from "react-hot-toast";
@@ -12,7 +12,7 @@ type Props = {
     habit: Habit;
 };
 
-function HabitSettings({ habit }: Props) {
+export function HabitSettings({ habit }: Props): JSX.Element {
     const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
     const [editHabitOpen, setEditHabitOpen] = React.useState(false);
     const open = Boolean(anchorEl);
@@ -20,33 +20,35 @@ function HabitSettings({ habit }: Props) {
     const dispatch = useAppDispatch();
     const navigate = useNavigate();
 
-    const openHabitSettings = (event: React.MouseEvent<HTMLButtonElement>) => {
+    const openHabitSettings = (event: React.MouseEvent<HTMLButtonElement>): void => {
         setAnchorEl(event.currentTarget);
     };
 
-    const closeHabitSettings = () => {
+    const closeHabitSettings = (): void => {
         setAnchorEl(null);
     };
 
-    const openEditHabitDialog = () => {
+    const openEditHabitDialog = (): void => {
         setEditHabitOpen(true);
     };
 
-    const editHabitHandle = (name?: string, description?: string, periodInDays?: number) => {
+    const editHabitHandle = (name?: string, description?: string, periodInDays?: number): void => {
         setEditHabitOpen(false);
 
-        if (name && periodInDays)
-            dispatch(editHabitAction(habit._id, name, description!, periodInDays));
+        if (name && periodInDays && description) {
+            dispatch(editHabitAction(habit._id, name, description, periodInDays));
+        }
 
         closeHabitSettings();
     };
 
-    const deleteHabit = () => {
+    const deleteHabit = (): void => {
         dispatch(deleteHabitAction(habit._id));
+
         closeHabitSettings();
     };
 
-    const showHabit = () => {
+    const showHabit = (): void => {
         navigate(`/habit/${habit._id}`);
     };
 
@@ -68,7 +70,9 @@ function HabitSettings({ habit }: Props) {
                         <MenuItem onClick={showHabit}>Pokaż wszystko</MenuItem>
                         <MenuItem onClick={openEditHabitDialog}>Edytuj</MenuItem>
                         <MenuItem
-                            onClick={() => toast.error("Kliknij dwukrotnie by usunać nawyk")}
+                            onClick={(): void => {
+                                toast.error("Kliknij dwukrotnie by usunać nawyk");
+                            }}
                             onDoubleClick={deleteHabit}
                         >
                             Usuń
@@ -83,5 +87,3 @@ function HabitSettings({ habit }: Props) {
         </>
     );
 }
-
-export default HabitSettings;

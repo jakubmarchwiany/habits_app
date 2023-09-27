@@ -26,7 +26,7 @@ const actions = [
     { icon: <Settings />, name: Actions.Settings, path: "/settings" }
 ];
 
-function Navigator() {
+export function Navigator(): JSX.Element {
     const [open, setOpen] = useState(false);
     const isUserHabits = useAppSelector((state) => state.app.isMyHabits);
     const isDearHabitsDownloaded = useAppSelector((state) => state.app.isDearHabitsDownloaded);
@@ -45,11 +45,12 @@ function Navigator() {
             dispatch(appActions.setShowAllHabits(boolean));
         } else {
             localStorage.setItem("showAllHabits", "true");
+
             dispatch(appActions.setShowAllHabits(true));
         }
     }, []);
 
-    const togggleShowAllHabits = () => {
+    const togggleShowAllHabits = (): void => {
         localStorage.setItem("showAllHabits", (!showAllHabits).toString());
 
         dispatch(appActions.setShowAllHabits(!showAllHabits));
@@ -67,7 +68,7 @@ function Navigator() {
         dispatch(appActions.toggleHabitsView());
     };
 
-    const handleClick = (action: string) => {
+    const handleClick = (action: string): void => {
         switch (action) {
             case Actions.habits:
                 navigate("/");
@@ -119,8 +120,9 @@ function Navigator() {
                                     }}
                                     button
                                     key={action.name}
-                                    onClick={() => {
-                                        toggleDrawer(false)();
+                                    onClick={(): void => {
+                                        toggleDrawer(false);
+
                                         handleClick(action.name);
                                     }}
                                 >
@@ -137,8 +139,9 @@ function Navigator() {
                             <ListItem
                                 button
                                 key={"UserSwitcher"}
-                                onClick={() => {
-                                    toggleDrawer(false)();
+                                onClick={(): void => {
+                                    toggleDrawer(false);
+
                                     handleClick("UserSwitcher");
                                 }}
                             >
@@ -160,8 +163,9 @@ function Navigator() {
                             <ListItem
                                 button
                                 key={"ShowAllSwitcher"}
-                                onClick={() => {
+                                onClick={(): void => {
                                     toggleDrawer(false)();
+
                                     handleClick("ShowAllSwitcher");
                                 }}
                             >
@@ -185,5 +189,3 @@ function Navigator() {
         </>
     );
 }
-
-export default Navigator;

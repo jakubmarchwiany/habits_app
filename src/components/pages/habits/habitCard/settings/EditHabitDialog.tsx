@@ -13,12 +13,12 @@ type Props = {
     habit: Habit;
 };
 
-export default function EditHabitDialog({ habit, editHabitHandle: action }: Props) {
+export function EditHabitDialog({ habit, editHabitHandle: action }: Props): JSX.Element {
     const [name, setName] = useState(habit.name);
     const [description, setDescription] = useState(habit.description || "");
     const [periodInDays, setPeriodInDays] = useState(habit.periodInDays);
 
-    const handleEditHabit = () => {
+    const handleEditHabit = (): void => {
         action(name, description, periodInDays);
     };
 
@@ -34,7 +34,7 @@ export default function EditHabitDialog({ habit, editHabitHandle: action }: Prop
                         value={name}
                         variant="filled"
                         autoComplete="off"
-                        onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+                        onChange={(event: React.ChangeEvent<HTMLInputElement>): void => {
                             setName(event.target.value);
                         }}
                     />
@@ -46,7 +46,7 @@ export default function EditHabitDialog({ habit, editHabitHandle: action }: Prop
                         value={description}
                         multiline
                         rows={4}
-                        onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+                        onChange={(event: React.ChangeEvent<HTMLInputElement>): void => {
                             setDescription(event.target.value);
                         }}
                     />
@@ -56,17 +56,21 @@ export default function EditHabitDialog({ habit, editHabitHandle: action }: Prop
                         variant="filled"
                         type="number"
                         value={periodInDays}
-                        onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-                            if (parseInt(event.target.value) < 1) setPeriodInDays(1);
-                            else if (parseInt(event.target.value) > 31) setPeriodInDays(31);
-                            else setPeriodInDays(parseInt(event.target.value));
+                        onChange={(event: React.ChangeEvent<HTMLInputElement>): void => {
+                            if (parseInt(event.target.value) < 1) {
+                                setPeriodInDays(1);
+                            } else if (parseInt(event.target.value) > 31) {
+                                setPeriodInDays(31);
+                            } else {
+                                setPeriodInDays(parseInt(event.target.value));
+                            }
                         }}
                         InputProps={{ inputProps: { min: 1, max: 31 } }}
                     />
                 </Stack>
             </DialogContent>
             <DialogActions>
-                <Button fullWidth onClick={() => action()}>
+                <Button fullWidth onClick={(): void => action()}>
                     Anuluj
                 </Button>
                 <Button fullWidth onClick={handleEditHabit} disabled={name.length === 0}>

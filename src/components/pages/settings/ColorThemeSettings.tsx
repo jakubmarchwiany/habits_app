@@ -5,10 +5,10 @@ import { standardSize } from "assets/theme";
 import React, { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 
-function ColorThemeSettings() {
+export function ColorThemeSettings(): JSX.Element {
     const [themeColor, setThemeColor] = useState("");
 
-    const handleSave = () => {
+    const handleSave = (): void => {
         localStorage.setItem("themeColor", themeColor);
 
         toast.success("Zapisano kolor motywu");
@@ -28,7 +28,7 @@ function ColorThemeSettings() {
             variant="filled"
             value={themeColor}
             autoComplete="off"
-            onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+            onChange={(event: React.ChangeEvent<HTMLInputElement>): void => {
                 setThemeColor(event.target.value);
             }}
             InputProps={{
@@ -45,5 +45,3 @@ function ColorThemeSettings() {
         />
     );
 }
-
-export default ColorThemeSettings;

@@ -1,7 +1,7 @@
 import { Container, Typography } from "@mui/material";
 import { Link } from "react-router-dom";
 
-function Error() {
+export function Error(): JSX.Element {
     return (
         <Container
             sx={{
@@ -27,4 +27,3 @@ function Error() {
         </Container>
     );
 }
-export default Error;

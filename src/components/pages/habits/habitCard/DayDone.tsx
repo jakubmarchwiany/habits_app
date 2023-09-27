@@ -12,14 +12,12 @@ type Props = {
     deleteActivity: (_id: string) => void;
 };
 
-function DayDone({ _id, date, deleteActivity }: Props) {
+export function DayDone({ _id, date, deleteActivity }: Props): JSX.Element {
     return (
         <StyledDIV
-            onClick={() => deleteActivity(_id)}
+            onClick={(): void => deleteActivity(_id)}
             className={`day`}
             data-tooltip={date.slice(5)}
         />
     );
 }
-
-export default DayDone;

@@ -1,5 +1,4 @@
-import Box from "@mui/material/Box";
-import Slider from "@mui/material/Slider";
+import { Box, Slider } from "@mui/material";
 import { useState } from "react";
 
 const stepValues = [31, 62, 93, 182, 365];
@@ -14,14 +13,16 @@ type Props = {
     setNDays: (nDays: number) => void;
 };
 
-function DaysSelector({ nDays, setNDays }: Props) {
+export function DaysSelector({ nDays, setNDays }: Props): JSX.Element {
     const [value, setValue] = useState(nDays);
 
-    const handleChange = (_event: Event, newValue: number | number[]) => {
-        if (typeof newValue === "number") setValue(newValue);
+    const handleChange = (_event: Event, newValue: number | number[]): void => {
+        if (typeof newValue === "number") {
+            setValue(newValue);
+        }
     };
 
-    const handleChangeCommitted = () => {
+    const handleChangeCommitted = (): void => {
         setNDays(value);
     };
 
@@ -40,5 +41,3 @@ function DaysSelector({ nDays, setNDays }: Props) {
         </Box>
     );
 }
-
-export default DaysSelector;

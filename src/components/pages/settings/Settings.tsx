@@ -1,13 +1,13 @@
 import { Button, Stack, Typography } from "@mui/material";
 import { standardSize } from "assets/theme";
-import ColorThemeSettings from "components/pages/settings/ColorThemeSettings";
-import HabitGroupsManager from "components/pages/settings/habit_groups_manager/HabitGroupsManager";
+import { ColorThemeSettings } from "components/pages/settings/ColorThemeSettings";
+import { HabitGroupsManager } from "components/pages/settings/habit_groups_manager/HabitGroupsManager";
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
-import { deleteCookieAndRefresh } from "utils/authorization_fail";
+import { deleteCookieAndRefresh } from "utils/log_out";
 import { sleep } from "utils/sleep";
 
-function Settings() {
+export function Settings(): JSX.Element {
     const [isHabitGroupsManagerOpen, setIsHabitGroupsManagerOpen] = useState(false);
 
     useEffect(() => {
@@ -18,9 +18,11 @@ function Settings() {
         }
     });
 
-    const loguout = async () => {
+    const loguout = async (): Promise<void> => {
         toast.success("Wylogowano pomyślnie");
+
         await sleep(500);
+
         deleteCookieAndRefresh();
     };
 
@@ -42,7 +44,7 @@ function Settings() {
             )}
             <Button
                 variant="contained"
-                onClick={() => setIsHabitGroupsManagerOpen((prev) => !prev)}
+                onClick={(): void => setIsHabitGroupsManagerOpen((prev) => !prev)}
                 sx={{ mt: 0.5, alignSelf: "center", width: standardSize }}
             >
                 {isHabitGroupsManagerOpen ? "Zamknij" : "Zarządzaj kolejnością nawyków"}
@@ -63,5 +65,3 @@ function Settings() {
         </Stack>
     );
 }
-
-export default Settings;

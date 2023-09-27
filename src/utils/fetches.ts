@@ -1,7 +1,7 @@
 import Cookies from "js-cookie";
 import toast from "react-hot-toast";
 
-import { authorizationFail } from "./authorization_fail";
+import { authorizationFail } from "./log_out";
 import { ENV } from "./validate_env";
 
 const { VITE_API_ENDPOINT } = ENV;
@@ -12,6 +12,7 @@ export async function getFetch<T>(
 ): Promise<T & { message: string }> {
     return await new Promise((resolve, reject) => {
         const toastId = toast.loading("Ładowanie...");
+
         fetch(VITE_API_ENDPOINT + url, {
             method: "GET",
             credentials: "include",
@@ -22,19 +23,29 @@ export async function getFetch<T>(
         })
             .then(async (response) => {
                 const data = (await response.json()) as T & { message: string };
+
                 if (response.ok) {
                     toast.success(data.message, { id: toastId });
+
                     resolve(data);
                 } else {
                     toast.error(data.message, { id: toastId });
-                    if (response.status === 401) await authorizationFail();
 
-                    if (options?.customError !== undefined) reject(data);
+                    if (response.status === 401) {
+                        await authorizationFail();
+                    }
+
+                    if (options?.customError !== undefined) {
+                        reject(data);
+                    }
                 }
             })
             .catch((error) => {
                 toast.error("Coś poszło nie tak :(", { id: toastId });
-                if (options?.customError !== undefined) reject(error);
+
+                if (options?.customError !== undefined) {
+                    reject(error);
+                }
             });
     });
 }
@@ -46,6 +57,7 @@ export async function postFetch<T>(
 ): Promise<T & { message: string }> {
     return await new Promise((resolve, reject) => {
         const toastId = toast.loading("Ładowanie...");
+
         fetch(VITE_API_ENDPOINT + url, {
             method: "POST",
             credentials: "include",
@@ -57,19 +69,29 @@ export async function postFetch<T>(
         })
             .then(async (response) => {
                 const data = (await response.json()) as T & { message: string };
+
                 if (response.ok) {
                     toast.success(data.message, { id: toastId });
+
                     resolve(data);
                 } else {
                     toast.error(data.message, { id: toastId });
-                    if (response.status === 401) await authorizationFail();
 
-                    if (options?.customError !== undefined) reject(data);
+                    if (response.status === 401) {
+                        await authorizationFail();
+                    }
+
+                    if (options?.customError !== undefined) {
+                        reject(data);
+                    }
                 }
             })
             .catch((error) => {
                 toast.error("Coś poszło nie tak :(", { id: toastId });
-                if (options?.customError !== undefined) reject(error);
+
+                if (options?.customError !== undefined) {
+                    reject(error);
+                }
             });
     });
 }

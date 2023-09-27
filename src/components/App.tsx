@@ -1,7 +1,7 @@
 import { createTheme, responsiveFontSizes, Stack, ThemeProvider } from "@mui/material";
 import { getTheme } from "assets/theme";
-import Navigator from "components/layouts/Navigator";
-import LoadingPage from "components/pages/loading_page/LoadingPage";
+import { Navigator } from "components/layouts/Navigator";
+import { LoadingPage } from "components/pages/loading_page/LoadingPage";
 import { useAppDispatch } from "hooks/redux";
 import Cookies from "js-cookie";
 import { useEffect, useMemo, useState } from "react";
@@ -9,7 +9,7 @@ import { Toaster } from "react-hot-toast";
 import { Outlet } from "react-router-dom";
 import { getHabitsAction } from "store/app-actions";
 
-function App() {
+export function App(): JSX.Element {
     const [isLogged, setIsLogged] = useState<boolean | undefined>(undefined);
 
     const dispatch = useAppDispatch();
@@ -60,5 +60,3 @@ function App() {
         </ThemeProvider>
     );
 }
-
-export default App;

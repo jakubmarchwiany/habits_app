@@ -12,19 +12,21 @@ type Props = {
     moveHabitItem: (oldIndex: number, newIndex: number, groupIndex: number) => void;
 };
 
-function HabitItem({
+export function HabitItem({
     itemIndex,
     habit,
     groupIndex,
     groupHabitsLength,
     handleDragStart,
     moveHabitItem
-}: Props) {
+}: Props): JSX.Element {
     return (
         <Stack
             direction={"row"}
             draggable
-            onDragStart={(e: DragEvent<HTMLDivElement>) => handleDragStart(e, habit, groupIndex)}
+            onDragStart={(e: DragEvent<HTMLDivElement>): void =>
+                handleDragStart(e, habit, groupIndex)
+            }
             sx={{
                 pl: 2,
                 alignItems: "center",
@@ -38,9 +40,11 @@ function HabitItem({
             <Typography>{habit.name}</Typography>
             <Stack>
                 <IconButton
-                    onClick={() =>
-                        itemIndex > 0 && moveHabitItem(itemIndex, itemIndex - 1, groupIndex)
-                    }
+                    onClick={(): void => {
+                        if (itemIndex > 0) {
+                            moveHabitItem(itemIndex, itemIndex - 1, groupIndex);
+                        }
+                    }}
                     sx={{ color: itemIndex == 0 ? "" : "primary.main", p: 0 }}
                     disabled={itemIndex == 0}
                 >
@@ -48,7 +52,7 @@ function HabitItem({
                 </IconButton>
 
                 <IconButton
-                    onClick={() => moveHabitItem(itemIndex, itemIndex + 1, groupIndex)}
+                    onClick={(): void => moveHabitItem(itemIndex, itemIndex + 1, groupIndex)}
                     disabled={itemIndex === groupHabitsLength - 1}
                     sx={{
                         color: itemIndex === groupHabitsLength - 1 ? "" : "primary.main",
@@ -61,5 +65,3 @@ function HabitItem({
         </Stack>
     );
 }
-
-export default HabitItem;

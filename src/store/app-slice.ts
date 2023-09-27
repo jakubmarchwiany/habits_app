@@ -41,6 +41,7 @@ const appSlice = createSlice({
 
             if (habit) {
                 const index = findIndexToDate(date, habit.activities);
+
                 console.log(index);
 
                 habit.activities[index] = { _id: activityID, date, done: true };
@@ -52,13 +53,20 @@ const appSlice = createSlice({
         deleteActivity(state, action: PayloadAction<{ activityID: string; habitID: string }>) {
             const { activityID, habitID } = action.payload;
             const habit = state.myHabits.find((habit) => habit._id === habitID);
-            if (habit) {
-                habit.activities.find((a) => a._id === activityID)!.done = false;
+
+            if (habit !== undefined) {
+                const activity = habit.activities.find((a) => a._id === activityID);
+
+                if (activity !== undefined) {
+                    activity.done = false;
+                }
             }
         },
         deleteHabit(state, action: PayloadAction<{ _id: string }>) {
             const { _id } = action.payload;
+
             state.myHabits = state.myHabits.filter((habit) => habit._id !== _id);
+
             state.myHabitGroups.forEach((group) => {
                 group.habits = group.habits.filter((habit) => habit !== _id);
             });
@@ -74,9 +82,12 @@ const appSlice = createSlice({
         ) {
             const { _id, description, name, periodInDays } = action.payload;
             const habit = state.myHabits.find((habit) => habit._id === _id);
+
             if (habit) {
                 habit.name = name;
+
                 habit.description = description;
+
                 habit.periodInDays = periodInDays;
             }
         },
@@ -85,7 +96,9 @@ const appSlice = createSlice({
         },
         setDearData(state, action: PayloadAction<UserData>) {
             state.dearHabits = action.payload.habits;
+
             state.dearHabitGroups = action.payload.habitGroups;
+
             state.isDearHabitsDownloaded = true;
         },
         setShowAllHabits(state, action: PayloadAction<boolean>) {
@@ -93,6 +106,7 @@ const appSlice = createSlice({
         },
         setUserData(state, action: PayloadAction<UserData>) {
             state.myHabits = action.payload.habits;
+
             state.myHabitGroups = action.payload.habitGroups;
         },
         toggleHabitsView(state) {
@@ -100,5 +114,7 @@ const appSlice = createSlice({
         }
     }
 });
-export const appActions = appSlice.actions;
-export default appSlice.reducer;
+const appActions = appSlice.actions;
+const appSliceReducers = appSlice.reducer;
+
+export { appActions, appSliceReducers };

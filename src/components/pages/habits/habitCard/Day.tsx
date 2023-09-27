@@ -1,3 +1,5 @@
+/* eslint-disable jsx-a11y/click-events-have-key-events */
+/* eslint-disable jsx-a11y/no-static-element-interactions */
 import "./day.css";
 
 type Props = {
@@ -5,14 +7,12 @@ type Props = {
     date: string;
 };
 
-function Day({ date, createActivity }: Props) {
+export function Day({ date, createActivity }: Props): JSX.Element {
     return (
         <div
-            onClick={(event) => createActivity(event, date)}
+            onClick={(event): void => createActivity(event, date)}
             className={`day`}
             data-tooltip={date.slice(5)}
         />
     );
 }
-
-export default Day;
