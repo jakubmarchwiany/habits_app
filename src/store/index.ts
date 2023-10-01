@@ -2,18 +2,18 @@ import { configureStore } from "@reduxjs/toolkit";
 import { AnyAction } from "redux";
 import { ThunkAction } from "redux-thunk";
 
-import { appSliceReducers } from "./app-slice";
+import { appSliceReducers } from "./app/app.slice";
+import { dearSliceReducers } from "./dear/dear.slice";
 
 const store = configureStore({
-    reducer: {
-        app: appSliceReducers
-    }
+	reducer: {
+		app: appSliceReducers,
+		dear: dearSliceReducers
+	}
 });
 
 type RootState = ReturnType<typeof store.getState>;
-
 type AppDispatch = typeof store.dispatch;
-
 type AppThunk<ReturnType = void> = ThunkAction<ReturnType, RootState, undefined, AnyAction>;
 
 export { store };
