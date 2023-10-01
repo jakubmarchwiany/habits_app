@@ -1,0 +1,87 @@
+.activity {
+	cursor: pointer;
+	box-shadow: 0px 0px 0.3rem rgba(0, 0, 0, 0.5);
+	border-radius: 5px;
+	margin: 5px;
+	padding-top: 1rem;
+	padding-bottom: 1rem;
+}
+
+.done {
+	background-color: #00ab5f;
+}
+
+.done:hover {
+	background-color: #00ab5e90;
+}
+
+.not_done:hover {
+	background-color: #00ab5e90;
+}
+
+.today {
+	-webkit-animation: today_blink 2s infinite; /* Safari 4+ */
+	-moz-animation: today_blink 2s infinite; /* Fx 5+ */
+	-o-animation: today_blink 2s infinite; /* Opera 12+ */
+	animation: today_blink 2s infinite; /* IE 10+, Fx 29+ */
+}
+
+@keyframes today_blink {
+	0%,
+	100% {
+		background-color: transparent;
+	}
+	50% {
+		background-color: #00ab5f;
+	}
+}
+
+.delay {
+	-webkit-animation: delay_blink 1s infinite; /* Safari 4+ */
+	-moz-animation: delay_blink 1s infinite; /* Fx 5+ */
+	-o-animation: delay_blink 1s infinite; /* Opera 12+ */
+	animation: delay_blink 1s infinite; /* IE 10+, Fx 29+ */
+}
+
+@keyframes delay_blink {
+	0%,
+	100% {
+		background-color: transparent;
+	}
+	50% {
+		background-color: #d32f2f;
+	}
+}
+
+.activity {
+	position: relative;
+}
+
+.activity::after {
+	content: attr(data-tooltip); /* Display the tooltip text */
+	position: absolute;
+	bottom: 100%; /* Change 'top' to 'bottom' */
+	left: 50%;
+	transform: translateX(-50%);
+	background-color: rgb(48, 48, 48);
+	color: #fff;
+	padding: 2px 10px;
+	border-radius: 4px;
+	font-size: 18px;
+	white-space: nowrap;
+	visibility: hidden;
+	opacity: 0;
+	transition:
+		opacity 1s,
+		visibility 0.3s;
+}
+
+.activity:hover::after {
+	visibility: visible;
+	opacity: 1;
+}
+
+.gridDays {
+	display: grid;
+	grid-template-columns: auto auto auto auto auto auto auto;
+}
