@@ -1,191 +1,89 @@
 import {
-    ArrowDropUp,
-    Dashboard,
-    Favorite,
-    PostAdd,
-    Settings,
-    Visibility,
-    VisibilityOff
+	ArrowDropUp,
+	CheckBox,
+	CheckBoxOutlineBlank,
+	Favorite,
+	PostAdd,
+	PublishedWithChanges,
+	Settings
 } from "@mui/icons-material";
-import { Drawer, IconButton, List, ListItem, ListItemIcon, ListItemText } from "@mui/material";
+import { Drawer, IconButton, List } from "@mui/material";
+import { MyListItem } from "components/my/MyListItem";
 import { useAppDispatch, useAppSelector } from "hooks/redux";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import { getHabitsAction } from "store/app-actions";
-import { appActions } from "store/app-slice";
-
-enum Actions {
-    Create = "Dodaj nawyk",
-    Settings = "Ustawienia",
-    habits = "Nawyki"
-}
+import { appActions } from "store/app/app.slice";
 
 const actions = [
-    { icon: <Dashboard />, name: Actions.habits, path: "/" },
-    { icon: <PostAdd />, name: Actions.Create, path: "/create_habit" },
-    { icon: <Settings />, name: Actions.Settings, path: "/settings" }
+	{ icon: <PublishedWithChanges />, text: "Nawyki", path: "/habits" },
+	{ icon: <PostAdd />, text: "Stwórz nawyk", path: "/habits/create" },
+	{ icon: <Favorite />, text: "Nawyki Bobcia", path: "/dear/habits" },
+	{ icon: <Settings />, text: "Ustawienia", path: "/settings" }
 ];
 
 export function Navigator(): JSX.Element {
-    const [open, setOpen] = useState(false);
-    const isUserHabits = useAppSelector((state) => state.app.isMyHabits);
-    const isDearHabitsDownloaded = useAppSelector((state) => state.app.isDearHabitsDownloaded);
-    const showAllHabits = useAppSelector((state) => state.app.showAllHabits);
+	const [openDrawer, setOpenDrawer] = useState(false);
 
-    const dispatch = useAppDispatch();
-    const navigate = useNavigate();
-    const location = useLocation();
+	const showAllHabits = useAppSelector((state) => state.app.showAllHabits);
 
-    useEffect(() => {
-        const showAllHabits = localStorage.getItem("showAllHabits");
+	const dispatch = useAppDispatch();
+	const navigate = useNavigate();
+	const location = useLocation();
 
-        if (showAllHabits !== null) {
-            const boolean = JSON.parse(showAllHabits) as boolean;
+	return (
+		<>
+			<IconButton
+				aria-label="delete"
+				size="large"
+				onClick={(): void => {
+					setOpenDrawer(true);
+				}}
+				sx={{
+					position: "fixed",
+					left: "50%",
+					top: "95%",
+					transform: "translate(-50%, -50%)",
+					fontSize: "5rem",
+					color: "white"
+				}}
+			>
+				<ArrowDropUp fontSize="inherit" />
+			</IconButton>
+			<Drawer
+				anchor="bottom"
+				open={openDrawer}
+				onClose={(): void => {
+					setOpenDrawer(false);
+				}}
+			>
+				<List>
+					{actions.map((action) => (
+						<MyListItem
+							key={action.path}
+							text={action.text}
+							icon={action.icon}
+							disabled={action.path === location.pathname}
+							onClick={(): void => {
+								setOpenDrawer(false);
 
-            dispatch(appActions.setShowAllHabits(boolean));
-        } else {
-            localStorage.setItem("showAllHabits", "true");
+								navigate(action.path);
+							}}
+						/>
+					))}
+					{location.pathname === "/habits" && (
+						<MyListItem
+							key={4}
+							text={"Pokaż wszystkie"}
+							icon={showAllHabits ? <CheckBox /> : <CheckBoxOutlineBlank />}
+							onClick={(): void => {
+								setOpenDrawer(false);
 
-            dispatch(appActions.setShowAllHabits(true));
-        }
-    }, []);
-
-    const togggleShowAllHabits = (): void => {
-        localStorage.setItem("showAllHabits", (!showAllHabits).toString());
-
-        dispatch(appActions.setShowAllHabits(!showAllHabits));
-    };
-
-    const toggleDrawer = (isOpen: boolean) => () => {
-        setOpen(isOpen);
-    };
-
-    const toggleHabitsView = (): void => {
-        if (!isDearHabitsDownloaded) {
-            dispatch(getHabitsAction(() => {}, false));
-        }
-
-        dispatch(appActions.toggleHabitsView());
-    };
-
-    const handleClick = (action: string): void => {
-        switch (action) {
-            case Actions.habits:
-                navigate("/");
-                break;
-            case Actions.Create:
-                navigate("/create_habit");
-                break;
-            case Actions.Settings:
-                navigate("/settings");
-                break;
-            case "UserSwitcher":
-                toggleHabitsView();
-                break;
-            case "ShowAllSwitcher":
-                togggleShowAllHabits();
-                break;
-            default:
-        }
-    };
-
-    return (
-        <>
-            <IconButton
-                aria-label="delete"
-                size="large"
-                onClick={toggleDrawer(true)}
-                sx={{
-                    position: "fixed",
-                    left: "50%",
-                    top: "95%",
-                    transform: "translate(-50%, -50%)",
-                    fontSize: "5rem",
-                    color: "white",
-                    boxShadow: 0,
-                    borderRadius: 0
-                }}
-            >
-                <ArrowDropUp fontSize="inherit" />
-            </IconButton>
-            <Drawer anchor="bottom" open={open} onClose={toggleDrawer(false)}>
-                <List>
-                    {actions.map(
-                        (action) =>
-                            action.path !== location.pathname && (
-                                <ListItem
-                                    style={{
-                                        display: "flex",
-                                        justifyContent: "flex-end"
-                                    }}
-                                    button
-                                    key={action.name}
-                                    onClick={(): void => {
-                                        toggleDrawer(false);
-
-                                        handleClick(action.name);
-                                    }}
-                                >
-                                    <ListItemIcon sx={{ color: "white" }}>
-                                        {action.icon}
-                                    </ListItemIcon>
-                                    <ListItemText primary={action.name} />
-                                </ListItem>
-                            )
-                    )}
-
-                    {location.pathname === "/" && (
-                        <>
-                            <ListItem
-                                button
-                                key={"UserSwitcher"}
-                                onClick={(): void => {
-                                    toggleDrawer(false);
-
-                                    handleClick("UserSwitcher");
-                                }}
-                            >
-                                <ListItemIcon
-                                    sx={{
-                                        color: "white"
-                                    }}
-                                >
-                                    <Favorite />
-                                </ListItemIcon>
-                                <ListItemText
-                                    primary={
-                                        isUserHabits
-                                            ? "Zobacz nawyki bobcia"
-                                            : "Wróć do swoich nawyków"
-                                    }
-                                />
-                            </ListItem>
-                            <ListItem
-                                button
-                                key={"ShowAllSwitcher"}
-                                onClick={(): void => {
-                                    toggleDrawer(false)();
-
-                                    handleClick("ShowAllSwitcher");
-                                }}
-                            >
-                                <ListItemIcon
-                                    sx={{
-                                        color: "white"
-                                    }}
-                                >
-                                    {showAllHabits ? <Visibility /> : <VisibilityOff />}
-                                </ListItemIcon>
-                                <ListItemText
-                                    primary={
-                                        showAllHabits ? "Do zrobienia dzisiaj" : "Wszystkie nawyki"
-                                    }
-                                />
-                            </ListItem>
-                        </>
-                    )}
-                </List>
-            </Drawer>
-        </>
-    );
+								dispatch(appActions.toggleShowAllHabits());
+							}}
+						/>
+					)}
+				</List>
+			</Drawer>
+		</>
+	);
 }

@@ -3,15 +3,15 @@ import toast from "react-hot-toast";
 import { sleeper } from "utils/sleeper";
 
 export async function authorizationFail(): Promise<void> {
-    toast.error("Zaloguj się ponownie", { duration: 3000 });
+	toast.error("Zaloguj się ponownie", { duration: 3000 });
 
-    await sleeper(2);
+	await sleeper(2);
 
-    deleteCookieAndRefresh();
+	deleteCookieAndRefresh();
 }
 
 export function deleteCookieAndRefresh(): void {
-    Cookies.remove("authorization");
+	Cookies.remove("authorization");
 
-    window.location.href = "/";
+	window.location.href = "/";
 }

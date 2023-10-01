@@ -1,39 +1,49 @@
 import "assets/global.css";
 
-import { App } from "components/App";
-import { CreateHabit } from "components/pages/create_habit/CreateHabit";
-import { Error } from "components/pages/Error";
-import { Habits } from "components/pages/habits/Habits";
-import { Settings } from "components/pages/settings/Settings";
-import { ShowHabit } from "components/pages/show_habit/ShowHabit";
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import { Provider } from "react-redux";
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { createBrowserRouter, Navigate, RouterProvider } from "react-router-dom";
 import { store } from "store";
 
-const router = createBrowserRouter([
-    {
-        path: "/",
-        element: <App />,
-        children: [
-            { path: "/", element: <Habits /> },
-            {
-                path: "/create_habit",
-                element: <CreateHabit />
-            },
-            { path: "/settings", element: <Settings /> },
-            { path: "/habit/:_id", element: <ShowHabit /> }
-        ],
+import { App } from "./layouts/App";
+import { ErrorPage } from "./layouts/ErrorPage";
+import { NotFoundPage } from "./layouts/NotFoundPage";
+import { CreateHabitPage } from "./pages/create_habit/CreateHabitPage";
+import { DearHabitsPage } from "./pages/dear_habits/DearHabitsPage";
+import { GroupsOfHabitsManagerPage } from "./pages/groups_of_habits_manager/GroupOfHabitsManagerPage";
+import { HabitExplorerPage } from "./pages/habit_explorer/HabitExplorerPage";
+import { HabitsPage } from "./pages/home/HabitsPage";
+import { SettingsPage } from "./pages/settings/SettingsPage";
 
-        errorElement: <Error />
-    }
+const router = createBrowserRouter([
+	{
+		path: "/",
+		element: <App />,
+		children: [
+			{ path: "/", element: <Navigate to={"habits"} /> },
+			{
+				path: "/habits",
+				element: <HabitsPage />
+			},
+			{
+				path: "habits/create",
+				element: <CreateHabitPage />
+			},
+			{ path: "/habits/:_id", element: <HabitExplorerPage /> },
+			{ path: "/settings", element: <SettingsPage /> },
+			{ path: "/settings/groupsOfHabitsManager", element: <GroupsOfHabitsManagerPage /> },
+			{ path: "/dear/habits", element: <DearHabitsPage /> },
+			{ path: "*", element: <NotFoundPage /> }
+		],
+		errorElement: <ErrorPage />
+	}
 ]);
 
 createRoot(document.getElementById("root") as HTMLElement).render(
-    <StrictMode>
-        <Provider store={store}>
-            <RouterProvider router={router} />
-        </Provider>
-    </StrictMode>
+	<StrictMode>
+		<Provider store={store}>
+			<RouterProvider router={router} />
+		</Provider>
+	</StrictMode>
 );
