@@ -1,17 +1,22 @@
 {
-	"name": "bobciowo",
+	"name": "habits_app",
 	"version": "1.1.1",
 	"private": true,
 	"type": "module",
+	"lint-staged": {
+		"*": "prettier --ignore-unknown --write"
+	},
 	"scripts": {
 		"build": "tsc && vite build",
-		"dev": "vite",
-		"preview": "vite preview",
+		"build:dev": "tsc && bunx --bun vite build",
+		"dev": "bunx --bun vite",
 		"lint": "eslint .",
 		"lint:fix": "eslint . --fix",
 		"lint:knip": "knip",
-		"lint:packages": "pnpm dedupe --check",
-		"lint:prettier": "prettier . --write"
+		"lint:spelling": "cspell . --quiet",
+		"lint:prettier": "prettier . --write",
+		"preview": "vite preview",
+		"prepare": "husky install"
 	},
 	"dependencies": {
 		"@emotion/react": "^11.11.1",
@@ -35,28 +40,34 @@
 		"vite-tsconfig-paths": "^4.2.1"
 	},
 	"devDependencies": {
+		"@commitlint/cli": "^17.7.2",
+		"@commitlint/config-conventional": "^17.7.0",
+		"@cspell/dict-pl_pl": "^3.0.0",
 		"@types/canvas-confetti": "^1.6.1",
 		"@types/js-cookie": "^3.0.4",
 		"@types/node": "^20.7.0",
-		"@types/react": "^18.2.22",
+		"@types/react": "^18.2.15",
 		"@types/react-dom": "^18.2.7",
 		"@types/uuid": "^9.0.4",
-		"@typescript-eslint/eslint-plugin": "^6.7.3",
+		"@typescript-eslint/eslint-plugin": "^6.0.0",
+		"@typescript-eslint/parser": "^6.0.0",
 		"@vitejs/plugin-react": "^4.1.0",
-		"eslint": "^8.50.0",
+		"@vitejs/plugin-react-swc": "^3.3.2",
+		"cspell": "^7.3.7",
+		"eslint": "^8.45.0",
 		"eslint-config-prettier": "^9.0.0",
 		"eslint-plugin-jsonc": "^2.9.0",
 		"eslint-plugin-jsx-a11y": "^6.7.1",
 		"eslint-plugin-react": "^7.33.2",
 		"eslint-plugin-react-hooks": "^4.6.0",
+		"eslint-plugin-react-refresh": "^0.4.3",
 		"eslint-plugin-simple-import-sort": "^10.0.0",
 		"eslint-plugin-typescript-sort-keys": "^3.0.0",
+		"husky": "^8.0.3",
 		"knip": "2.25.2",
+		"lint-staged": "^14.0.1",
 		"prettier": "^3.0.3",
-		"typescript": "^5.2.2",
-		"vite": "^4.4.9"
-	},
-	"lint-staged": {
-		"*": "prettier --ignore-unknown --write"
+		"typescript": "^5.0.2",
+		"vite": "^4.4.5"
 	}
 }
