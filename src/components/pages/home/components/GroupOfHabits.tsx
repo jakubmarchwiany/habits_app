@@ -18,8 +18,8 @@ export function GroupOfHabits({ _id }: Props): JSX.Element {
 	}
 
 	const generateHabits = (): JSX.Element[] | JSX.Element => {
-		if (groupOfHabits.habits !== undefined && groupOfHabits.habits.length > 0) {
-			return groupOfHabits.habits.map((g) => <Habit key={`habit_${g}`} _id={g} />);
+		if (groupOfHabits.habitsIds !== undefined && groupOfHabits.habitsIds.length > 0) {
+			return groupOfHabits.habitsIds.map((g) => <Habit key={`habit_${g}`} _id={g} />);
 		} else {
 			return <Typography variant="h5">Nie masz żadnego nawyku w grupie</Typography>;
 		}

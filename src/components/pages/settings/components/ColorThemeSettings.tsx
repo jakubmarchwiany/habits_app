@@ -40,7 +40,7 @@ export function ColorThemeSettings(): JSX.Element {
 	const removeThemeColor = async (): Promise<void> => {
 		localStorage.removeItem("themeColor");
 
-		toast.success("Przywrócno domyślny motyw");
+		toast.success("Przywrócono domyślny motyw");
 
 		await sleep(1000);
 

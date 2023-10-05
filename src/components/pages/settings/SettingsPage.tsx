@@ -10,7 +10,7 @@ import { ColorThemeSettings } from "./components/ColorThemeSettings";
 export function SettingsPage(): JSX.Element {
 	const navigate = useNavigate();
 
-	const loguout = async (): Promise<void> => {
+	const logout = async (): Promise<void> => {
 		toast.success("Wylogowano pomyślnie");
 
 		await sleep(500);
@@ -48,7 +48,7 @@ export function SettingsPage(): JSX.Element {
 				<Button
 					color="error"
 					variant="contained"
-					onClick={loguout}
+					onClick={logout}
 					sx={{ mt: 0.5, alignSelf: "center" }}
 					fullWidth
 				>

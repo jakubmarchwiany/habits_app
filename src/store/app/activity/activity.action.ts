@@ -8,8 +8,8 @@ export const createActivityAction =
 	(habitId: string, oldActivityId: string, date: string): AppThunk =>
 	(appDispatch) => {
 		postFetch<{ data: { activityId: string } }>(
-			{ _id: habitId, date },
-			"/habits/activity/create"
+			{ habitId, date },
+			"/habits/-/activities/-/create"
 		).then(({ data }) => {
 			const { activityId } = data;
 
@@ -26,7 +26,7 @@ export const createActivityAction =
 export const deleteActivityAction =
 	(habitId: string, activityId: string): AppThunk =>
 	(appDispatch) => {
-		postFetch<never>({ _id: activityId }, "/habits/activity/delete").then(() => {
+		postFetch<never>({}, `/habits/-/activities/${activityId}/delete`).then(() => {
 			appDispatch(appActions.deleteActivity({ habitId, activityId }));
 		});
 	};

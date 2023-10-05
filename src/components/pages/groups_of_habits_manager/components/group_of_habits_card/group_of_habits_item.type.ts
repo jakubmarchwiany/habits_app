@@ -3,8 +3,3 @@ export type GroupOfHabitsItem = {
 	habits: { _id: string; name: string }[];
 	name: string;
 };
-
-// export type habitGroupsFetch = {
-//     habits: string[];
-//     name: string;
-// };

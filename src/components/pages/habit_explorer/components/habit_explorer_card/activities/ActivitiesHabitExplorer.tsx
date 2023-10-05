@@ -66,7 +66,7 @@ export function ActivitiesHabitExplorer({ explorerHabit, setExplorerHabit }: Pro
 		});
 	};
 
-	const generateActivites = (): JSX.Element[] => {
+	const generateActivities = (): JSX.Element[] => {
 		return explorerHabit.activities.map((activity, index) => {
 			const { _id, status, date } = activity;
 
@@ -98,7 +98,7 @@ export function ActivitiesHabitExplorer({ explorerHabit, setExplorerHabit }: Pro
 
 	return (
 		<Box className="gridDays" mt={1}>
-			{generateActivites()}
+			{generateActivities()}
 		</Box>
 	);
 }

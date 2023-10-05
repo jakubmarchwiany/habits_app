@@ -1,13 +1,74 @@
+import dayjs from "dayjs";
 import { NavigateFunction } from "react-router-dom";
-import { computeActivitiesDoneOrNotDone, computeHabit, extandHabit } from "utils/compute";
-import { postFetch } from "utils/fetches";
+import { dearActions } from "store/dear/dear.slice";
+import {
+	computeActivitiesDoneOrNotDone,
+	computeGroup,
+	computeHabit,
+	extendGroup,
+	extendHabit
+} from "utils/compute";
+import { getFetch, postFetch } from "utils/fetches";
 import { ENV } from "utils/validate_env";
 
 import { AppThunk } from "../../index";
-import { GroupOfHabitsData, HabitData } from "../app.actions";
+import { Activity } from "../activity/models/activity.type";
 import { appActions } from "../app.slice";
 
 const { VITE_N_DAYS_FROM_TODAY } = ENV;
+
+export type HabitData = {
+	_id: string;
+	activities: Activity[];
+	description: string;
+	name: string;
+	periodInDays: number;
+};
+export type GroupOfHabitsData = { _id: string; name: string; habitsIds: string[] };
+
+type GetHabitsData = {
+	groupsOfHabits: GroupOfHabitsData[];
+	habits: HabitData[];
+};
+
+export const getHabits =
+	(id: string, isUser: boolean, setIsLoading: (arg0: boolean) => void): AppThunk =>
+	(appDispatch) => {
+		const dateFrom = dayjs()
+			.startOf("day")
+			.subtract(VITE_N_DAYS_FROM_TODAY - 1, "days");
+
+		getFetch<{ data: GetHabitsData }>(`/habits?userId=${id}&dateFrom=${dateFrom.toString()}`, {
+			customError: true
+		})
+			.then(({ data }) => {
+				const { habits, groupsOfHabits } = data;
+
+				let habitsExt = habits.map((h) => extendHabit(h));
+
+				habitsExt = habitsExt.map((h) =>
+					computeActivitiesDoneOrNotDone(h, VITE_N_DAYS_FROM_TODAY)
+				);
+
+				habitsExt = habitsExt.map((h) => computeHabit(h));
+
+				let groupsExt = groupsOfHabits.map((g) => extendGroup(g));
+
+				groupsExt = groupsExt.map((g) => computeGroup(g, habitsExt));
+
+				if (isUser) {
+					appDispatch(
+						appActions.setData({ habits: habitsExt, groupsOfHabits: groupsExt })
+					);
+				} else {
+					appDispatch(
+						dearActions.setData({ habits: habitsExt, groupsOfHabits: groupsExt })
+					);
+				}
+				setIsLoading(false);
+			})
+			.catch(() => {});
+	};
 
 export const createHabitAction =
 	(
@@ -17,19 +78,29 @@ export const createHabitAction =
 		navigate: NavigateFunction
 	): AppThunk =>
 	(appDispatch) => {
-		postFetch<{ data: HabitData }>(
+		postFetch<{ data: { habitId: string } }>(
 			{ description, name, periodInDays },
-			"/habits/habit/create"
+			"/habits/-/create"
 		).then(({ data }) => {
-			let habitExt = extandHabit(data);
+			const { habitId } = data;
+
+			const habit: HabitData = {
+				_id: habitId,
+				name,
+				description,
+				periodInDays,
+				activities: []
+			};
+
+			let habitExt = extendHabit(habit);
 
 			habitExt = computeActivitiesDoneOrNotDone(habitExt, VITE_N_DAYS_FROM_TODAY);
 
 			habitExt = computeHabit(habitExt);
 
-			appDispatch(appActions.craeteHabit(habitExt));
+			appDispatch(appActions.createHabit(habitExt));
 
-			navigate("/settings?openGroupManager=true");
+			navigate("/settings/groupsOfHabitsManager");
 		});
 	};
 
@@ -59,14 +130,20 @@ export const deleteHabitAction =
 		});
 	};
 
-export const edithabitsOrderAction =
-	(habitGroups: { habits: string[]; name: string }[], navigate: NavigateFunction): AppThunk =>
+export const updateGroupsOfHabits =
+	(
+		newGroupsOfHabits: { _id: string; name: string; habitsIds: string[] }[],
+		navigate: NavigateFunction
+	): AppThunk =>
 	(appDispatch) => {
-		postFetch<{ data: GroupOfHabitsData[] }>({ habitGroups }, "/habits/updateGroups").then(
-			({ data }) => {
-				appDispatch(appActions.updateGroups(data));
+		postFetch<{ data: { groupsOfHabits: GroupOfHabitsData[] } }>(
+			{ newGroupsOfHabits },
+			"/habits/groupsOfHabits/update"
+		).then(({ data }) => {
+			const { groupsOfHabits } = data;
 
-				navigate("/habits");
-			}
-		);
+			appDispatch(appActions.updateGroups(groupsOfHabits));
+
+			navigate("/habits");
+		});
 	};

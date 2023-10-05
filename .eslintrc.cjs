@@ -32,6 +32,7 @@ module.exports = {
 				"@typescript-eslint/no-explicit-any": "error",
 				"@typescript-eslint/no-non-null-assertion": "error",
 				"@typescript-eslint/consistent-type-definitions": ["error", "type"],
+				"typescript-sort-keys-interface": "off",
 				"react/prop-types": "error",
 				curly: "error",
 				"jsx-a11y/no-autofocus": "off"
@@ -67,7 +68,8 @@ module.exports = {
 			{ blankLine: "always", prev: "expression", next: "*" },
 			{ blankLine: "any", prev: "expression", next: "break" }
 			// { blankLine: "any", prev: "expression", next: "" }
-		]
+		],
+		"typescript-sort-keys/interface": "off"
 	},
 	settings: {
 		react: {

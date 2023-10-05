@@ -15,8 +15,8 @@ export function updateHabitReducer(
 	state: AppState,
 	action: PayloadAction<{
 		_id: string;
-		newDescription: string;
 		newName: string;
+		newDescription: string;
 		newPeriodInDays: number;
 	}>
 ): void {
@@ -62,11 +62,11 @@ export function deleteHabitReducer(
 	habits?.filter((h) => h._id !== _id);
 
 	const habitGroup = groupsOfHabits?.find((g) => {
-		return g.habits.find((h) => h === _id);
+		return g.habitsIds.find((h) => h === _id);
 	});
 
 	if (habitGroup !== undefined && habits !== undefined) {
-		habitGroup.habits = habitGroup.habits.filter((h) => h !== _id);
+		habitGroup.habitsIds = habitGroup.habitsIds.filter((h) => h !== _id);
 
 		const updateGroup = computeGroup(habitGroup, habits);
 
@@ -80,7 +80,7 @@ export function updateHabitAndGroup(
 	allHabits: Habit[]
 ): void {
 	const habitGroup = groups?.find((g) => {
-		return g.habits.find((h) => h === habit._id);
+		return g.habitsIds.find((h) => h === habit._id);
 	});
 
 	if (habitGroup !== undefined) {

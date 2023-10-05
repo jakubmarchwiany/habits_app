@@ -17,7 +17,7 @@ type Props = {
 export function Activities({ activities, habitId }: Props): JSX.Element {
 	const dispatch = useAppDispatch();
 
-	const generateActivites = (): JSX.Element[] => {
+	const generateActivities = (): JSX.Element[] => {
 		return activities.map((activity, index) => {
 			const { _id, status, date } = activity;
 
@@ -28,8 +28,6 @@ export function Activities({ activities, habitId }: Props): JSX.Element {
 						className={`activity ${status}`}
 						data-tooltip={`${date.slice(5, 7)}-${date.slice(8, 10)}`}
 						onClick={(): void => {
-							console.log("elo");
-
 							dispatch(deleteActivityAction(habitId, _id));
 						}}
 					/>
@@ -53,7 +51,7 @@ export function Activities({ activities, habitId }: Props): JSX.Element {
 
 	return (
 		<Box className="gridDays" mt={1}>
-			{generateActivites()}
+			{generateActivities()}
 		</Box>
 	);
 }

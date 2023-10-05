@@ -1,33 +1,39 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { computeGroup, extandGroup } from "utils/compute";
+import { computeGroup, extendGroup } from "utils/compute";
 
 import { createActivityReducer, deleteActivityReducer } from "./activity/activity.reducers";
-import { getShowAllHabits, GroupOfHabitsData } from "./app.actions";
+import { getShowAllHabits } from "./app.actions";
+import { GroupOfHabitsData } from "./habit/habit.actions";
 import { createHabitReducer, deleteHabitReducer, updateHabitReducer } from "./habit/habit.reducers";
 import { GroupOfHabits } from "./habit/models/group_of_habits.type";
 import { Habit } from "./habit/models/habit.type";
 
 export type AppState = {
-	groupsOfHabits: GroupOfHabits[] | undefined;
-	habits: Habit[] | undefined;
+	userId: string | undefined;
 	showAllHabits: boolean | undefined;
+	habits: Habit[] | undefined;
+	groupsOfHabits: GroupOfHabits[] | undefined;
 };
 
 const initialState: AppState = {
-	groupsOfHabits: undefined,
+	userId: undefined,
+	showAllHabits: getShowAllHabits(),
 	habits: undefined,
-	showAllHabits: getShowAllHabits()
+	groupsOfHabits: undefined
 };
 
 type SetDataProps = {
-	groupsOfHabits: GroupOfHabits[];
 	habits: Habit[];
+	groupsOfHabits: GroupOfHabits[];
 };
 
 const appSlice = createSlice({
 	initialState,
 	name: "app",
 	reducers: {
+		setUserId(state, action: PayloadAction<string>) {
+			state.userId = action.payload;
+		},
 		setData(state, action: PayloadAction<SetDataProps>) {
 			state.habits = action.payload.habits;
 
@@ -40,7 +46,7 @@ const appSlice = createSlice({
 				localStorage.setItem("showAllHabits", state.showAllHabits.toString());
 			}
 		},
-		craeteHabit: createHabitReducer,
+		createHabit: createHabitReducer,
 		updateHabit: updateHabitReducer,
 		deleteHabit: deleteHabitReducer,
 		createActivity: createActivityReducer,
@@ -48,7 +54,7 @@ const appSlice = createSlice({
 		updateGroups(state, action: PayloadAction<GroupOfHabitsData[]>) {
 			const { habits, groupsOfHabits } = state;
 
-			let groupsExt = action.payload.map((g) => extandGroup(g));
+			let groupsExt = action.payload.map((g) => extendGroup(g));
 
 			if (habits !== undefined && groupsOfHabits !== undefined) {
 				groupsExt = groupsExt.map((g) => computeGroup(g, habits));

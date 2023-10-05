@@ -9,6 +9,8 @@ import {
 import { Tooltip } from "@mui/material";
 import * as React from "react";
 
+export const GOAL_RATE_LEVELS = [0.2, 0.4, 0.6, 0.8, Number.MAX_VALUE];
+
 const rateIcons: [string, React.ReactElement][] = [
 	["#FFF", <SentimentNeutral />],
 	["#FF0000", <SentimentVeryDissatisfied />],

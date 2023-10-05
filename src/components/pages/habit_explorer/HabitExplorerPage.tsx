@@ -11,9 +11,11 @@ export function HabitExplorerPage(): JSX.Element {
 
 	useEffect(() => {
 		return () => {
-			toast("Odśwież stronę aby zobaczyć zmianny");
+			toast("Odśwież stronę aby zobaczyć zmiany");
 		};
 	}, []);
+
+	console.log(_id);
 
 	if (_id === undefined) {
 		return <ErrorPage />;

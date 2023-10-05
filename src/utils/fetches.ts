@@ -4,7 +4,7 @@ import toast from "react-hot-toast";
 import { authorizationFail } from "./log_out";
 import { ENV } from "./validate_env";
 
-const { VITE_API_ENDPOINT } = ENV;
+const { VITE_API_ENDPOINT, isDev } = ENV;
 
 export async function getFetch<T>(
 	url: string,
@@ -41,6 +41,10 @@ export async function getFetch<T>(
 				}
 			})
 			.catch((error) => {
+				if (isDev) {
+					console.log(error);
+				}
+
 				toast.error("Coś poszło nie tak :(", { id: toastId });
 
 				if (options?.customError !== undefined) {
@@ -87,6 +91,10 @@ export async function postFetch<T>(
 				}
 			})
 			.catch((error) => {
+				if (isDev) {
+					console.log(error);
+				}
+
 				toast.error("Coś poszło nie tak :(", { id: toastId });
 
 				if (options?.customError !== undefined) {

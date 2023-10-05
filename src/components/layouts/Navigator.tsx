@@ -16,8 +16,8 @@ import { appActions } from "store/app/app.slice";
 
 const actions = [
 	{ icon: <PublishedWithChanges />, text: "Nawyki", path: "/habits" },
-	{ icon: <PostAdd />, text: "Stwórz nawyk", path: "/habits/create" },
 	{ icon: <Favorite />, text: "Nawyki Bobcia", path: "/dear/habits" },
+	{ icon: <PostAdd />, text: "Stwórz nawyk", path: "/habits/create" },
 	{ icon: <Settings />, text: "Ustawienia", path: "/settings" }
 ];
 
@@ -57,6 +57,18 @@ export function Navigator(): JSX.Element {
 				}}
 			>
 				<List>
+					{(location.pathname === "/habits" || location.pathname === "/dear/habits") && (
+						<MyListItem
+							key={4}
+							text={"Wszystkie"}
+							icon={showAllHabits ? <CheckBox /> : <CheckBoxOutlineBlank />}
+							onClick={(): void => {
+								setOpenDrawer(false);
+
+								dispatch(appActions.toggleShowAllHabits());
+							}}
+						/>
+					)}
 					{actions.map((action) => (
 						<MyListItem
 							key={action.path}
@@ -70,18 +82,6 @@ export function Navigator(): JSX.Element {
 							}}
 						/>
 					))}
-					{location.pathname === "/habits" && (
-						<MyListItem
-							key={4}
-							text={"Pokaż wszystkie"}
-							icon={showAllHabits ? <CheckBox /> : <CheckBoxOutlineBlank />}
-							onClick={(): void => {
-								setOpenDrawer(false);
-
-								dispatch(appActions.toggleShowAllHabits());
-							}}
-						/>
-					)}
 				</List>
 			</Drawer>
 		</>
