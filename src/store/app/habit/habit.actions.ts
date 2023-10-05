@@ -32,15 +32,18 @@ type GetHabitsData = {
 };
 
 export const getHabits =
-	(id: string, isUser: boolean, setIsLoading: (arg0: boolean) => void): AppThunk =>
+	(myHabits: boolean, setter: (arg0: boolean) => void): AppThunk =>
 	(appDispatch) => {
 		const dateFrom = dayjs()
 			.startOf("day")
 			.subtract(VITE_N_DAYS_FROM_TODAY - 1, "days");
 
-		getFetch<{ data: GetHabitsData }>(`/habits?userId=${id}&dateFrom=${dateFrom.toString()}`, {
-			customError: true
-		})
+		getFetch<{ data: GetHabitsData }>(
+			`/habits?myHabits=${myHabits}&dateFrom=${dateFrom.toString()}`,
+			{
+				customError: true
+			}
+		)
 			.then(({ data }) => {
 				const { habits, groupsOfHabits } = data;
 
@@ -56,7 +59,7 @@ export const getHabits =
 
 				groupsExt = groupsExt.map((g) => computeGroup(g, habitsExt));
 
-				if (isUser) {
+				if (myHabits) {
 					appDispatch(
 						appActions.setData({ habits: habitsExt, groupsOfHabits: groupsExt })
 					);
@@ -65,9 +68,11 @@ export const getHabits =
 						dearActions.setData({ habits: habitsExt, groupsOfHabits: groupsExt })
 					);
 				}
-				setIsLoading(false);
+				setter(true);
 			})
-			.catch(() => {});
+			.catch(() => {
+				setter(false);
+			});
 	};
 
 export const createHabitAction =
@@ -147,3 +152,13 @@ export const updateGroupsOfHabits =
 			navigate("/habits");
 		});
 	};
+
+export function getShowAllHabits(): boolean {
+	const showAllHabits = localStorage.getItem("showAllHabits");
+
+	if (showAllHabits !== null) {
+		return Boolean(JSON.parse(showAllHabits));
+	} else {
+		return false;
+	}
+}

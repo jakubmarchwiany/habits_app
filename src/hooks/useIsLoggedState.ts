@@ -2,7 +2,7 @@ import { useAppDispatch } from "hooks/redux";
 import Cookies from "js-cookie";
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
-import { autoLogin } from "store/app/app.actions";
+import { getHabits } from "store/app/habit/habit.actions";
 
 export function useStateIsLogged(): [boolean | undefined] {
 	const [isLogged, setIsLogged] = useState<boolean | undefined>(undefined);
@@ -10,7 +10,7 @@ export function useStateIsLogged(): [boolean | undefined] {
 
 	useEffect(() => {
 		if (Cookies.get("authorization") !== undefined) {
-			dispatch(autoLogin(setIsLogged));
+			dispatch(getHabits(true, setIsLogged));
 		} else {
 			toast.error("Zaloguj się", { duration: 2000 });
 

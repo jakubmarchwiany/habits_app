@@ -2,21 +2,18 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { computeGroup, extendGroup } from "utils/compute";
 
 import { createActivityReducer, deleteActivityReducer } from "./activity/activity.reducers";
-import { getShowAllHabits } from "./app.actions";
-import { GroupOfHabitsData } from "./habit/habit.actions";
+import { getShowAllHabits, GroupOfHabitsData } from "./habit/habit.actions";
 import { createHabitReducer, deleteHabitReducer, updateHabitReducer } from "./habit/habit.reducers";
 import { GroupOfHabits } from "./habit/models/group_of_habits.type";
 import { Habit } from "./habit/models/habit.type";
 
 export type AppState = {
-	userId: string | undefined;
 	showAllHabits: boolean | undefined;
 	habits: Habit[] | undefined;
 	groupsOfHabits: GroupOfHabits[] | undefined;
 };
 
 const initialState: AppState = {
-	userId: undefined,
 	showAllHabits: getShowAllHabits(),
 	habits: undefined,
 	groupsOfHabits: undefined
@@ -31,9 +28,6 @@ const appSlice = createSlice({
 	initialState,
 	name: "app",
 	reducers: {
-		setUserId(state, action: PayloadAction<string>) {
-			state.userId = action.payload;
-		},
 		setData(state, action: PayloadAction<SetDataProps>) {
 			state.habits = action.payload.habits;
 

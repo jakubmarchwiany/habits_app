@@ -8,15 +8,16 @@ import { LoadingPage } from "../loading/LoadingPage";
 import { DearGroupOfHabits } from "./components/DearGroupOfHabits";
 
 export function DearHabitsPage(): JSX.Element {
-	const [loading, setIsLoading] = useState(true);
-	const dearId = useAppSelector((s) => s.dear.dearId);
+	const [isDownload, setIsDownload] = useState(false);
 	const groupsOfHabits = useAppSelector((s) => s.dear.groupsOfHabits);
 
 	const dispatch = useAppDispatch();
 
 	useEffect(() => {
-		if (dearId !== undefined && groupsOfHabits === undefined) {
-			dispatch(getHabits(dearId, false, setIsLoading));
+		if (groupsOfHabits === undefined) {
+			dispatch(getHabits(false, setIsDownload));
+		} else {
+			setIsDownload(true);
 		}
 	}, []);
 
@@ -30,9 +31,9 @@ export function DearHabitsPage(): JSX.Element {
 		}
 	};
 
-	if (loading) {
+	if (groupsOfHabits === undefined) {
 		return <LoadingPage />;
-	} else if (groupsOfHabits === undefined) {
+	} else if (!isDownload) {
 		return <ErrorPage />;
 	} else {
 		return (
