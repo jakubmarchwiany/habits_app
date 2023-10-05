@@ -1,6 +1,6 @@
 import { Stack, ThemeProvider } from "@mui/material";
 import { Navigator } from "components/layouts/Navigator";
-import { LoadingPage } from "components/pages/loading/LoadingPage";
+import { WelcomePage } from "components/pages/welcome/WelcomePage";
 import { useStateIsLogged } from "hooks/useIsLoggedState";
 import { useThemeColor } from "hooks/useThemeColor";
 import { Toaster } from "react-hot-toast";
@@ -18,7 +18,7 @@ export function App(): JSX.Element {
 					<Navigator />
 				</Stack>
 			) : (
-				<LoadingPage isLogged={isLogged} />
+				<WelcomePage isLogged={isLogged} />
 			)}
 
 			<Toaster

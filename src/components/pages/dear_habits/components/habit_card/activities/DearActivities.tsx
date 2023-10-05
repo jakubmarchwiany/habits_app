@@ -10,7 +10,7 @@ type Props = {
 };
 
 export function DearActivities({ activities }: Props): JSX.Element {
-	const generateActivites = (): JSX.Element[] => {
+	const generateActivities = (): JSX.Element[] => {
 		return activities.map((activity, index) => {
 			const { status, date } = activity;
 
@@ -36,7 +36,7 @@ export function DearActivities({ activities }: Props): JSX.Element {
 
 	return (
 		<Box className="gridDays" mt={1}>
-			{generateActivites()}
+			{generateActivities()}
 		</Box>
 	);
 }

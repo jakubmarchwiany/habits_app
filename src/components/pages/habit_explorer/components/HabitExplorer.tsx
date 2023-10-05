@@ -31,10 +31,12 @@ export function HabitExplorer({ _id }: Props): JSX.Element {
 				.startOf("day")
 				.subtract(nDaysFrom - 1, "days");
 
-			getFetch<{ data: Activity[] }>(
+			getFetch<{ data: { activities: Activity[] } }>(
 				`/habits/${_id}/activities?dateFrom=${dateFrom.toString()}`
 			).then(({ data }) => {
-				let tmpHabit = { ...habit, activities: data };
+				const { activities } = data;
+
+				let tmpHabit = { ...habit, activities };
 
 				tmpHabit = computeActivitiesDoneOrNotDone(tmpHabit, nDaysFrom);
 

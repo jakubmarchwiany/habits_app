@@ -21,8 +21,10 @@ export function Login(): JSX.Element {
 	const handleLogin = (event: SyntheticEvent): void => {
 		event.preventDefault();
 
-		postFetch<{ token: string }>({ username, password }, `/auth/login`).then(
-			async ({ token }) => {
+		postFetch<{ data: { token: string } }>({ username, password }, `/auth/login`).then(
+			async ({ data }) => {
+				const { token } = data;
+
 				Cookies.set("authorization", token, {
 					expires: rememberMe ? 31 : undefined,
 					path: "/"

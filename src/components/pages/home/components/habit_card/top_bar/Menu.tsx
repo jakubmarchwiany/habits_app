@@ -65,7 +65,7 @@ export function Menu({ _id, name, description, periodInDays }: Props): JSX.Eleme
 					text="Usuń"
 					Icon={DeleteForever}
 					onClick={(): void => {
-						toast.error("Kliknij dwukrotnie by usunać nawyk");
+						toast.error("Kliknij dwukrotnie by usunąć nawyk");
 					}}
 					onDoubleClick={(): void => {
 						toast.remove();

@@ -17,7 +17,7 @@ export function prepareGroups(
 	const tmpGroups = GroupOfHabits.map((group) => {
 		const groupHabits: habitCardItem[] = [];
 
-		group.habits.forEach((habitId) => {
+		group.habitsIds.forEach((habitId) => {
 			const habit = tmpHabits.find((h) => h._id === habitId);
 
 			if (habit) {

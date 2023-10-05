@@ -4,7 +4,7 @@ import { ErrorPage } from "components/layouts/ErrorPage";
 import { useAppDispatch, useAppSelector } from "hooks/redux";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { edithabitsOrderAction } from "store/app/habit/habit.actions";
+import { updateGroupsOfHabits } from "store/app/habit/habit.actions";
 import { v4 as uuid } from "uuid";
 
 import { prepareGroups, validateGroups } from "../prepareGroups";
@@ -43,10 +43,14 @@ export function GroupsOfHabitsManager(): JSX.Element {
 			console.log(groupsOfHabitsCard);
 
 			const groupsToFetch = groupsOfHabitsCard.map((group) => {
-				return { name: group.name, habits: group.habits.map((habit) => habit._id) };
+				return {
+					_id: group._id,
+					name: group.name,
+					habitsIds: group.habits.map((habit) => habit._id)
+				};
 			});
 
-			dispatch(edithabitsOrderAction(groupsToFetch, navigate));
+			dispatch(updateGroupsOfHabits(groupsToFetch, navigate));
 		}
 	};
 
