@@ -1,18 +1,19 @@
+import { GOAL_RATE_LEVELS } from "components/pages/home/components/habit_card/top_bar/GoalRate";
 import dayjs from "dayjs";
+import { GroupOfHabitsData, HabitData } from "store/app/habit/habit.actions";
 import { v4 as uuid } from "uuid";
 
 import { Activity, ActivityStatus } from "../store/app/activity/models/activity.type";
-import { GroupOfHabitsData, HabitData } from "../store/app/app.actions";
 import { GroupOfHabits } from "../store/app/habit/models/group_of_habits.type";
 import { Habit } from "../store/app/habit/models/habit.type";
 
-export function extandHabit(habit: HabitData): Habit {
+export function extendHabit(habit: HabitData): Habit {
 	const habitExt: Habit = { ...habit, show: true, goalRate: { level: 0, value: 0 } };
 
 	return habitExt;
 }
 
-export function extandGroup(group: GroupOfHabitsData): GroupOfHabits {
+export function extendGroup(group: GroupOfHabitsData): GroupOfHabits {
 	const groupExt: GroupOfHabits = { ...group, show: true };
 
 	return groupExt;
@@ -147,7 +148,7 @@ function computeHabitRate(habit: Habit): Habit {
 		const daysToCount = activities.length - firstDoneActivity;
 		const rate = sumDoneActivities / daysToCount;
 
-		const level = THRESHOLDVALUES.findIndex((threshold) => rate < threshold);
+		const level = GOAL_RATE_LEVELS.findIndex((threshold) => rate < threshold);
 
 		habit.goalRate = { level: level + 1, value: rate };
 	}
@@ -155,10 +156,8 @@ function computeHabitRate(habit: Habit): Habit {
 	return habit;
 }
 
-const THRESHOLDVALUES = [0.2, 0.4, 0.6, 0.8, Number.MAX_VALUE];
-
 function computeShowGroup(habits: Habit[], groupOfHabits: GroupOfHabits): GroupOfHabits {
-	const { habits: habitsGroup } = groupOfHabits;
+	const { habitsIds: habitsGroup } = groupOfHabits;
 
 	let show = false;
 
