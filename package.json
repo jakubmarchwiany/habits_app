@@ -7,8 +7,7 @@
 		"*": "prettier --ignore-unknown --write"
 	},
 	"scripts": {
-		"build": "tsc && vite build",
-		"build:dev": "tsc && bunx --bun vite build",
+		"build": "vite build",
 		"dev": "bunx --bun vite",
 		"lint": "eslint .",
 		"lint:fix": "eslint . --fix",
