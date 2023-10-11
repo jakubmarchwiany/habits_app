@@ -44,11 +44,11 @@
 	}
 }
 
-.activity {
+.dear_activity {
 	position: relative;
 }
 
-.activity::after {
+.dear_activity::after {
 	content: attr(data-tooltip); /* Display the tooltip text */
 	position: absolute;
 	bottom: 100%; /* Change 'top' to 'bottom' */
@@ -67,7 +67,7 @@
 		visibility 0.3s;
 }
 
-.activity:hover::after {
+.dear_activity:hover::after {
 	visibility: visible;
 	opacity: 1;
 }
