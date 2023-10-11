@@ -1,4 +1,4 @@
-import { GOAL_RATE_LEVELS } from "components/pages/home/components/habit_card/top_bar/GoalRate";
+import { GOAL_RATE_LEVELS } from "components/pages/habits/components/habit_card/top_bar/GoalRate";
 import dayjs from "dayjs";
 import { GroupOfHabitsData, HabitData } from "store/app/habit/habit.actions";
 import { v4 as uuid } from "uuid";

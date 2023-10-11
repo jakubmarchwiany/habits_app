@@ -13,7 +13,7 @@ import { CreateHabitPage } from "./pages/create_habit/CreateHabitPage";
 import { DearHabitsPage } from "./pages/dear_habits/DearHabitsPage";
 import { GroupsOfHabitsManagerPage } from "./pages/groups_of_habits_manager/GroupOfHabitsManagerPage";
 import { HabitExplorerPage } from "./pages/habit_explorer/HabitExplorerPage";
-import { HabitsPage } from "./pages/home/HabitsPage";
+import { HabitsPage } from "./pages/habits/HabitsPage";
 import { SettingsPage } from "./pages/settings/SettingsPage";
 
 const router = createBrowserRouter([

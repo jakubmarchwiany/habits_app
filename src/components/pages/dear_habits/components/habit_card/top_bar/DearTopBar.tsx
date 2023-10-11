@@ -1,5 +1,5 @@
 import { Box, Tooltip, Typography, Zoom } from "@mui/material";
-import { GoalRate } from "components/pages/home/components/habit_card/top_bar/GoalRate";
+import { GoalRate } from "components/pages/habits/components/habit_card/top_bar/GoalRate";
 
 type Props = {
 	description: string;
