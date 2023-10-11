@@ -146,7 +146,7 @@ function computeHabitRate(habit: Habit): Habit {
 		habit.goalRate = { level: 0, value: 0 };
 	} else {
 		const daysToCount = activities.length - firstDoneActivity;
-		const rate = sumDoneActivities / daysToCount;
+		const rate = (sumDoneActivities * habit.periodInDays) / daysToCount;
 
 		const level = GOAL_RATE_LEVELS.findIndex((threshold) => rate < threshold);
 
