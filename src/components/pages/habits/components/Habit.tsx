@@ -23,12 +23,12 @@ export function Habit({ _id }: Props): JSX.Element {
 	return (
 		<Grid2 xs={12} md={3}>
 			<Stack
-				pt={{ xs: 1, md: 1 }}
-				boxShadow={5}
+				pt={{ xs: 1 }}
+				p={0.5}
 				sx={{
-					border: 2,
-					borderRadius: 3,
-					borderColor: "primary.main"
+					border: 3.5,
+					borderRadius: 4,
+					borderColor: "background.default"
 				}}
 			>
 				<TopBar

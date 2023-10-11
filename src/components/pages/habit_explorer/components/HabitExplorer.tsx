@@ -56,12 +56,12 @@ export function HabitExplorer({ _id }: Props): JSX.Element {
 	return (
 		<Stack
 			width={standardSize}
-			pt={{ xs: 1, md: 1 }}
-			boxShadow={5}
+			pt={{ xs: 1 }}
+			p={0.5}
 			sx={{
-				border: 2,
-				borderRadius: 3,
-				borderColor: "primary.main"
+				border: 3.5,
+				borderRadius: 4,
+				borderColor: "background.default"
 			}}
 		>
 			<TopBarHabitExplorer

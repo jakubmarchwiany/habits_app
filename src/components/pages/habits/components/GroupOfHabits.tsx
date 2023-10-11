@@ -42,7 +42,6 @@ export function GroupOfHabits({ _id }: Props): JSX.Element {
 				<Chip
 					label={groupOfHabits.name.toUpperCase()}
 					sx={{
-						color: "primary.main",
 						fontSize: { xs: "1.5rem", md: "2.5rem" },
 						py: { xs: 2.5, md: 3.5 }
 					}}
