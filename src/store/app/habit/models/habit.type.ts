@@ -2,10 +2,10 @@ import { Activity } from "../../activity/models/activity.type";
 
 export type Habit = {
 	_id: string;
-	activities: Activity[];
-	description: string;
-	goalRate: { level: number; value: number };
 	name: string;
+	description: string;
 	periodInDays: number;
+	activities: Activity[];
+	score: number;
 	show: boolean;
 };

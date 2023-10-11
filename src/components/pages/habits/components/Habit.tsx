@@ -18,7 +18,7 @@ export function Habit({ _id }: Props): JSX.Element {
 		return <></>;
 	}
 
-	const { name, description, goalRate, periodInDays, activities } = habit;
+	const { name, description, score: goalRate, periodInDays, activities } = habit;
 
 	return (
 		<Grid2 xs={12} md={3}>
@@ -35,7 +35,7 @@ export function Habit({ _id }: Props): JSX.Element {
 					_id={_id}
 					name={name}
 					description={description}
-					goalRate={goalRate}
+					score={goalRate}
 					periodInDays={periodInDays}
 				/>
 

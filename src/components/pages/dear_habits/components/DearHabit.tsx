@@ -18,7 +18,7 @@ export function DearHabit({ _id }: Props): JSX.Element {
 		return <></>;
 	}
 
-	const { name, description, goalRate, periodInDays, activities } = habit;
+	const { name, description, score, periodInDays, activities } = habit;
 
 	return (
 		<Grid2 xs={12} md={3}>
@@ -34,7 +34,7 @@ export function DearHabit({ _id }: Props): JSX.Element {
 				<DearTopBar
 					name={name}
 					description={description}
-					goalRate={goalRate}
+					score={score}
 					periodInDays={periodInDays}
 				/>
 

@@ -51,7 +51,7 @@ export function HabitExplorer({ _id }: Props): JSX.Element {
 		return <ErrorPage />;
 	}
 
-	const { name, description, goalRate, periodInDays } = explorerHabit;
+	const { name, description, score: goalRate, periodInDays } = explorerHabit;
 
 	return (
 		<Stack
@@ -67,7 +67,7 @@ export function HabitExplorer({ _id }: Props): JSX.Element {
 			<TopBarHabitExplorer
 				name={name}
 				description={description}
-				goalRate={goalRate}
+				score={goalRate}
 				periodInDays={periodInDays}
 			/>
 

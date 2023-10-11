@@ -1,13 +1,13 @@
 import { Box, Tooltip, Typography, Zoom } from "@mui/material";
-import { GoalRate } from "components/pages/habits/components/habit_card/top_bar/GoalRate";
+import { Score } from "components/pages/habits/components/habit_card/top_bar/Score";
 
 type Props = {
 	description: string;
-	goalRate: { level: number; value: number };
+	score: number;
 	name: string;
 	periodInDays: number;
 };
-export function DearTopBar({ name, description, periodInDays, goalRate }: Props): JSX.Element {
+export function DearTopBar({ name, description, periodInDays, score }: Props): JSX.Element {
 	return (
 		<Box
 			sx={{
@@ -18,7 +18,7 @@ export function DearTopBar({ name, description, periodInDays, goalRate }: Props)
 				alignItems: "center"
 			}}
 		>
-			<GoalRate goalRate={goalRate} />
+			<Score score={score} />
 			<Tooltip
 				title={
 					<>

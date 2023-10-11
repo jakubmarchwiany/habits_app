@@ -1,4 +1,3 @@
-import { GOAL_RATE_LEVELS } from "components/pages/habits/components/habit_card/top_bar/GoalRate";
 import dayjs from "dayjs";
 import { GroupOfHabitsData, HabitData } from "store/app/habit/habit.actions";
 import { v4 as uuid } from "uuid";
@@ -8,7 +7,7 @@ import { GroupOfHabits } from "../store/app/habit/models/group_of_habits.type";
 import { Habit } from "../store/app/habit/models/habit.type";
 
 export function extendHabit(habit: HabitData): Habit {
-	const habitExt: Habit = { ...habit, show: true, goalRate: { level: 0, value: 0 } };
+	const habitExt: Habit = { ...habit, show: true, score: 0 };
 
 	return habitExt;
 }
@@ -143,14 +142,11 @@ function computeHabitRate(habit: Habit): Habit {
 	}
 
 	if (sumDoneActivities === 0) {
-		habit.goalRate = { level: 0, value: 0 };
+		habit.score = 0;
 	} else {
 		const daysToCount = activities.length - firstDoneActivity;
-		const rate = (sumDoneActivities * habit.periodInDays) / daysToCount;
 
-		const level = GOAL_RATE_LEVELS.findIndex((threshold) => rate < threshold);
-
-		habit.goalRate = { level: level + 1, value: rate };
+		habit.score = (sumDoneActivities * habit.periodInDays) / daysToCount;
 	}
 
 	return habit;
