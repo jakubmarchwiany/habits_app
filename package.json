@@ -5,6 +5,7 @@
 	"scripts": {
 		"dev": "bun vite",
 		"build": "rimraf build & bun vite build",
+		"deploy": "wrangler pages deploy build --project-name habits-app --branch production",
 		"lint": "eslint ./src",
 		"lint:fix": "eslint .src --fix",
 		"lint:knip": "knip",
