@@ -35,7 +35,9 @@ export const getHabits =
 	(myHabits: boolean, setter: (arg0: boolean) => void): AppThunk =>
 	(appDispatch) => {
 		const dateFrom = dayjs()
-			.startOf("day")
+			.hour(12)
+			.minute(0)
+			.second(0)
 			.subtract(VITE_N_DAYS_FROM_TODAY - 1, "days");
 
 		getFetch<{ data: GetHabitsData }>(
