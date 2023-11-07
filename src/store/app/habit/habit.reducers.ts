@@ -55,23 +55,33 @@ export function deleteHabitReducer(
 	action: PayloadAction<{
 		_id: string;
 	}>
-): void {
+): AppState {
 	const { _id } = action.payload;
 	const { habits, groupsOfHabits } = state;
 
-	habits?.filter((h) => h._id !== _id);
+	if (habits !== undefined && groupsOfHabits !== undefined) {
+		const updatedHabits = habits.filter((h) => h._id !== _id);
 
-	const habitGroup = groupsOfHabits?.find((g) => {
-		return g.habitsIds.find((h) => h === _id);
-	});
+		const updatedGroupsOfHabits = groupsOfHabits.map((g) => {
+			const habitGroup = g.habitsIds.find((h) => h === _id);
 
-	if (habitGroup !== undefined && habits !== undefined) {
-		habitGroup.habitsIds = habitGroup.habitsIds.filter((h) => h !== _id);
+			if (habitGroup !== undefined) {
+				let updatedGroupOfHabits = {
+					...g,
+					habitsIds: g.habitsIds.filter((h) => h !== _id)
+				};
 
-		const updateGroup = computeGroup(habitGroup, habits);
+				updatedGroupOfHabits = computeGroup(updatedGroupOfHabits, habits);
 
-		Object.assign(habitGroup, updateGroup);
+				return updatedGroupOfHabits;
+			}
+
+			return g;
+		}) as GroupOfHabits[] | undefined;
+
+		return { ...state, habits: updatedHabits, groupsOfHabits: updatedGroupsOfHabits };
 	}
+	return state;
 }
 
 export function updateHabitAndGroup(
