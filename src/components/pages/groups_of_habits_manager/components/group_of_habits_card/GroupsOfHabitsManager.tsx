@@ -40,8 +40,6 @@ export function GroupsOfHabitsManager(): JSX.Element {
 
 	const saveGroupsOfHabits = (): void => {
 		if (validateGroups(groupsOfHabitsCard)) {
-			console.log(groupsOfHabitsCard);
-
 			const groupsToFetch = groupsOfHabitsCard.map((group) => {
 				return {
 					_id: group._id,
@@ -89,7 +87,7 @@ export function GroupsOfHabitsManager(): JSX.Element {
 					variant="contained"
 					color="warning"
 					onClick={(): void => {
-						navigate("/habits");
+						navigate("/settings");
 					}}
 					fullWidth
 				>
