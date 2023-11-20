@@ -11,9 +11,9 @@ import { ErrorPage } from "./layouts/ErrorPage";
 import { NotFoundPage } from "./layouts/NotFoundPage";
 import { CreateHabitPage } from "./pages/create_habit/CreateHabitPage";
 import { DearHabitsPage } from "./pages/dear_habits/DearHabitsPage";
-import { GroupsOfHabitsManagerPage } from "./pages/groups_of_habits_manager/GroupOfHabitsManagerPage";
 import { HabitExplorerPage } from "./pages/habit_explorer/HabitExplorerPage";
 import { HabitsPage } from "./pages/habits/HabitsPage";
+import { GroupsOfHabitsManagerPage } from "./pages/settings/pages/groups_of_habits_manager/GroupOfHabitsManagerPage";
 import { SettingsPage } from "./pages/settings/SettingsPage";
 
 const router = createBrowserRouter([
