@@ -2,7 +2,7 @@
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 
 import { Box } from "@mui/material";
-import { myConfetti } from "components/pages/habits/components/habit_card/activities/confetti";
+import { myConfetti } from "pages/habits/components/habit_card/activities/confetti";
 import { Dispatch, SetStateAction } from "react";
 import { Activity, ActivityStatus } from "store/app/activity/models/activity.type";
 import { Habit } from "store/app/habit/models/habit.type";

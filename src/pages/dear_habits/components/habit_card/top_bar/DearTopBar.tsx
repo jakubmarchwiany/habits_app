@@ -1,5 +1,5 @@
 import { Box, Tooltip, Typography, Zoom } from "@mui/material";
-import { Score } from "components/pages/habits/components/habit_card/top_bar/Score";
+import { Score } from "pages/habits/components/habit_card/top_bar/Score";
 
 type Props = {
 	description: string;
@@ -7,12 +7,7 @@ type Props = {
 	name: string;
 	periodInDays: number;
 };
-export function TopBarHabitExplorer({
-	name,
-	description,
-	periodInDays,
-	score
-}: Props): JSX.Element {
+export function DearTopBar({ name, description, periodInDays, score }: Props): JSX.Element {
 	return (
 		<Box
 			sx={{
@@ -34,6 +29,7 @@ export function TopBarHabitExplorer({
 				}
 				placement="top"
 				TransitionComponent={Zoom}
+				sx={{ fontSize: "50px" }}
 			>
 				<Typography
 					textAlign="center"
@@ -45,7 +41,7 @@ export function TopBarHabitExplorer({
 					{name}
 				</Typography>
 			</Tooltip>
-			<Box sx={{ width: "1.5rem" }} />
+			<div style={{ width: "24px" }} />
 		</Box>
 	);
 }
