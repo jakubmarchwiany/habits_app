@@ -1,22 +1,12 @@
 import { Button, Stack, Typography } from "@mui/material";
 import { standardSize } from "assets/theme";
-import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
-import { deleteCookieAndRefresh } from "utils/log_out";
-import { sleep } from "utils/sleep";
 
 import { ColorThemeSettings } from "./components/ColorThemeSettings";
+import { Logout } from "./components/Logout";
 
 export function SettingsPage(): JSX.Element {
 	const navigate = useNavigate();
-
-	const logout = async (): Promise<void> => {
-		toast.success("Wylogowano pomyślnie");
-
-		await sleep(500);
-
-		deleteCookieAndRefresh();
-	};
 
 	return (
 		<Stack
@@ -45,15 +35,7 @@ export function SettingsPage(): JSX.Element {
 					Zarządzaj grupami
 				</Button>
 
-				<Button
-					color="error"
-					variant="contained"
-					onClick={logout}
-					sx={{ mt: 0.5, alignSelf: "center" }}
-					fullWidth
-				>
-					Wyloguj się
-				</Button>
+				<Logout />
 			</Stack>
 		</Stack>
 	);
