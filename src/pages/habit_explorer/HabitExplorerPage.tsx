@@ -1,5 +1,5 @@
 import { Stack } from "@mui/material";
-import { ErrorPage } from "components/layouts/ErrorPage";
+import { ErrorPage } from "layouts/ErrorPage";
 import { useEffect } from "react";
 import toast from "react-hot-toast";
 import { useParams } from "react-router-dom";

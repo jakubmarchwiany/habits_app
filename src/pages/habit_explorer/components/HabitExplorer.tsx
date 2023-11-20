@@ -1,8 +1,8 @@
 import { Stack } from "@mui/material";
 import { standardSize } from "assets/theme";
-import { ErrorPage } from "components/layouts/ErrorPage";
 import dayjs from "dayjs";
 import { useAppSelector } from "hooks/redux";
+import { ErrorPage } from "layouts/ErrorPage";
 import { useEffect, useState } from "react";
 import { Activity } from "store/app/activity/models/activity.type";
 import { Habit } from "store/app/habit/models/habit.type";

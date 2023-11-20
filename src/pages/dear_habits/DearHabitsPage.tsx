@@ -1,6 +1,6 @@
 import { Stack, Typography } from "@mui/material";
-import { ErrorPage } from "components/layouts/ErrorPage";
 import { useAppDispatch, useAppSelector } from "hooks/redux";
+import { ErrorPage } from "layouts/ErrorPage";
 import { useEffect, useState } from "react";
 import { getHabits } from "store/app/habit/habit.actions";
 

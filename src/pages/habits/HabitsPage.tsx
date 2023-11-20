@@ -1,6 +1,6 @@
 import { Stack, Typography } from "@mui/material";
-import { ErrorPage } from "components/layouts/ErrorPage";
 import { useAppSelector } from "hooks/redux";
+import { ErrorPage } from "layouts/ErrorPage";
 
 import { GroupOfHabits } from "./components/GroupOfHabits";
 

@@ -6,9 +6,9 @@ import { Provider } from "react-redux";
 import { createBrowserRouter, Navigate, RouterProvider } from "react-router-dom";
 import { store } from "store";
 
-import { App } from "./components/layouts/App";
-import { ErrorPage } from "./components/layouts/ErrorPage";
-import { NotFoundPage } from "./components/layouts/NotFoundPage";
+import { App } from "./layouts/App";
+import { ErrorPage } from "./layouts/ErrorPage";
+import { NotFoundPage } from "./layouts/NotFoundPage";
 import { CreateHabitPage } from "./pages/create_habit/CreateHabitPage";
 import { DearHabitsPage } from "./pages/dear_habits/DearHabitsPage";
 import { GroupsOfHabitsManagerPage } from "./pages/groups_of_habits_manager/GroupOfHabitsManagerPage";

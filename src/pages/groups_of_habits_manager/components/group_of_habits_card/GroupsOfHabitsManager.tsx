@@ -1,7 +1,7 @@
 import { Button, Stack } from "@mui/material";
 import Grid2 from "@mui/material/Unstable_Grid2/Grid2";
-import { ErrorPage } from "components/layouts/ErrorPage";
 import { useAppDispatch, useAppSelector } from "hooks/redux";
+import { ErrorPage } from "layouts/ErrorPage";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { updateGroupsOfHabits } from "store/app/habit/habit.actions";

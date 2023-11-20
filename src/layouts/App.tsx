@@ -1,7 +1,7 @@
 import { Stack, ThemeProvider } from "@mui/material";
-import { Navigator } from "components/layouts/Navigator";
 import { useStateIsLogged } from "hooks/useIsLoggedState";
 import { useThemeColor } from "hooks/useThemeColor";
+import { Navigator } from "layouts/Navigator";
 import { WelcomePage } from "pages/welcome/WelcomePage";
 import { Toaster } from "react-hot-toast";
 import { Outlet } from "react-router-dom";
