@@ -37,6 +37,7 @@ export function Navigator(): JSX.Element {
 			</IconButton>
 
 			<Drawer
+				PaperProps={{ sx: { backgroundColor: "background.default" } }}
 				anchor="left"
 				onClose={(): void => {
 					setOpenDrawer(false);
