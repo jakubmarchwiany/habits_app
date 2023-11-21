@@ -23,7 +23,7 @@ export function App(): JSX.Element {
 
 			<Toaster
 				gutter={10}
-				position="top-left"
+				position="bottom-left"
 				reverseOrder
 				toastOptions={{
 					style: {
