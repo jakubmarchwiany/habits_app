@@ -15,10 +15,14 @@ const router = createBrowserRouter([
 		children: [
 			{ path: PAGE.REDIRECT_TO_HABITS.path, element: PAGE.REDIRECT_TO_HABITS.element },
 			{ path: PAGE.HABITS.path, element: PAGE.HABITS.element },
+			{ path: PAGE.DEAR_HABITS.path, element: PAGE.DEAR_HABITS.element },
 			{ path: PAGE.HABITS_CREATE.path, element: PAGE.HABITS_CREATE.element },
 			{ path: PAGE.HABIT.path, element: PAGE.HABIT.element },
 			{ path: PAGE.SETTINGS.path, element: PAGE.SETTINGS.element },
-			{ path: PAGE.DEAR_HABITS.path, element: PAGE.DEAR_HABITS.element },
+			{
+				path: PAGE.SETTINGS_GROUPS_OF_HABITS_MANAGER.path,
+				element: PAGE.SETTINGS_GROUPS_OF_HABITS_MANAGER.element
+			},
 			{ path: PAGE.ALL.path, element: PAGE.ALL.element }
 		],
 		errorElement: <ErrorPage />
