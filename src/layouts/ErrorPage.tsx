@@ -1,7 +1,17 @@
-import { Container, Typography } from "@mui/material";
-import { Link } from "react-router-dom";
+import { Container, Link as MuiLink, Typography } from "@mui/material";
+import { useNavigate, useRouteError } from "react-router-dom";
 
 export function ErrorPage(): JSX.Element {
+	const error = useRouteError();
+
+	let message = undefined;
+
+	if (error instanceof Error) {
+		message = error.message;
+	}
+
+	const navigate = useNavigate();
+
 	return (
 		<Container
 			sx={{
@@ -15,14 +25,36 @@ export function ErrorPage(): JSX.Element {
 			}}
 		>
 			<Typography sx={{ typography: { xs: "h3", md: "h2" } }} textAlign="center">
-				Coś poszło nie tak
+				Ups...
+			</Typography>
+			<Typography
+				sx={{ typography: { xs: "h6", md: "h5" }, color: "red", mt: { xs: 1, md: 2 } }}
+				textAlign="center"
+			>
+				{message !== undefined ? `"${message}"` : "Coś poszło nie tak"}
 			</Typography>
 
-			<Typography mb="20%" sx={{ typography: { xs: "h6", md: "h4" }, mt: { xs: 2, md: 5 } }}>
-				<Link style={{ color: "white" }} to="/">
-					Wróć do strony głównej
-				</Link>
-			</Typography>
+			<MuiLink
+				component="button"
+				onClick={(): void => {
+					navigate(-1);
+				}}
+				sx={{ typography: { xs: "h6", md: "h4" }, mt: { xs: 2, md: 5 } }}
+				variant="body2"
+			>
+				Wróć do poprzedniej strony
+			</MuiLink>
+
+			<MuiLink
+				component="button"
+				onClick={(): void => {
+					navigate("/");
+				}}
+				sx={{ typography: { xs: "h6", md: "h4" }, mt: { xs: 2, md: 5 }, mb: "20%" }}
+				variant="body2"
+			>
+				Wróć do strony głównej
+			</MuiLink>
 		</Container>
 	);
 }
