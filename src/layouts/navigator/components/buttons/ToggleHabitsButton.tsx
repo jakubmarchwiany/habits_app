@@ -27,7 +27,6 @@ export function ToggleHabitsButton(): JSX.Element {
 	return (
 		<IconButton
 			aria-label="delete"
-			size="small"
 			onClick={(): void => {
 				if (location.pathname === "/habits") {
 					navigate("/dear/habits");
@@ -38,9 +37,10 @@ export function ToggleHabitsButton(): JSX.Element {
 			onKeyDown={(e): void => {
 				console.log(e.code);
 			}}
+			size="small"
 			sx={{
 				position: "fixed",
-				right: "1%",
+				right: "5%",
 				top: "1%",
 				fontSize: "3rem",
 				color: location.pathname === "/habits" ? "primary.main" : "#F377E4"

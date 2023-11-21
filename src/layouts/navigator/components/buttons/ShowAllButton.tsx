@@ -27,15 +27,15 @@ export function ShowAllButton(): JSX.Element {
 	return (
 		<IconButton
 			aria-label="delete"
-			size="small"
 			onClick={(): void => {
 				dispatch(appActions.toggleShowAllHabits());
 			}}
+			size="small"
 			sx={{
 				position: "fixed",
-				left: "1%",
+				right: "1%",
 				top: "1%",
-				fontSize: "2.5rem",
+				fontSize: "3rem",
 				color: "white"
 			}}
 		>
