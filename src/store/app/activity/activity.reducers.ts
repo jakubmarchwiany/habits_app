@@ -9,7 +9,7 @@ export function createActivityReducer(
 	action: PayloadAction<{ activity: Activity; habitId: string; oldActivityId: string }>
 ): void {
 	const { activity, habitId, oldActivityId } = action.payload;
-	const { habits, groupsOfHabits } = state;
+	const { groupsOfHabits, habits } = state;
 
 	const habit = habits?.find((h) => h._id === habitId);
 
@@ -29,7 +29,7 @@ export function deleteActivityReducer(
 	action: PayloadAction<{ activityId: string; habitId: string }>
 ): void {
 	const { activityId, habitId } = action.payload;
-	const { habits, groupsOfHabits } = state;
+	const { groupsOfHabits, habits } = state;
 
 	const habit = habits?.find((h) => h._id === habitId);
 
@@ -39,7 +39,7 @@ export function deleteActivityReducer(
 		if (oldActivity !== undefined) {
 			Object.assign(oldActivity, { ...oldActivity, status: ActivityStatus.NOT_DONE });
 
-			if (oldActivity !== undefined && groupsOfHabits !== undefined && habits !== undefined) {
+			if (groupsOfHabits !== undefined && habits !== undefined) {
 				updateHabitAndGroup(habit, groupsOfHabits, habits);
 			}
 		}

@@ -50,39 +50,39 @@ export function Login(): JSX.Element {
 				<LockOpenOutlined fontSize="large" />
 			</Avatar>
 
-			<Typography variant="h4" color="white" mt={1}>
+			<Typography color="white" mt={1} variant="h4">
 				Zaloguj się
 			</Typography>
-			<Stack component={"form"} onSubmit={handleLogin} mt={2}>
+			<Stack component={"form"} mt={2} onSubmit={handleLogin}>
 				<TextField
 					label="Nazwa użytkownika"
-					value={username}
-					variant="filled"
 					onChange={(event: React.ChangeEvent<HTMLInputElement>): void => {
 						setUsername(event.target.value);
 					}}
+					value={username}
+					variant="filled"
 				/>
 				<TextField
 					label="Hasło"
-					type="password"
-					variant="filled"
-					value={password}
 					onChange={(event: React.ChangeEvent<HTMLInputElement>): void => {
 						setPassword(event.target.value);
 					}}
+					type="password"
+					value={password}
+					variant="filled"
 				/>
 				<Button
+					disabled={username == "" || password == ""}
 					type="submit"
 					variant="contained"
-					disabled={username == "" || password == ""}
 				>
 					Zaloguj
 				</Button>
 				<FormControlLabel
 					control={
 						<Checkbox
-							value={rememberMe}
 							onChange={(e): void => setRememberMe(e.target.checked)}
+							value={rememberMe}
 						/>
 					}
 					label="Zapamiętaj mnie"

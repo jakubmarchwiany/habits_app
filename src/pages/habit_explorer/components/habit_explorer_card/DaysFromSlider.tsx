@@ -27,15 +27,15 @@ export function DaysFromSlider({ nDaysFrom, setNDaysFrom }: Props): JSX.Element 
 	};
 
 	return (
-		<Box mt={2} justifySelf="center" mx={2}>
+		<Box justifySelf="center" mt={2} mx={2}>
 			<Slider
-				value={value}
+				marks={marks}
+				max={365}
+				min={31}
 				onChange={handleChange}
 				onChangeCommitted={handleChangeCommitted}
-				min={31}
-				max={365}
 				step={null}
-				marks={marks}
+				value={value}
 				valueLabelDisplay="auto"
 			/>
 		</Box>

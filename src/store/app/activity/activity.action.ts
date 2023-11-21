@@ -15,7 +15,7 @@ export const createActivityAction =
 
 			const activity: Activity = {
 				_id: activityId,
-				date: date,
+				date,
 				status: ActivityStatus.DONE
 			};
 

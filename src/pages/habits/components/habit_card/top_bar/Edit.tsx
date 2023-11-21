@@ -31,39 +31,37 @@ export function Edit({ _id, description, name, periodInDays, setIsShow }: Props)
 	};
 
 	return (
-		<Dialog open={true} fullWidth>
+		<Dialog fullWidth open={true}>
 			<DialogTitle textAlign="center" variant="h3">
 				Edytuj nawyk
 			</DialogTitle>
 			<DialogContent>
 				<Stack>
 					<TextField
-						label="Nazwa nawyku"
-						value={newName}
-						variant="filled"
 						autoComplete="off"
+						label="Nazwa nawyku"
 						onChange={(event: React.ChangeEvent<HTMLInputElement>): void => {
 							setNewName(event.target.value);
 						}}
+						value={newName}
+						variant="filled"
 					/>
 
 					<TextField
 						label="Opis nawyku"
-						variant="filled"
-						placeholder="Opisz swój nawyk np. (3 litry wody dziennie)"
-						value={newDescription}
 						multiline
-						rows={4}
 						onChange={(event: React.ChangeEvent<HTMLInputElement>): void => {
 							setNewDescription(event.target.value);
 						}}
+						placeholder="Opisz swój nawyk np. (3 litry wody dziennie)"
+						rows={4}
+						value={newDescription}
+						variant="filled"
 					/>
 
 					<TextField
+						InputProps={{ inputProps: { min: 1, max: 31 } }}
 						label="Co ile dni powtarzać?"
-						variant="filled"
-						type="number"
-						value={newPeriodInDays}
 						onChange={(event: React.ChangeEvent<HTMLInputElement>): void => {
 							if (parseInt(event.target.value) < 1) {
 								setNewPeriodInDays(1);
@@ -73,7 +71,9 @@ export function Edit({ _id, description, name, periodInDays, setIsShow }: Props)
 								setNewPeriodInDays(parseInt(event.target.value));
 							}
 						}}
-						InputProps={{ inputProps: { min: 1, max: 31 } }}
+						type="number"
+						value={newPeriodInDays}
+						variant="filled"
 					/>
 				</Stack>
 			</DialogContent>
@@ -81,7 +81,7 @@ export function Edit({ _id, description, name, periodInDays, setIsShow }: Props)
 				<Button fullWidth onClick={(): void => setIsShow(false)}>
 					Anuluj
 				</Button>
-				<Button fullWidth onClick={handleUpdateHabit} disabled={name.length === 0}>
+				<Button disabled={name.length === 0} fullWidth onClick={handleUpdateHabit}>
 					Zmień
 				</Button>
 			</DialogActions>

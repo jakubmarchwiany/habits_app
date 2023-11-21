@@ -23,8 +23,8 @@ export function HabitExplorerPage(): JSX.Element {
 
 	return (
 		<Stack
-			component="main"
 			alignItems={"center"}
+			component="main"
 			sx={{
 				pt: { xs: 1, sm: 2 },
 				pb: "15vh"

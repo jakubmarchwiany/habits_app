@@ -24,7 +24,7 @@ export type HabitData = {
 	name: string;
 	periodInDays: number;
 };
-export type GroupOfHabitsData = { _id: string; name: string; habitsIds: string[] };
+export type GroupOfHabitsData = { _id: string; habitsIds: string[]; name: string };
 
 type GetHabitsData = {
 	groupsOfHabits: GroupOfHabitsData[];
@@ -47,7 +47,7 @@ export const getHabits =
 			}
 		)
 			.then(({ data }) => {
-				const { habits, groupsOfHabits } = data;
+				const { groupsOfHabits, habits } = data;
 
 				let habitsExt = habits.map((h) => extendHabit(h));
 
@@ -139,7 +139,7 @@ export const deleteHabitAction =
 
 export const updateGroupsOfHabits =
 	(
-		newGroupsOfHabits: { _id: string; name: string; habitsIds: string[] }[],
+		newGroupsOfHabits: { _id: string; habitsIds: string[]; name: string }[],
 		navigate: NavigateFunction
 	): AppThunk =>
 	(appDispatch) => {

@@ -1,5 +1,4 @@
 import "@fontsource/source-sans-pro";
-
 import { ThemeOptions } from "@mui/material";
 
 export const getTheme = (color: string): ThemeOptions => ({
@@ -37,7 +36,7 @@ export const getTheme = (color: string): ThemeOptions => ({
 				},
 				inputProps: {
 					style: {
-						color: color
+						color
 					}
 				}
 			}

@@ -7,7 +7,7 @@ import toast from "react-hot-toast";
 import { sleep } from "utils/sleep";
 
 function validateColorHex(hexCode: string): boolean {
-	const pattern = /^#([A-Fa-f0-9]{3}){1,2}$/;
+	const pattern = /^#(?:[A-F\d]{3}){1,2}$/i;
 
 	return pattern.test(hexCode);
 }
@@ -49,23 +49,13 @@ export function ColorThemeSettings(): JSX.Element {
 
 	return (
 		<TextField
-			label="Kolor motywu"
-			variant="filled"
-			value={themeColor}
-			placeholder="#ff0000"
-			autoComplete="off"
-			onChange={(event: React.ChangeEvent<HTMLInputElement>): void => {
-				setColorCorrect(validateColorHex(event.target.value));
-
-				setThemeColor(event.target.value);
-			}}
 			InputProps={{
 				endAdornment: (
 					<>
-						<IconButton onClick={saveThemeColor} disabled={!colorCorrect}>
+						<IconButton disabled={!colorCorrect} onClick={saveThemeColor}>
 							<SaveIcon sx={{ color: colorCorrect ? "primary.main" : "" }} />
 						</IconButton>
-						<IconButton onClick={removeThemeColor} disabled={!colorSaved}>
+						<IconButton disabled={!colorSaved} onClick={removeThemeColor}>
 							<SettingsBackupRestore
 								sx={{ color: colorSaved ? "primary.main" : "" }}
 							/>
@@ -73,6 +63,16 @@ export function ColorThemeSettings(): JSX.Element {
 					</>
 				)
 			}}
+			autoComplete="off"
+			label="Kolor motywu"
+			onChange={(event: React.ChangeEvent<HTMLInputElement>): void => {
+				setColorCorrect(validateColorHex(event.target.value));
+
+				setThemeColor(event.target.value);
+			}}
+			placeholder="#ff0000"
+			value={themeColor}
+			variant="filled"
 		/>
 	);
 }

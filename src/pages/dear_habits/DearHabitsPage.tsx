@@ -21,10 +21,10 @@ export function DearHabitsPage(): JSX.Element {
 		}
 	}, []);
 
-	const generateGroupsOfHabits = (): JSX.Element[] | JSX.Element => {
+	const generateGroupsOfHabits = (): JSX.Element | JSX.Element[] => {
 		if (groupsOfHabits !== undefined && groupsOfHabits.length > 0) {
 			return groupsOfHabits.map((g) => (
-				<DearGroupOfHabits key={`group_of_habits_${g._id}`} _id={g._id} />
+				<DearGroupOfHabits _id={g._id} key={`group_of_habits_${g._id}`} />
 			));
 		} else {
 			return <Typography>Nie masz dodanej żadnej grupy</Typography>;

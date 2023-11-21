@@ -1,10 +1,10 @@
 import { Stack } from "@mui/material";
 import React from "react";
 
-import { GroupOfHabitsItem } from "./group_of_habits_item.type";
 import { MoveGroupController } from "./GroupController";
-import { habitCardItem } from "./habit_card/habit_card_item.type";
+import { GroupOfHabitsItem } from "./group_of_habits_item.type";
 import { HabitItem } from "./habit_card/HabitCard";
+import { habitCardItem } from "./habit_card/habit_card_item.type";
 
 type Props = {
 	group: GroupOfHabitsItem;
@@ -14,10 +14,10 @@ type Props = {
 };
 
 export function GroupOfHabitsCard({
-	habitGroups,
-	setHabitGroups,
 	group,
-	groupIndex
+	groupIndex,
+	habitGroups,
+	setHabitGroups
 }: Props): JSX.Element {
 	const handleDragOver = (event: React.DragEvent<HTMLDivElement>): void => {
 		event.preventDefault();
@@ -55,25 +55,25 @@ export function GroupOfHabitsCard({
 
 	return (
 		<Stack
-			sx={{ border: 2, borderColor: "primary.main" }}
 			key={"Group_" + group._id}
 			onDragOver={handleDragOver}
 			onDrop={(e): void => handleDrop(e, groupIndex)}
+			sx={{ border: 2, borderColor: "primary.main" }}
 		>
 			<MoveGroupController
-				name={group.name}
 				groupIndex={groupIndex}
 				habitGroups={habitGroups}
+				name={group.name}
 				setHabitGroups={setHabitGroups}
 			/>
-			<Stack overflow="auto" height={"35vh"}>
+			<Stack height={"35vh"} overflow="auto">
 				{group.habits.map((habit, index) => (
 					<HabitItem
-						key={habit._id}
-						habit={habit}
-						groupIndex={groupIndex}
 						groupHabitsLength={group.habits.length}
+						groupIndex={groupIndex}
+						habit={habit}
 						itemIndex={index}
+						key={habit._id}
 						moveHabitItem={moveHabitItem}
 					/>
 				))}

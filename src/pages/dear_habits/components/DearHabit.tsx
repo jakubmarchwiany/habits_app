@@ -18,13 +18,13 @@ export function DearHabit({ _id }: Props): JSX.Element {
 		return <></>;
 	}
 
-	const { name, description, score, periodInDays, activities } = habit;
+	const { activities, description, name, periodInDays, score } = habit;
 
 	return (
-		<Grid2 xs={12} md={3}>
+		<Grid2 md={3} xs={12}>
 			<Stack
-				pt={{ xs: 1 }}
 				p={0.5}
+				pt={{ xs: 1 }}
 				sx={{
 					border: 3.5,
 					borderRadius: 4,
@@ -32,10 +32,10 @@ export function DearHabit({ _id }: Props): JSX.Element {
 				}}
 			>
 				<DearTopBar
-					name={name}
 					description={description}
-					score={score}
+					name={name}
 					periodInDays={periodInDays}
+					score={score}
 				/>
 
 				<DearActivities activities={activities} />

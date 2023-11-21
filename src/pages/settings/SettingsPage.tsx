@@ -1,5 +1,7 @@
-import { Button, Stack, Typography } from "@mui/material";
+import { AllInbox, PublishedWithChanges } from "@mui/icons-material";
+import { Stack, Typography } from "@mui/material";
 import { standardSize } from "assets/theme";
+import { MyLinkButton } from "components/my/MyLinkButton";
 import { useNavigate } from "react-router-dom";
 
 import { ColorThemeSettings } from "./components/ColorThemeSettings";
@@ -10,30 +12,33 @@ export function SettingsPage(): JSX.Element {
 
 	return (
 		<Stack
+			alignItems="center"
 			component="main"
 			sx={{
 				pt: { xs: 1, sm: 2 },
 				pb: "15vh"
 			}}
-			alignItems="center"
 		>
 			<Stack width={standardSize}>
-				<Typography typography="h2" textAlign={"center"} sx={{ py: { xs: 1, md: 3 } }}>
+				<Typography sx={{ py: { xs: 1, md: 3 } }} textAlign={"center"} typography="h2">
 					Ustawienia
 				</Typography>
 
 				<ColorThemeSettings />
 
-				<Button
-					variant="contained"
-					onClick={(): void => {
-						navigate("/settings/groupsOfHabitsManager");
-					}}
-					sx={{ mt: 0.5, alignSelf: "center" }}
-					fullWidth
-				>
-					Zarządzaj grupami
-				</Button>
+				<MyLinkButton
+					startIcon={<PublishedWithChanges />}
+					sx={{ mt: 0.5 }}
+					text="Zarządzaj nawykami"
+					to="/"
+				/>
+
+				<MyLinkButton
+					startIcon={<AllInbox />}
+					sx={{ mt: 0.5 }}
+					text="Zarządzaj grupami"
+					to="groups-of-habits-manager"
+				/>
 
 				<Logout />
 			</Stack>

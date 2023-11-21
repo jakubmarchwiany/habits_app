@@ -7,7 +7,7 @@ type Props = {
 	onDoubleClick?: () => void;
 	text: string;
 };
-export function MyMenuItem({ text, Icon, onClick, onDoubleClick }: Props): JSX.Element {
+export function MyMenuItem({ Icon, onClick, onDoubleClick, text }: Props): JSX.Element {
 	return (
 		<MenuItem onClick={onClick} onDoubleClick={onDoubleClick}>
 			<ListItemIcon>

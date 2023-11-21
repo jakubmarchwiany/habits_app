@@ -13,10 +13,10 @@ type Props = {
 };
 
 export function HabitItem({
-	itemIndex,
-	habit,
-	groupIndex,
 	groupHabitsLength,
+	groupIndex,
+	habit,
+	itemIndex,
 
 	moveHabitItem
 }: Props): JSX.Element {
@@ -46,20 +46,20 @@ export function HabitItem({
 			<Typography>{habit.name}</Typography>
 			<Stack>
 				<IconButton
+					disabled={itemIndex == 0}
 					onClick={(): void => {
 						if (itemIndex > 0) {
 							moveHabitItem(itemIndex, itemIndex - 1, groupIndex);
 						}
 					}}
 					sx={{ color: itemIndex == 0 ? "" : "primary.main", p: 0 }}
-					disabled={itemIndex == 0}
 				>
 					<ArrowDropUp />
 				</IconButton>
 
 				<IconButton
-					onClick={(): void => moveHabitItem(itemIndex, itemIndex + 1, groupIndex)}
 					disabled={itemIndex === groupHabitsLength - 1}
+					onClick={(): void => moveHabitItem(itemIndex, itemIndex + 1, groupIndex)}
 					sx={{
 						color: itemIndex === groupHabitsLength - 1 ? "" : "primary.main",
 						p: 0

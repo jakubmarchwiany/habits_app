@@ -3,13 +3,13 @@ import { Score } from "pages/habits/components/habit_card/top_bar/Score";
 
 type Props = {
 	description: string;
-	score: number;
 	name: string;
 	periodInDays: number;
+	score: number;
 };
 export function TopBarHabitExplorer({
-	name,
 	description,
+	name,
 	periodInDays,
 	score
 }: Props): JSX.Element {
@@ -25,6 +25,8 @@ export function TopBarHabitExplorer({
 		>
 			<Score score={score} />
 			<Tooltip
+				TransitionComponent={Zoom}
+				placement="top"
 				title={
 					<>
 						<Typography variant="h6">Opis</Typography>
@@ -32,15 +34,13 @@ export function TopBarHabitExplorer({
 						<Typography variant="h6">Powtarzany co {periodInDays} dni</Typography>
 					</>
 				}
-				placement="top"
-				TransitionComponent={Zoom}
 			>
 				<Typography
-					textAlign="center"
 					sx={{
 						wordBreak: "break-word",
 						typography: { xs: "h4", md: "h4" }
 					}}
+					textAlign="center"
 				>
 					{name}
 				</Typography>

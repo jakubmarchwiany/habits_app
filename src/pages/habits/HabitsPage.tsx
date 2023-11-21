@@ -7,10 +7,10 @@ import { GroupOfHabits } from "./components/GroupOfHabits";
 export function HabitsPage(): JSX.Element {
 	const groupsOfHabits = useAppSelector((s) => s.app.groupsOfHabits);
 
-	const generateGroupsOfHabits = (): JSX.Element[] | JSX.Element => {
+	const generateGroupsOfHabits = (): JSX.Element | JSX.Element[] => {
 		if (groupsOfHabits !== undefined && groupsOfHabits.length > 0) {
 			return groupsOfHabits.map((g) => (
-				<GroupOfHabits key={`group_of_habits_${g._id}`} _id={g._id} />
+				<GroupOfHabits _id={g._id} key={`group_of_habits_${g._id}`} />
 			));
 		} else {
 			return <Typography>Nie masz dodanej żadnej grupy</Typography>;

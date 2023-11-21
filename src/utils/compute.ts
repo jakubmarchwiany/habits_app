@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unnecessary-condition */
 import dayjs from "dayjs";
 import { GroupOfHabitsData, HabitData } from "store/app/habit/habit.actions";
 import { v4 as uuid } from "uuid";
@@ -65,7 +66,7 @@ export function computeActivitiesDoneOrNotDone(habit: Habit, nDays: number): Hab
 }
 
 function computeActivitiesTodayOrDelay(habit: Habit): Habit {
-	const { periodInDays, activities } = habit;
+	const { activities, periodInDays } = habit;
 
 	let flagOneActivityDone = false;
 

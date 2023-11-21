@@ -30,7 +30,7 @@ export function ActivitiesHabitExplorer({ explorerHabit, setExplorerHabit }: Pro
 		).then(({ data }) => {
 			const activity: Activity = {
 				_id: data.activityId,
-				date: date,
+				date,
 				status: ActivityStatus.DONE
 			};
 
@@ -68,14 +68,14 @@ export function ActivitiesHabitExplorer({ explorerHabit, setExplorerHabit }: Pro
 
 	const generateActivities = (): JSX.Element[] => {
 		return explorerHabit.activities.map((activity, index) => {
-			const { _id, status, date } = activity;
+			const { _id, date, status } = activity;
 
 			if (status === ActivityStatus.DONE) {
 				return (
 					<div
-						key={`activity_${_id}_${index}`}
 						className={`activity ${status}`}
 						data-tooltip={`${date.slice(5, 7)}-${date.slice(8, 10)}`}
+						key={`activity_${_id}_${index}`}
 						onClick={(): void => {
 							deleteActivity(_id);
 						}}
@@ -84,9 +84,9 @@ export function ActivitiesHabitExplorer({ explorerHabit, setExplorerHabit }: Pro
 			} else {
 				return (
 					<div
-						key={`activity_${activity._id}_${index}`}
 						className={`activity ${status}`}
 						data-tooltip={`${date.slice(5, 7)}-${date.slice(8, 10)}`}
+						key={`activity_${activity._id}_${index}`}
 						onClick={(e): void => {
 							createActivity(e, _id, date.toString());
 						}}

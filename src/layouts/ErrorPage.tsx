@@ -14,12 +14,12 @@ export function ErrorPage(): JSX.Element {
 				color: "gray"
 			}}
 		>
-			<Typography textAlign="center" sx={{ typography: { xs: "h3", md: "h2" } }}>
+			<Typography sx={{ typography: { xs: "h3", md: "h2" } }} textAlign="center">
 				Coś poszło nie tak
 			</Typography>
 
 			<Typography mb="20%" sx={{ typography: { xs: "h6", md: "h4" }, mt: { xs: 2, md: 5 } }}>
-				<Link to="/" style={{ color: "white" }}>
+				<Link style={{ color: "white" }} to="/">
 					Wróć do strony głównej
 				</Link>
 			</Typography>

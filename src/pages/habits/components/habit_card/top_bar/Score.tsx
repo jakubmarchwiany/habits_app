@@ -17,9 +17,9 @@ export function Score({ score }: Props): JSX.Element {
 		<Box sx={{ position: "relative", display: "inline-flex" }}>
 			<CircularProgress
 				size={30}
-				variant="determinate"
-				value={score >= 1 ? 100 : score * 100}
 				sx={{ color: valueToColor(score) }}
+				value={score >= 1 ? 100 : score * 100}
+				variant="determinate"
 			/>
 			<Box
 				sx={{

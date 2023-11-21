@@ -15,10 +15,10 @@ export function Logout(): JSX.Element {
 	return (
 		<Button
 			color="error"
-			variant="contained"
+			fullWidth
 			onClick={logout}
 			sx={{ mt: 0.5, alignSelf: "center" }}
-			fullWidth
+			variant="contained"
 		>
 			Wyloguj się
 		</Button>

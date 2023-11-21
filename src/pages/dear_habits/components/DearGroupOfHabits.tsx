@@ -16,9 +16,9 @@ export function DearGroupOfHabits({ _id }: Props): JSX.Element {
 		return <></>;
 	}
 
-	const generateHabits = (): JSX.Element[] | JSX.Element => {
+	const generateHabits = (): JSX.Element | JSX.Element[] => {
 		if (groupOfHabits.habitsIds !== undefined && groupOfHabits.habitsIds.length > 0) {
-			return groupOfHabits.habitsIds.map((g) => <DearHabit key={`habit_${g}`} _id={g} />);
+			return groupOfHabits.habitsIds.map((g) => <DearHabit _id={g} key={`habit_${g}`} />);
 		} else {
 			return <Typography variant="h5">Nie masz żadnego nawyku w grupie</Typography>;
 		}
@@ -49,13 +49,13 @@ export function DearGroupOfHabits({ _id }: Props): JSX.Element {
 
 			<Grid2
 				container
-				spacing={{ xs: 1, md: 2 }}
-				rowSpacing={2}
 				id={"habit_group_grid_" + groupOfHabits._id}
 				key={"habit_group_grid_" + groupOfHabits._id}
-				mx={{ xs: 1, md: 3 }}
-				mt={1.5}
 				mb={1}
+				mt={1.5}
+				mx={{ xs: 1, md: 3 }}
+				rowSpacing={2}
+				spacing={{ xs: 1, md: 2 }}
 			>
 				{generateHabits()}
 			</Grid2>

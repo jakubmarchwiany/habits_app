@@ -1,16 +1,16 @@
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 import { computeGroup, extendGroup } from "utils/compute";
 
 import { createActivityReducer, deleteActivityReducer } from "./activity/activity.reducers";
-import { getShowAllHabits, GroupOfHabitsData } from "./habit/habit.actions";
+import { GroupOfHabitsData, getShowAllHabits } from "./habit/habit.actions";
 import { createHabitReducer, deleteHabitReducer, updateHabitReducer } from "./habit/habit.reducers";
 import { GroupOfHabits } from "./habit/models/group_of_habits.type";
 import { Habit } from "./habit/models/habit.type";
 
 export type AppState = {
-	showAllHabits: boolean | undefined;
-	habits: Habit[] | undefined;
 	groupsOfHabits: GroupOfHabits[] | undefined;
+	habits: Habit[] | undefined;
+	showAllHabits: boolean | undefined;
 };
 
 const initialState: AppState = {
@@ -20,8 +20,8 @@ const initialState: AppState = {
 };
 
 type SetDataProps = {
-	habits: Habit[];
 	groupsOfHabits: GroupOfHabits[];
+	habits: Habit[];
 };
 
 const appSlice = createSlice({
@@ -46,7 +46,7 @@ const appSlice = createSlice({
 		createActivity: createActivityReducer,
 		deleteActivity: deleteActivityReducer,
 		updateGroups(state, action: PayloadAction<GroupOfHabitsData[]>) {
-			const { habits, groupsOfHabits } = state;
+			const { groupsOfHabits, habits } = state;
 
 			let groupsExt = action.payload.map((g) => extendGroup(g));
 

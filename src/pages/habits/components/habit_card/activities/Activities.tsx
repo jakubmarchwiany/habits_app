@@ -1,12 +1,11 @@
 /* eslint-disable jsx-a11y/click-events-have-key-events */
-/* eslint-disable jsx-a11y/no-static-element-interactions */
-import "./activity.css";
-
 import { Box } from "@mui/material";
 import { useAppDispatch } from "hooks/redux";
 import { createActivityAction, deleteActivityAction } from "store/app/activity/activity.action";
 import { Activity, ActivityStatus } from "store/app/activity/models/activity.type";
 
+/* eslint-disable jsx-a11y/no-static-element-interactions */
+import "./activity.css";
 import { myConfetti } from "./confetti";
 
 type Props = {
@@ -19,14 +18,14 @@ export function Activities({ activities, habitId }: Props): JSX.Element {
 
 	const generateActivities = (): JSX.Element[] => {
 		return activities.map((activity, index) => {
-			const { _id, status, date } = activity;
+			const { _id, date, status } = activity;
 
 			if (status === ActivityStatus.DONE) {
 				return (
 					<div
-						key={`activity_${activity._id}_${index}`}
 						className={`activity ${status}`}
 						data-tooltip={`${date.slice(5, 7)}-${date.slice(8, 10)}`}
+						key={`activity_${activity._id}_${index}`}
 						onClick={(): void => {
 							dispatch(deleteActivityAction(habitId, _id));
 						}}
@@ -35,9 +34,9 @@ export function Activities({ activities, habitId }: Props): JSX.Element {
 			} else {
 				return (
 					<div
-						key={`activity_${activity._id}_${index}`}
 						className={`activity ${status}`}
 						data-tooltip={`${date.slice(5, 7)}-${date.slice(8, 10)}`}
+						key={`activity_${activity._id}_${index}`}
 						onClick={(e): void => {
 							myConfetti(e.clientX, e.clientY);
 

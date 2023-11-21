@@ -17,31 +17,31 @@ export function NotFoundPage(): JSX.Element {
 				color: "gray"
 			}}
 		>
-			<Typography textAlign="center" sx={{ typography: { xs: "h4", md: "h2" } }}>
+			<Typography sx={{ typography: { xs: "h4", md: "h2" } }} textAlign="center">
 				Nie znaleziono strony
 			</Typography>
-			<Typography textAlign="center" mt={2} sx={{ typography: { xs: "h6", md: "h4" } }}>
+			<Typography mt={2} sx={{ typography: { xs: "h6", md: "h4" } }} textAlign="center">
 				Ups! Strona, której szukasz, nie została znaleziona.
 			</Typography>
 
 			<MuiLink
 				component="button"
-				variant="body2"
 				onClick={(): void => {
 					navigate(-1);
 				}}
 				sx={{ typography: { xs: "h6", md: "h4" }, mt: { xs: 2, md: 5 } }}
+				variant="body2"
 			>
 				Wróć do poprzedniej strony
 			</MuiLink>
 
 			<MuiLink
 				component="button"
-				variant="body2"
 				onClick={(): void => {
 					navigate("/");
 				}}
 				sx={{ typography: { xs: "h6", md: "h4" }, mt: { xs: 2, md: 5 }, mb: "20%" }}
+				variant="body2"
 			>
 				Wróć do strony głównej
 			</MuiLink>

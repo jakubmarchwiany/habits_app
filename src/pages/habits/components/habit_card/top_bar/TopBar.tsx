@@ -6,11 +6,11 @@ import { Score } from "./Score";
 type Props = {
 	_id: string;
 	description: string;
-	score: number;
 	name: string;
 	periodInDays: number;
+	score: number;
 };
-export function TopBar({ _id, name, description, periodInDays, score }: Props): JSX.Element {
+export function TopBar({ _id, description, name, periodInDays, score }: Props): JSX.Element {
 	return (
 		<Box
 			sx={{
@@ -23,6 +23,9 @@ export function TopBar({ _id, name, description, periodInDays, score }: Props): 
 		>
 			<Score score={score} />
 			<Tooltip
+				TransitionComponent={Zoom}
+				placement="top"
+				sx={{ fontSize: "50px" }}
 				title={
 					<>
 						<Typography variant="h6">Opis</Typography>
@@ -30,21 +33,18 @@ export function TopBar({ _id, name, description, periodInDays, score }: Props): 
 						<Typography variant="h6">Powtarzany co {periodInDays} dni</Typography>
 					</>
 				}
-				placement="top"
-				TransitionComponent={Zoom}
-				sx={{ fontSize: "50px" }}
 			>
 				<Typography
-					textAlign="center"
 					sx={{
 						wordBreak: "break-word",
 						typography: { xs: "h4", md: "h4" }
 					}}
+					textAlign="center"
 				>
 					{name}
 				</Typography>
 			</Tooltip>
-			<Menu _id={_id} name={name} description={description} periodInDays={periodInDays} />
+			<Menu _id={_id} description={description} name={name} periodInDays={periodInDays} />
 		</Box>
 	);
 }

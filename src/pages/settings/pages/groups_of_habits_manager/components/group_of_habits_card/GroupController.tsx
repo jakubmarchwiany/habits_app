@@ -11,9 +11,9 @@ type Props = {
 	setHabitGroups: React.Dispatch<React.SetStateAction<GroupOfHabitsItem[]>>;
 };
 export function MoveGroupController({
-	name,
 	groupIndex,
 	habitGroups,
+	name,
 	setHabitGroups
 }: Props): JSX.Element {
 	const moveGroup = (currentIndex: number, newIndex: number): void => {
@@ -50,44 +50,44 @@ export function MoveGroupController({
 		<Stack>
 			<Stack direction={"row"}>
 				<Button
+					disabled={groupIndex == 0}
 					fullWidth
-					variant="outlined"
 					onClick={(): void => {
 						if (groupIndex > 0) {
 							moveGroup(groupIndex, groupIndex - 1);
 						}
 					}}
 					sx={{ color: groupIndex == 0 ? "" : "primary.main" }}
-					disabled={groupIndex == 0}
+					variant="outlined"
 				>
 					{"<"}
 				</Button>
 
 				<Button
-					fullWidth
-					variant="outlined"
-					onClick={(): void => moveGroup(groupIndex, groupIndex + 1)}
 					disabled={groupIndex === habitGroups.length - 1}
+					fullWidth
+					onClick={(): void => moveGroup(groupIndex, groupIndex + 1)}
 					sx={{
 						color: groupIndex === habitGroups.length - 1 ? "" : "primary.main"
 					}}
+					variant="outlined"
 				>
 					{">"}
 				</Button>
 			</Stack>
 			<TextField
-				fullWidth
-				label="Nazwa grupy"
-				variant="filled"
-				value={name}
-				onChange={(e): void => changeGroupName(e.target.value)}
 				InputProps={{
 					endAdornment: (
-						<IconButton onClick={(): void => deleteGroup()} color="error">
+						<IconButton color="error" onClick={(): void => deleteGroup()}>
 							<Delete />
 						</IconButton>
 					)
 				}}
+				fullWidth
+				label="Nazwa grupy"
+				onChange={(e): void => changeGroupName(e.target.value)}
+				value={name}
+				variant="filled"
 			/>
 		</Stack>
 	);

@@ -17,8 +17,8 @@ type Props = {
 	periodInDays: number;
 };
 
-export function Menu({ _id, name, description, periodInDays }: Props): JSX.Element {
-	const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
+export function Menu({ _id, description, name, periodInDays }: Props): JSX.Element {
+	const [anchorEl, setAnchorEl] = React.useState<HTMLElement | null>(null);
 	const menuOpen = Boolean(anchorEl);
 	const [editOpen, setEditOpen] = React.useState(false);
 
@@ -38,31 +38,30 @@ export function Menu({ _id, name, description, periodInDays }: Props): JSX.Eleme
 				<Settings sx={{ color: "white", fontSize: { xs: "1.5rem", md: "1.5rem" } }} />
 			</IconButton>
 			<MenuMui
-				anchorEl={anchorEl}
-				open={menuOpen}
-				onClose={closeMenu}
 				MenuListProps={{
 					"aria-labelledby": "basic-button"
 				}}
+				anchorEl={anchorEl}
+				onClose={closeMenu}
+				open={menuOpen}
 			>
 				<MyMenuItem
-					text="Przeglądaj"
 					Icon={Search}
 					onClick={(): void => {
 						navigate(`/habits/${_id}`);
 					}}
+					text="Przeglądaj"
 				/>
 
 				<MyMenuItem
-					text="Edytuj"
 					Icon={EditIcon}
 					onClick={(): void => {
 						setEditOpen(true);
 					}}
+					text="Edytuj"
 				/>
 
 				<MyMenuItem
-					text="Usuń"
 					Icon={DeleteForever}
 					onClick={(): void => {
 						toast.error("Kliknij dwukrotnie by usunąć nawyk");
@@ -72,6 +71,7 @@ export function Menu({ _id, name, description, periodInDays }: Props): JSX.Eleme
 
 						dispatch(deleteHabitAction(_id));
 					}}
+					text="Usuń"
 				/>
 			</MenuMui>
 			{editOpen && (

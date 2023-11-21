@@ -8,8 +8,8 @@ import { updateGroupsOfHabits } from "store/app/habit/habit.actions";
 import { v4 as uuid } from "uuid";
 
 import { prepareGroups, validateGroups } from "../prepareGroups";
-import { GroupOfHabitsItem } from "./group_of_habits_item.type";
 import { GroupOfHabitsCard } from "./GroupOfHabitsCard";
+import { GroupOfHabitsItem } from "./group_of_habits_item.type";
 
 export function GroupsOfHabitsManager(): JSX.Element {
 	const [groupsOfHabitsCard, setGroupOfHabitsCard] = useState<GroupOfHabitsItem[]>([]);
@@ -56,7 +56,7 @@ export function GroupsOfHabitsManager(): JSX.Element {
 		<Stack p={1}>
 			<Grid2 container spacing={2}>
 				{groupsOfHabitsCard.map((group, groupIndex) => (
-					<Grid2 xs={12} md={3} key={group._id}>
+					<Grid2 key={group._id} md={3} xs={12}>
 						<GroupOfHabitsCard
 							group={group}
 							groupIndex={groupIndex}
@@ -66,9 +66,9 @@ export function GroupsOfHabitsManager(): JSX.Element {
 					</Grid2>
 				))}
 
-				<Grid2 xs={12} md={3}>
+				<Grid2 md={3} xs={12}>
 					<Button
-						variant="outlined"
+						onClick={createNewGroupOfHabits}
 						sx={{
 							minHeight: "10vh",
 							width: "100%",
@@ -76,7 +76,7 @@ export function GroupsOfHabitsManager(): JSX.Element {
 							border: 2,
 							borderColor: "primary.main"
 						}}
-						onClick={createNewGroupOfHabits}
+						variant="outlined"
 					>
 						Stwórz grupę
 					</Button>
@@ -84,16 +84,16 @@ export function GroupsOfHabitsManager(): JSX.Element {
 			</Grid2>
 			<Stack direction="row" mt={3}>
 				<Button
-					variant="contained"
 					color="warning"
+					fullWidth
 					onClick={(): void => {
 						navigate("/settings");
 					}}
-					fullWidth
+					variant="contained"
 				>
 					Anuluj
 				</Button>
-				<Button variant="contained" onClick={saveGroupsOfHabits} fullWidth>
+				<Button fullWidth onClick={saveGroupsOfHabits} variant="contained">
 					Zapisz
 				</Button>
 			</Stack>

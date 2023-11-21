@@ -18,13 +18,13 @@ export function Habit({ _id }: Props): JSX.Element {
 		return <></>;
 	}
 
-	const { name, description, score: goalRate, periodInDays, activities } = habit;
+	const { activities, description, name, periodInDays, score: goalRate } = habit;
 
 	return (
-		<Grid2 xs={12} md={3}>
+		<Grid2 md={3} xs={12}>
 			<Stack
-				pt={{ xs: 1 }}
 				p={0.5}
+				pt={{ xs: 1 }}
 				sx={{
 					border: 3.5,
 					borderRadius: 4,
@@ -33,13 +33,13 @@ export function Habit({ _id }: Props): JSX.Element {
 			>
 				<TopBar
 					_id={_id}
-					name={name}
 					description={description}
-					score={goalRate}
+					name={name}
 					periodInDays={periodInDays}
+					score={goalRate}
 				/>
 
-				<Activities habitId={_id} activities={activities} />
+				<Activities activities={activities} habitId={_id} />
 			</Stack>
 		</Grid2>
 	);
