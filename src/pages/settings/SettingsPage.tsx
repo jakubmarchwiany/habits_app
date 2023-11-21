@@ -2,14 +2,12 @@ import { AllInbox, PublishedWithChanges } from "@mui/icons-material";
 import { Stack, Typography } from "@mui/material";
 import { standardSize } from "assets/theme";
 import { MyLinkButton } from "components/my/MyLinkButton";
-import { useNavigate } from "react-router-dom";
+import { PAGE } from "layouts/navigator/page";
 
 import { ColorThemeSettings } from "./components/ColorThemeSettings";
 import { Logout } from "./components/Logout";
 
 export function SettingsPage(): JSX.Element {
-	const navigate = useNavigate();
-
 	return (
 		<Stack
 			alignItems="center"
@@ -30,14 +28,14 @@ export function SettingsPage(): JSX.Element {
 					startIcon={<PublishedWithChanges />}
 					sx={{ mt: 0.5 }}
 					text="Zarządzaj nawykami"
-					to="/"
+					to={PAGE.SETTINGS_HABITS_MANAGER.path}
 				/>
 
 				<MyLinkButton
 					startIcon={<AllInbox />}
 					sx={{ mt: 0.5 }}
 					text="Zarządzaj grupami"
-					to="groups-of-habits-manager"
+					to={PAGE.SETTINGS_GROUPS_OF_HABITS_MANAGER.path}
 				/>
 
 				<Logout />
