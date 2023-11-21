@@ -1,40 +1,25 @@
 import "assets/global.css";
-
+import { PAGE } from "layouts/navigator/page";
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import { Provider } from "react-redux";
-import { createBrowserRouter, Navigate, RouterProvider } from "react-router-dom";
+import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import { store } from "store";
 
-import { App } from "./layouts/App";
 import { ErrorPage } from "./layouts/ErrorPage";
-import { NotFoundPage } from "./layouts/NotFoundPage";
-import { CreateHabitPage } from "./pages/create_habit/CreateHabitPage";
-import { DearHabitsPage } from "./pages/dear_habits/DearHabitsPage";
-import { HabitExplorerPage } from "./pages/habit_explorer/HabitExplorerPage";
-import { HabitsPage } from "./pages/habits/HabitsPage";
-import { GroupsOfHabitsManagerPage } from "./pages/settings/pages/groups_of_habits_manager/GroupOfHabitsManagerPage";
-import { SettingsPage } from "./pages/settings/SettingsPage";
 
 const router = createBrowserRouter([
 	{
-		path: "/",
-		element: <App />,
+		path: PAGE.HOME.path,
+		element: PAGE.HOME.element,
 		children: [
-			{ path: "/", element: <Navigate to={"habits"} /> },
-			{
-				path: "/habits",
-				element: <HabitsPage />
-			},
-			{
-				path: "habits/create",
-				element: <CreateHabitPage />
-			},
-			{ path: "/habits/:_id", element: <HabitExplorerPage /> },
-			{ path: "/settings", element: <SettingsPage /> },
-			{ path: "/settings/groupsOfHabitsManager", element: <GroupsOfHabitsManagerPage /> },
-			{ path: "/dear/habits", element: <DearHabitsPage /> },
-			{ path: "*", element: <NotFoundPage /> }
+			{ path: PAGE.REDIRECT_TO_HABITS.path, element: PAGE.REDIRECT_TO_HABITS.element },
+			{ path: PAGE.HABITS.path, element: PAGE.HABITS.element },
+			{ path: PAGE.HABITS_CREATE.path, element: PAGE.HABITS_CREATE.element },
+			{ path: PAGE.HABIT.path, element: PAGE.HABIT.element },
+			{ path: PAGE.SETTINGS.path, element: PAGE.SETTINGS.element },
+			{ path: PAGE.DEAR_HABITS.path, element: PAGE.DEAR_HABITS.element },
+			{ path: PAGE.ALL.path, element: PAGE.ALL.element }
 		],
 		errorElement: <ErrorPage />
 	}
