@@ -55,6 +55,13 @@ export const getTheme = (color: string): ThemeOptions => ({
 					maxWidth: "50vw"
 				}
 			}
+		},
+		MuiDivider: {
+			styleOverrides: {
+				root: {
+					borderBottomWidth: 3
+				}
+			}
 		}
 	},
 	breakpoints: {
