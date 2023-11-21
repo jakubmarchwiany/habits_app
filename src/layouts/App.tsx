@@ -1,7 +1,7 @@
 import { Stack, ThemeProvider } from "@mui/material";
 import { useStateIsLogged } from "hooks/useIsLoggedState";
 import { useThemeColor } from "hooks/useThemeColor";
-import { Navigator } from "layouts/Navigator";
+import { Navigator } from "layouts/navigator/Navigator";
 import { WelcomePage } from "pages/welcome/WelcomePage";
 import { Toaster } from "react-hot-toast";
 import { Outlet } from "react-router-dom";
@@ -13,7 +13,7 @@ export function App(): JSX.Element {
 	return (
 		<ThemeProvider theme={theme}>
 			{isLogged ? (
-				<Stack color="white" bgcolor={"background.paper"}>
+				<Stack bgcolor={"background.paper"} color="white">
 					<Outlet />
 					<Navigator />
 				</Stack>
@@ -22,8 +22,8 @@ export function App(): JSX.Element {
 			)}
 
 			<Toaster
-				position="top-left"
 				gutter={10}
+				position="top-left"
 				reverseOrder
 				toastOptions={{
 					style: {

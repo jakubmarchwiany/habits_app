@@ -1,7 +1,17 @@
 {
 	"dictionaries": ["typescript", "css"],
 	"language": "en,pl",
-	"words": ["commitlint", "envalid", "reduxjs", "Bobcia", "lockb", "knip", "bunx", "fontsource"],
+	"words": [
+		"Bobcia",
+		"bunx",
+		"commitlint",
+		"envalid",
+		"fontsource",
+		"knip",
+		"lockb",
+		"Overridable",
+		"reduxjs"
+	],
 	"ignorePaths": ["node_modules", "build", "bun.lockb", ".commitlint.config.cjs"],
 	"import": ["node_modules/cspell-dict-pl_pl/cspell-ext.json"]
 }
