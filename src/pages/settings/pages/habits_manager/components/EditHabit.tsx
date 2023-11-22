@@ -3,7 +3,8 @@ import TextField from "@mui/material/TextField";
 import { standardSize } from "assets/theme";
 import { useAppDispatch } from "hooks/redux";
 import { useEffect, useState } from "react";
-import { updateHabitAction } from "store/app/habit/habit.actions";
+import toast from "react-hot-toast";
+import { deleteHabitAction, updateHabitAction } from "store/app/habit/habit.actions";
 import { Habit } from "store/app/habit/models/habit.type";
 
 type Props = {
@@ -98,6 +99,22 @@ export function EditHabit({ habitToEdit }: Props): JSX.Element {
 					variant="contained"
 				>
 					edytuj
+				</Button>
+				<Button
+					color="error"
+					fullWidth
+					onClick={(): void => {
+						toast.error("Kliknij dwukrotnie by usunąć nawyk");
+					}}
+					onDoubleClick={(): void => {
+						toast.remove();
+
+						dispatch(deleteHabitAction(habitToEdit._id));
+					}}
+					sx={{ mt: 5 }}
+					variant="contained"
+				>
+					usuń
 				</Button>
 			</Stack>
 		</Stack>
