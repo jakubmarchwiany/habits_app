@@ -1,0 +1,9 @@
+#card:hover > #info {
+	width: auto;
+}
+
+#info {
+	width: 0px;
+	overflow: hidden;
+}
+
