@@ -23,6 +23,10 @@ const router = createBrowserRouter([
 				path: PAGE.SETTINGS_GROUPS_OF_HABITS_MANAGER.path,
 				element: PAGE.SETTINGS_GROUPS_OF_HABITS_MANAGER.element
 			},
+			{
+				path: PAGE.SETTINGS_HABITS_MANAGER.path,
+				element: PAGE.SETTINGS_HABITS_MANAGER.element
+			},
 			{ path: PAGE.ALL.path, element: PAGE.ALL.element }
 		],
 		errorElement: <ErrorPage />
