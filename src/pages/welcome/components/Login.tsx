@@ -38,7 +38,7 @@ export function Login(): JSX.Element {
 	};
 
 	return (
-		<Stack alignItems={"center"}>
+		<Stack alignItems="center">
 			<Avatar
 				sx={{
 					bgcolor: "primary.main",
@@ -53,7 +53,7 @@ export function Login(): JSX.Element {
 			<Typography color="white" mt={1} variant="h4">
 				Zaloguj się
 			</Typography>
-			<Stack component={"form"} mt={2} onSubmit={handleLogin}>
+			<Stack component="form" mt={2} onSubmit={handleLogin}>
 				<TextField
 					label="Nazwa użytkownika"
 					onChange={(event: React.ChangeEvent<HTMLInputElement>): void => {

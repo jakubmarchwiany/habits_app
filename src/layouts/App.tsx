@@ -13,7 +13,7 @@ export function App(): JSX.Element {
 	return (
 		<ThemeProvider theme={theme}>
 			{isLogged ? (
-				<Stack bgcolor={"background.paper"} color="white">
+				<Stack bgcolor="background.paper" color="white">
 					<Outlet />
 					<Navigator />
 				</Stack>

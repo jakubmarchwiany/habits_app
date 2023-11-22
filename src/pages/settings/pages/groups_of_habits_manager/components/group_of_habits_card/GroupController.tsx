@@ -48,7 +48,7 @@ export function MoveGroupController({
 
 	return (
 		<Stack>
-			<Stack direction={"row"}>
+			<Stack direction="row">
 				<Button
 					disabled={groupIndex == 0}
 					fullWidth

@@ -208,7 +208,8 @@ module.exports = {
 			}
 		],
 		"sort-destructure-keys/sort-destructure-keys": 2,
-		"n/no-missing-import": "off"
+		"n/no-missing-import": "off",
+		"react/jsx-curly-brace-presence": "error"
 	},
 	settings: {
 		react: {

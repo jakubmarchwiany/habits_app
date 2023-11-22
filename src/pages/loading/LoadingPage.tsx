@@ -10,7 +10,7 @@ export function LoadingPage(): JSX.Element {
 				height: "100vh"
 			}}
 		>
-			<CircularProgress size={"15vh"} />
+			<CircularProgress size="15vh" />
 		</Stack>
 	);
 }

@@ -30,7 +30,7 @@ export function HabitItem({
 
 	return (
 		<Stack
-			direction={"row"}
+			direction="row"
 			draggable
 			onDragStart={(e: DragEvent<HTMLDivElement>): void => dragStart(e, habit, groupIndex)}
 			sx={{

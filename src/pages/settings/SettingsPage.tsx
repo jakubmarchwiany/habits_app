@@ -18,7 +18,7 @@ export function SettingsPage(): JSX.Element {
 			}}
 		>
 			<Stack width={standardSize}>
-				<Typography sx={{ py: { xs: 1, md: 3 } }} textAlign={"center"} typography="h2">
+				<Typography sx={{ py: { xs: 1, md: 3 } }} textAlign="center" typography="h2">
 					Ustawienia
 				</Typography>
 

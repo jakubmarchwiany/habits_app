@@ -18,7 +18,7 @@ export function HabitsManagerPage(): JSX.Element {
 
 	return (
 		<Stack alignItems="center" component="main">
-			<Grid2 container height={"100vh"} width={"100%"}>
+			<Grid2 container height="100vh" width="100%">
 				<Grid2 md={2} xs={4}>
 					<ListOfHabits
 						habits={habits}

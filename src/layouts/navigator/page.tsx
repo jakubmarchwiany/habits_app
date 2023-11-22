@@ -11,7 +11,7 @@ import { Navigate } from "react-router-dom";
 
 export const PAGE = {
 	HOME: { path: "/", element: <App /> },
-	REDIRECT_TO_HABITS: { path: "/", element: <Navigate to={"habits"} /> },
+	REDIRECT_TO_HABITS: { path: "/", element: <Navigate to="habits" /> },
 
 	HABITS: {
 		path: "/habits",

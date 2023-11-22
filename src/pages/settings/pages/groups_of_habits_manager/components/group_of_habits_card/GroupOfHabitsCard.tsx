@@ -66,7 +66,7 @@ export function GroupOfHabitsCard({
 				name={group.name}
 				setHabitGroups={setHabitGroups}
 			/>
-			<Stack height={"35vh"} overflow="auto">
+			<Stack height="35vh" overflow="auto">
 				{group.habits.map((habit, index) => (
 					<HabitItem
 						groupHabitsLength={group.habits.length}

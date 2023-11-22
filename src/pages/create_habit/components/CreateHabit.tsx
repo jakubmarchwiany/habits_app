@@ -32,7 +32,7 @@ export function CreateHabit(): JSX.Element {
 
 	return (
 		<Stack
-			component={"form"}
+			component="form"
 			onSubmit={(e: FormEvent<HTMLFormElement>): void => {
 				e.preventDefault();
 
@@ -40,7 +40,7 @@ export function CreateHabit(): JSX.Element {
 			}}
 			width={standardSize}
 		>
-			<Typography textAlign={"center"} typography="h2">
+			<Typography textAlign="center" typography="h2">
 				Stwórz nawyk
 			</Typography>
 

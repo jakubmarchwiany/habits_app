@@ -20,7 +20,7 @@ export function WelcomePage({ isLogged }: Props): JSX.Element {
 		>
 			{isLogged === undefined ? (
 				<Box>
-					<CircularProgress size={"15vh"} />
+					<CircularProgress size="15vh" />
 				</Box>
 			) : (
 				<Login />
