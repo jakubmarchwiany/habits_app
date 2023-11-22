@@ -2,45 +2,38 @@ import { Stack, Typography } from "@mui/material";
 import Grid2 from "@mui/material/Unstable_Grid2/Grid2";
 import { useAppSelector } from "hooks/redux";
 import { useState } from "react";
-import { Outlet } from "react-router-dom";
-import { Habit } from "store/app/habit/models/habit.type";
 
+import { EditHabit } from "./components/EditHabit";
 import { ListOfHabits } from "./components/ListOfHabits";
 
 export function HabitsManagerPage(): JSX.Element {
 	const habits = useAppSelector((s) => s.app.habits);
+	const [selectedHabitId, setSelectedHabitId] = useState<string | undefined>();
 
 	if (habits === undefined) {
 		throw new Error("Nie znaleziono nawyków");
 	}
 
-	const [currentHabit, setCurrentHabit] = useState<Habit>(habits[0]);
-
-	console.log(currentHabit);
+	const habitToEdit = habits.find((h) => h._id === selectedHabitId);
 
 	return (
 		<Stack alignItems="center" component="main">
 			<Grid2 container height={"100vh"} width={"100%"}>
-				<Grid2 xs={2}>
+				<Grid2 md={2} xs={4}>
 					<ListOfHabits
-						currentHabit={currentHabit}
 						habits={habits}
-						setCurrentHabit={setCurrentHabit}
+						selectedHabitId={selectedHabitId}
+						setSelectedHabitId={setSelectedHabitId}
 					/>
 				</Grid2>
-				<Grid2 xs={10}>
-					<Outlet />
-					<Stack direction="row" sx={{ display: "flex" }}>
-						<Stack sx={{ flexGrow: 10 }}>
-							<Typography
-								sx={{ py: { xs: 1, md: 3 } }}
-								textAlign={"center"}
-								typography="h2"
-							>
-								Ustawienia
-							</Typography>
-						</Stack>
-					</Stack>
+				<Grid2 md={10} xs={8}>
+					{habitToEdit !== undefined ? (
+						<EditHabit habitToEdit={habitToEdit} />
+					) : (
+						<Typography mt="30vh" textAlign="center" variant="h2">
+							Wybierz nawyk do edycji
+						</Typography>
+					)}
 				</Grid2>
 			</Grid2>
 		</Stack>
