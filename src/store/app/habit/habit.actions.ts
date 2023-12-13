@@ -107,7 +107,7 @@ export const createHabitAction =
 
 			appDispatch(appActions.createHabit(habitExt));
 
-			navigate("/settings/groupsOfHabitsManager");
+			navigate("/settings/groups-of-habits-manager");
 		});
 	};
 
