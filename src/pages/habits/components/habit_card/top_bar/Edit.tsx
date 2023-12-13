@@ -60,7 +60,7 @@ export function Edit({ _id, description, name, periodInDays, setIsShow }: Props)
 					/>
 
 					<TextField
-						InputProps={{ inputProps: { min: 1, max: 31 } }}
+						InputProps={{ inputProps: { max: 31, min: 1 } }}
 						label="Co ile dni powtarzać?"
 						onChange={(event: React.ChangeEvent<HTMLInputElement>): void => {
 							if (parseInt(event.target.value) < 1) {

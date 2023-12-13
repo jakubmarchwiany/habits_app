@@ -8,7 +8,7 @@ import { GroupOfHabits } from "../store/app/habit/models/group_of_habits.type";
 import { Habit } from "../store/app/habit/models/habit.type";
 
 export function extendHabit(habit: HabitData): Habit {
-	const habitExt: Habit = { ...habit, show: true, score: 0 };
+	const habitExt: Habit = { ...habit, score: 0, show: true };
 
 	return habitExt;
 }

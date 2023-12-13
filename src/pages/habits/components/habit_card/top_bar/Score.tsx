@@ -14,7 +14,7 @@ type Props = {
 
 export function Score({ score }: Props): JSX.Element {
 	return (
-		<Box sx={{ position: "relative", display: "inline-flex" }}>
+		<Box sx={{ display: "inline-flex", position: "relative" }}>
 			<CircularProgress
 				size={30}
 				sx={{ color: valueToColor(score) }}
@@ -23,14 +23,14 @@ export function Score({ score }: Props): JSX.Element {
 			/>
 			<Box
 				sx={{
-					top: 0,
-					left: 0,
-					bottom: 0,
-					right: 0,
-					position: "absolute",
-					display: "flex",
 					alignItems: "center",
-					justifyContent: "center"
+					bottom: 0,
+					display: "flex",
+					justifyContent: "center",
+					left: 0,
+					position: "absolute",
+					right: 0,
+					top: 0
 				}}
 			>
 				{/* {`${Math.round(score * 100)}`} */}

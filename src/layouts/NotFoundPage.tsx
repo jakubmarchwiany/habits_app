@@ -8,19 +8,19 @@ export function NotFoundPage(): JSX.Element {
 	return (
 		<Container
 			sx={{
+				alignItems: "center",
+				color: "gray",
 				display: "flex",
 				flexDirection: "column",
-				alignItems: "center",
 				justifyContent: "center",
 				minHeight: "100vh",
-				minWidth: "100vw",
-				color: "gray"
+				minWidth: "100vw"
 			}}
 		>
-			<Typography sx={{ typography: { xs: "h4", md: "h2" } }} textAlign="center">
+			<Typography sx={{ typography: { md: "h2", xs: "h4" } }} textAlign="center">
 				Nie znaleziono strony
 			</Typography>
-			<Typography mt={2} sx={{ typography: { xs: "h6", md: "h4" } }} textAlign="center">
+			<Typography mt={2} sx={{ typography: { md: "h4", xs: "h6" } }} textAlign="center">
 				Ups! Strona, której szukasz, nie została znaleziona.
 			</Typography>
 
@@ -29,7 +29,7 @@ export function NotFoundPage(): JSX.Element {
 				onClick={(): void => {
 					navigate(-1);
 				}}
-				sx={{ typography: { xs: "h6", md: "h4" }, mt: { xs: 2, md: 5 } }}
+				sx={{ mt: { md: 5, xs: 2 }, typography: { md: "h4", xs: "h6" } }}
 				variant="body2"
 			>
 				Wróć do poprzedniej strony
@@ -40,7 +40,7 @@ export function NotFoundPage(): JSX.Element {
 				onClick={(): void => {
 					navigate("/");
 				}}
-				sx={{ typography: { xs: "h6", md: "h4" }, mt: { xs: 2, md: 5 }, mb: "20%" }}
+				sx={{ mb: "20%", mt: { md: 5, xs: 2 }, typography: { md: "h4", xs: "h6" } }}
 				variant="body2"
 			>
 				Wróć do strony głównej

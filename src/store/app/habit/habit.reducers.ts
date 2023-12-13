@@ -79,7 +79,7 @@ export function deleteHabitReducer(
 			return g;
 		}) as GroupOfHabits[] | undefined;
 
-		return { ...state, habits: updatedHabits, groupsOfHabits: updatedGroupsOfHabits };
+		return { ...state, groupsOfHabits: updatedGroupsOfHabits, habits: updatedHabits };
 	}
 	return state;
 }

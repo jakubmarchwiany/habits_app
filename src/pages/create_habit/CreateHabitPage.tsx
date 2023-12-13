@@ -8,8 +8,8 @@ export function CreateHabitPage(): JSX.Element {
 			alignItems="center"
 			component="main"
 			sx={{
-				pt: { xs: 3, md: 5 },
-				pb: "15vh"
+				pb: "15vh",
+				pt: { md: 5, xs: 3 }
 			}}
 		>
 			<CreateHabit />

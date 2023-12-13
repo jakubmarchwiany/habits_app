@@ -32,11 +32,11 @@ export function ShowAllButton(): JSX.Element {
 			}}
 			size="small"
 			sx={{
+				color: "white",
+				fontSize: "3rem",
 				position: "fixed",
 				right: "1%",
-				top: "1%",
-				fontSize: "3rem",
-				color: "white"
+				top: "1%"
 			}}
 		>
 			{showAllHabits ? <DateRange fontSize="inherit" /> : <Today fontSize="inherit" />}

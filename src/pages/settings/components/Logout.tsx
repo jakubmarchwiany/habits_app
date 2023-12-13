@@ -17,7 +17,7 @@ export function Logout(): JSX.Element {
 			color="error"
 			fullWidth
 			onClick={logout}
-			sx={{ mt: 0.5, alignSelf: "center" }}
+			sx={{ alignSelf: "center", mt: 0.5 }}
 			variant="contained"
 		>
 			Wyloguj się

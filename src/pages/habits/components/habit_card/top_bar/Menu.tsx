@@ -34,8 +34,8 @@ export function Menu({ _id, description, name, periodInDays }: Props): JSX.Eleme
 
 	return (
 		<>
-			<IconButton onClick={openMenu} sx={{ p: 0, m: 0 }}>
-				<Settings sx={{ color: "white", fontSize: { xs: "1.5rem", md: "1.5rem" } }} />
+			<IconButton onClick={openMenu} sx={{ m: 0, p: 0 }}>
+				<Settings sx={{ color: "white", fontSize: { md: "1.5rem", xs: "1.5rem" } }} />
 			</IconButton>
 			<MenuMui
 				MenuListProps={{

@@ -39,11 +39,11 @@ export function ToggleHabitsButton(): JSX.Element {
 			}}
 			size="small"
 			sx={{
+				color: location.pathname === "/habits" ? "primary.main" : "#F377E4",
+				fontSize: "3rem",
 				position: "fixed",
 				right: "5%",
-				top: "1%",
-				fontSize: "3rem",
-				color: location.pathname === "/habits" ? "primary.main" : "#F377E4"
+				top: "1%"
 			}}
 		>
 			<FavoriteBorder fontSize="inherit" />

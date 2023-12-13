@@ -11,31 +11,30 @@ import { HabitsManagerPage } from "pages/settings/pages/habits_manager/HabitsMan
 import { Navigate } from "react-router-dom";
 
 export const PAGE = {
-	HOME: { path: "/", element: <App /> },
-	REDIRECT_TO_HABITS: { path: "/", element: <Navigate to="habits" /> },
-
+	ALL: { element: <NotFoundPage />, path: "*" },
+	DEAR_HABITS: { element: <DearHabitsPage />, path: "/dear/habits" },
+	HABIT: { element: <HabitExplorerPage />, path: "/habits/:_id" },
 	HABITS: {
-		path: "/habits",
-		element: <HabitsPage />
+		element: <HabitsPage />,
+		path: "/habits"
 	},
 	HABITSV2: {
-		path: "/habitsv2",
-		element: <Habitsv2Page />
+		element: <Habitsv2Page />,
+		path: "/habitsv2"
 	},
 	HABITS_CREATE: {
-		path: "habits/create",
-		element: <CreateHabitPage />
+		element: <CreateHabitPage />,
+		path: "habits/create"
 	},
-	HABIT: { path: "/habits/:_id", element: <HabitExplorerPage /> },
-	SETTINGS: { path: "/settings", element: <SettingsPage /> },
+	HOME: { element: <App />, path: "/" },
+	REDIRECT_TO_HABITS: { element: <Navigate to="habits" />, path: "/" },
+	SETTINGS: { element: <SettingsPage />, path: "/settings" },
 	SETTINGS_GROUPS_OF_HABITS_MANAGER: {
-		path: "/settings/groups-of-habits-manager",
-		element: <GroupsOfHabitsManagerPage />
+		element: <GroupsOfHabitsManagerPage />,
+		path: "/settings/groups-of-habits-manager"
 	},
 	SETTINGS_HABITS_MANAGER: {
-		path: "/settings/habits-manager",
-		element: <HabitsManagerPage />
-	},
-	DEAR_HABITS: { path: "/dear/habits", element: <DearHabitsPage /> },
-	ALL: { path: "*", element: <NotFoundPage /> }
+		element: <HabitsManagerPage />,
+		path: "/settings/habits-manager"
+	}
 };

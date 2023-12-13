@@ -15,20 +15,20 @@ export function ErrorPage(): JSX.Element {
 	return (
 		<Container
 			sx={{
+				alignItems: "center",
+				color: "gray",
 				display: "flex",
 				flexDirection: "column",
-				alignItems: "center",
 				justifyContent: "center",
 				minHeight: "100vh",
-				minWidth: "100vw",
-				color: "gray"
+				minWidth: "100vw"
 			}}
 		>
-			<Typography sx={{ typography: { xs: "h3", md: "h2" } }} textAlign="center">
+			<Typography sx={{ typography: { md: "h2", xs: "h3" } }} textAlign="center">
 				Ups...
 			</Typography>
 			<Typography
-				sx={{ typography: { xs: "h6", md: "h5" }, color: "red", mt: { xs: 1, md: 2 } }}
+				sx={{ color: "red", mt: { md: 2, xs: 1 }, typography: { md: "h5", xs: "h6" } }}
 				textAlign="center"
 			>
 				{message !== undefined ? `"${message}"` : "Coś poszło nie tak"}
@@ -39,7 +39,7 @@ export function ErrorPage(): JSX.Element {
 				onClick={(): void => {
 					navigate(-1);
 				}}
-				sx={{ typography: { xs: "h6", md: "h4" }, mt: { xs: 2, md: 5 } }}
+				sx={{ mt: { md: 5, xs: 2 }, typography: { md: "h4", xs: "h6" } }}
 				variant="body2"
 			>
 				Wróć do poprzedniej strony
@@ -50,7 +50,7 @@ export function ErrorPage(): JSX.Element {
 				onClick={(): void => {
 					navigate("/");
 				}}
-				sx={{ typography: { xs: "h6", md: "h4" }, mt: { xs: 2, md: 5 }, mb: "20%" }}
+				sx={{ mb: "20%", mt: { md: 5, xs: 2 }, typography: { md: "h4", xs: "h6" } }}
 				variant="body2"
 			>
 				Wróć do strony głównej

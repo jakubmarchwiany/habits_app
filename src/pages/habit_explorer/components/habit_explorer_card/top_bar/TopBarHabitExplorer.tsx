@@ -16,11 +16,11 @@ export function TopBarHabitExplorer({
 	return (
 		<Box
 			sx={{
+				alignItems: "center",
 				display: "flex",
 				flexDirection: "row",
 				justifyContent: "space-between",
-				mx: 1,
-				alignItems: "center"
+				mx: 1
 			}}
 		>
 			<Score score={score} />
@@ -37,8 +37,8 @@ export function TopBarHabitExplorer({
 			>
 				<Typography
 					sx={{
-						wordBreak: "break-word",
-						typography: { xs: "h4", md: "h4" }
+						typography: { md: "h4", xs: "h4" },
+						wordBreak: "break-word"
 					}}
 					textAlign="center"
 				>

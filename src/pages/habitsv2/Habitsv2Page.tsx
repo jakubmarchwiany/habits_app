@@ -25,8 +25,8 @@ export function Habitsv2Page(): JSX.Element {
 		<Stack
 			component="main"
 			sx={{
-				pt: { xs: 1, sm: 2 },
-				pb: "15vh"
+				pb: "15vh",
+				pt: { sm: 2, xs: 1 }
 			}}
 		>
 			{generateGroupsOfHabits()}

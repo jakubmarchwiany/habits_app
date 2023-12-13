@@ -12,10 +12,10 @@ export function WelcomePage({ isLogged }: Props): JSX.Element {
 			component="main"
 			maxWidth={false}
 			sx={{
-				display: "flex",
-				justifyContent: "center",
 				alignItems: "center",
-				height: "100vh"
+				display: "flex",
+				height: "100vh",
+				justifyContent: "center"
 			}}
 		>
 			{isLogged === undefined ? (

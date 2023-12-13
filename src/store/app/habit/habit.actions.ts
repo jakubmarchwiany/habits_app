@@ -63,11 +63,11 @@ export const getHabits =
 
 				if (myHabits) {
 					appDispatch(
-						appActions.setData({ habits: habitsExt, groupsOfHabits: groupsExt })
+						appActions.setData({ groupsOfHabits: groupsExt, habits: habitsExt })
 					);
 				} else {
 					appDispatch(
-						dearActions.setData({ habits: habitsExt, groupsOfHabits: groupsExt })
+						dearActions.setData({ groupsOfHabits: groupsExt, habits: habitsExt })
 					);
 				}
 				setter(true);
@@ -93,10 +93,10 @@ export const createHabitAction =
 
 			const habit: HabitData = {
 				_id: habitId,
-				name,
+				activities: [],
 				description,
-				periodInDays,
-				activities: []
+				name,
+				periodInDays
 			};
 
 			let habitExt = extendHabit(habit);

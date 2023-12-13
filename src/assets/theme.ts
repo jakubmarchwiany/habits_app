@@ -2,6 +2,54 @@ import "@fontsource/source-sans-pro";
 import { ThemeOptions } from "@mui/material";
 
 export const getTheme = (color: string): ThemeOptions => ({
+	breakpoints: {
+		values: {
+			lg: 1216,
+			md: 1024,
+			sm: 768,
+			xl: 1408,
+			xs: 0
+		}
+	},
+
+	components: {
+		MuiCssBaseline: {
+			styleOverrides: {
+				body: {
+					backgroundColor: "#2c5a69"
+				}
+			}
+		},
+		MuiDivider: {
+			styleOverrides: {
+				root: {
+					borderBottomWidth: 3
+				}
+			}
+		},
+		MuiTextField: {
+			defaultProps: {
+				InputLabelProps: {
+					style: {
+						color: "#fff"
+					}
+				},
+				inputProps: {
+					style: {
+						color
+					}
+				}
+			}
+		},
+		MuiTooltip: {
+			styleOverrides: {
+				tooltip: {
+					fontSize: "1rem",
+					maxWidth: "50vw"
+				}
+			}
+		}
+	},
 	palette: {
 		background: {
 			default: "#242729",
@@ -18,62 +66,14 @@ export const getTheme = (color: string): ThemeOptions => ({
 			primary: "#fff"
 		}
 	},
-
 	typography: {
 		button: {
 			fontSize: "18",
 			textTransform: "none"
 		},
 		fontFamily: ["-apple-system", "Source Sans Pro", "Roboto"].join(",")
-	},
-	components: {
-		MuiTextField: {
-			defaultProps: {
-				InputLabelProps: {
-					style: {
-						color: "#fff"
-					}
-				},
-				inputProps: {
-					style: {
-						color
-					}
-				}
-			}
-		},
-		MuiCssBaseline: {
-			styleOverrides: {
-				body: {
-					backgroundColor: "#2c5a69"
-				}
-			}
-		},
-		MuiTooltip: {
-			styleOverrides: {
-				tooltip: {
-					fontSize: "1rem",
-					maxWidth: "50vw"
-				}
-			}
-		},
-		MuiDivider: {
-			styleOverrides: {
-				root: {
-					borderBottomWidth: 3
-				}
-			}
-		}
-	},
-	breakpoints: {
-		values: {
-			xs: 0,
-			sm: 768,
-			md: 1024,
-			lg: 1216,
-			xl: 1408
-		}
 	}
 });
 
-export const standardSize = { xs: "95%", sm: "50%", md: "40%", lg: "35%", xl: "25%" };
-export const panelStandardSize = { xs: "95%", sm: "80%", md: "70%", lg: "60%", xl: "50%" };
+export const standardSize = { lg: "35%", md: "40%", sm: "50%", xl: "25%", xs: "95%" };
+export const panelStandardSize = { lg: "60%", md: "70%", sm: "80%", xl: "50%", xs: "95%" };

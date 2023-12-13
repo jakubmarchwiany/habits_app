@@ -5,9 +5,9 @@ export function LoadingPage(): JSX.Element {
 		<Stack
 			component="main"
 			sx={{
-				justifyContent: "center",
 				alignItems: "center",
-				height: "100vh"
+				height: "100vh",
+				justifyContent: "center"
 			}}
 		>
 			<CircularProgress size="15vh" />

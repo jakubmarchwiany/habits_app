@@ -14,12 +14,12 @@ export async function getFetch<T>(
 		const toastId = toast.loading("Ładowanie...");
 
 		fetch(VITE_API_ENDPOINT + url, {
-			method: "GET",
 			credentials: "include",
 			headers: {
-				"Content-Type": "application/json",
-				Authorization: `Bearer ${Cookies.get("authorization")}`
-			}
+				Authorization: `Bearer ${Cookies.get("authorization")}`,
+				"Content-Type": "application/json"
+			},
+			method: "GET"
 		})
 			.then(async (response) => {
 				const data = (await response.json()) as T & { message: string };
@@ -63,13 +63,13 @@ export async function postFetch<T>(
 		const toastId = toast.loading("Ładowanie...");
 
 		fetch(VITE_API_ENDPOINT + url, {
-			method: "POST",
+			body: JSON.stringify(body),
 			credentials: "include",
 			headers: {
-				"Content-Type": "application/json",
-				Authorization: `Bearer ${Cookies.get("authorization")}`
+				Authorization: `Bearer ${Cookies.get("authorization")}`,
+				"Content-Type": "application/json"
 			},
-			body: JSON.stringify(body)
+			method: "POST"
 		})
 			.then(async (response) => {
 				const data = (await response.json()) as T & { message: string };

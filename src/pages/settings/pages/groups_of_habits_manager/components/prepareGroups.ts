@@ -27,11 +27,11 @@ export function prepareGroups(
 			}
 		});
 
-		return { _id: group._id, name: group.name, habits: groupHabits };
+		return { _id: group._id, habits: groupHabits, name: group.name };
 	});
 
 	if (tmpHabits.length !== 0) {
-		tmpGroups.push({ _id: uuid(), name: "bez grupy", habits: tmpHabits });
+		tmpGroups.push({ _id: uuid(), habits: tmpHabits, name: "bez grupy" });
 	}
 
 	return tmpGroups;

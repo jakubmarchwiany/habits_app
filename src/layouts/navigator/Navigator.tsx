@@ -26,11 +26,11 @@ export function Navigator(): JSX.Element {
 					setOpenDrawer(true);
 				}}
 				sx={{
-					position: "fixed",
-					left: "1%",
-					top: "1%",
+					color: "white",
 					fontSize: "3rem",
-					color: "white"
+					left: "1%",
+					position: "fixed",
+					top: "1%"
 				}}
 			>
 				<MenuOpen fontSize="inherit" />

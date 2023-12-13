@@ -4,8 +4,8 @@ import { useState } from "react";
 const stepValues = [31, 62, 93, 182, 365];
 
 const marks = stepValues.map((value) => ({
-	value,
-	label: value.toString()
+	label: value.toString(),
+	value
 }));
 
 type Props = {

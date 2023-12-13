@@ -34,13 +34,13 @@ export function HabitItem({
 			draggable
 			onDragStart={(e: DragEvent<HTMLDivElement>): void => dragStart(e, habit, groupIndex)}
 			sx={{
-				pl: 2,
 				alignItems: "center",
-				justifyContent: "space-between",
 				backgroundColor: "hsl(0, 0%, 20%)",
 				border: 2,
+				borderColor: "primary.main",
+				justifyContent: "space-between",
 				my: 0.5,
-				borderColor: "primary.main"
+				pl: 2
 			}}
 		>
 			<Typography>{habit.name}</Typography>

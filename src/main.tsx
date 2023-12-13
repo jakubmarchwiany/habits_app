@@ -10,27 +10,27 @@ import { ErrorPage } from "./layouts/ErrorPage";
 
 const router = createBrowserRouter([
 	{
-		path: PAGE.HOME.path,
-		element: PAGE.HOME.element,
 		children: [
-			{ path: PAGE.REDIRECT_TO_HABITS.path, element: PAGE.REDIRECT_TO_HABITS.element },
-			{ path: PAGE.HABITS.path, element: PAGE.HABITS.element },
-			{ path: PAGE.HABITSV2.path, element: PAGE.HABITSV2.element },
-			{ path: PAGE.DEAR_HABITS.path, element: PAGE.DEAR_HABITS.element },
-			{ path: PAGE.HABITS_CREATE.path, element: PAGE.HABITS_CREATE.element },
-			{ path: PAGE.HABIT.path, element: PAGE.HABIT.element },
-			{ path: PAGE.SETTINGS.path, element: PAGE.SETTINGS.element },
+			{ element: PAGE.REDIRECT_TO_HABITS.element, path: PAGE.REDIRECT_TO_HABITS.path },
+			{ element: PAGE.HABITS.element, path: PAGE.HABITS.path },
+			{ element: PAGE.HABITSV2.element, path: PAGE.HABITSV2.path },
+			{ element: PAGE.DEAR_HABITS.element, path: PAGE.DEAR_HABITS.path },
+			{ element: PAGE.HABITS_CREATE.element, path: PAGE.HABITS_CREATE.path },
+			{ element: PAGE.HABIT.element, path: PAGE.HABIT.path },
+			{ element: PAGE.SETTINGS.element, path: PAGE.SETTINGS.path },
 			{
-				path: PAGE.SETTINGS_GROUPS_OF_HABITS_MANAGER.path,
-				element: PAGE.SETTINGS_GROUPS_OF_HABITS_MANAGER.element
+				element: PAGE.SETTINGS_GROUPS_OF_HABITS_MANAGER.element,
+				path: PAGE.SETTINGS_GROUPS_OF_HABITS_MANAGER.path
 			},
 			{
-				path: PAGE.SETTINGS_HABITS_MANAGER.path,
-				element: PAGE.SETTINGS_HABITS_MANAGER.element
+				element: PAGE.SETTINGS_HABITS_MANAGER.element,
+				path: PAGE.SETTINGS_HABITS_MANAGER.path
 			},
-			{ path: PAGE.ALL.path, element: PAGE.ALL.element }
+			{ element: PAGE.ALL.element, path: PAGE.ALL.path }
 		],
-		errorElement: <ErrorPage />
+		element: PAGE.HOME.element,
+		errorElement: <ErrorPage />,
+		path: PAGE.HOME.path
 	}
 ]);
 

@@ -29,10 +29,10 @@ export function DearGroupOfHabits({ _id }: Props): JSX.Element {
 			<Divider
 				sx={{
 					"&.MuiDivider-root": {
-						"&::before": {
+						"&::after": {
 							borderTopWidth: 4
 						},
-						"&::after": {
+						"&::before": {
 							borderTopWidth: 4
 						}
 					}
@@ -41,8 +41,8 @@ export function DearGroupOfHabits({ _id }: Props): JSX.Element {
 				<Chip
 					label={groupOfHabits.name.toUpperCase()}
 					sx={{
-						fontSize: { xs: "1.5rem", md: "2.5rem" },
-						py: { xs: 2.5, md: 3.5 }
+						fontSize: { md: "2.5rem", xs: "1.5rem" },
+						py: { md: 3.5, xs: 2.5 }
 					}}
 				/>
 			</Divider>
@@ -53,9 +53,9 @@ export function DearGroupOfHabits({ _id }: Props): JSX.Element {
 				key={"habit_group_grid_" + groupOfHabits._id}
 				mb={1}
 				mt={1.5}
-				mx={{ xs: 1, md: 3 }}
+				mx={{ md: 3, xs: 1 }}
 				rowSpacing={2}
-				spacing={{ xs: 1, md: 2 }}
+				spacing={{ md: 2, xs: 1 }}
 			>
 				{generateHabits()}
 			</Grid2>

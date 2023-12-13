@@ -59,8 +59,8 @@ export function HabitExplorer({ _id }: Props): JSX.Element {
 			pt={{ xs: 1 }}
 			sx={{
 				border: 3.5,
-				borderRadius: 4,
-				borderColor: "background.default"
+				borderColor: "background.default",
+				borderRadius: 4
 			}}
 			width={standardSize}
 		>

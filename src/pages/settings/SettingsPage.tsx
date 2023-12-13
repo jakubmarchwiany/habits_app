@@ -13,12 +13,12 @@ export function SettingsPage(): JSX.Element {
 			alignItems="center"
 			component="main"
 			sx={{
-				pt: { xs: 1, sm: 2 },
-				pb: "15vh"
+				pb: "15vh",
+				pt: { sm: 2, xs: 1 }
 			}}
 		>
 			<Stack width={standardSize}>
-				<Typography sx={{ py: { xs: 1, md: 3 } }} textAlign="center" typography="h2">
+				<Typography sx={{ py: { md: 3, xs: 1 } }} textAlign="center" typography="h2">
 					Ustawienia
 				</Typography>
 

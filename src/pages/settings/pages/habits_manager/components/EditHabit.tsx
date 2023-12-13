@@ -33,12 +33,12 @@ export function EditHabit({ habitToEdit }: Props): JSX.Element {
 			alignItems="center"
 			component="main"
 			sx={{
-				pt: { xs: 1, sm: 2 },
-				pb: "15vh"
+				pb: "15vh",
+				pt: { sm: 2, xs: 1 }
 			}}
 		>
 			<Stack width={standardSize}>
-				<Typography sx={{ py: { xs: 1, md: 3 } }} textAlign="center" typography="h2">
+				<Typography sx={{ py: { md: 3, xs: 1 } }} textAlign="center" typography="h2">
 					Edycja nawyku
 				</Typography>
 				<TextField
@@ -64,7 +64,7 @@ export function EditHabit({ habitToEdit }: Props): JSX.Element {
 				/>
 
 				<TextField
-					InputProps={{ inputProps: { min: 1, max: 31 } }}
+					InputProps={{ inputProps: { max: 31, min: 1 } }}
 					label="Co ile dni powtarzać?"
 					onChange={(event: React.ChangeEvent<HTMLInputElement>): void => {
 						if (parseInt(event.target.value) < 1) {

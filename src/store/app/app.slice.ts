@@ -14,9 +14,9 @@ export type AppState = {
 };
 
 const initialState: AppState = {
-	showAllHabits: getShowAllHabits(),
+	groupsOfHabits: undefined,
 	habits: undefined,
-	groupsOfHabits: undefined
+	showAllHabits: getShowAllHabits()
 };
 
 type SetDataProps = {
@@ -28,6 +28,10 @@ const appSlice = createSlice({
 	initialState,
 	name: "app",
 	reducers: {
+		createActivity: createActivityReducer,
+		createHabit: createHabitReducer,
+		deleteActivity: deleteActivityReducer,
+		deleteHabit: deleteHabitReducer,
 		setData(state, action: PayloadAction<SetDataProps>) {
 			state.habits = action.payload.habits;
 
@@ -40,11 +44,6 @@ const appSlice = createSlice({
 				localStorage.setItem("showAllHabits", state.showAllHabits.toString());
 			}
 		},
-		createHabit: createHabitReducer,
-		updateHabit: updateHabitReducer,
-		deleteHabit: deleteHabitReducer,
-		createActivity: createActivityReducer,
-		deleteActivity: deleteActivityReducer,
 		updateGroups(state, action: PayloadAction<GroupOfHabitsData[]>) {
 			const { groupsOfHabits, habits } = state;
 
@@ -55,7 +54,8 @@ const appSlice = createSlice({
 
 				Object.assign(groupsOfHabits, groupsExt);
 			}
-		}
+		},
+		updateHabit: updateHabitReducer
 	}
 });
 

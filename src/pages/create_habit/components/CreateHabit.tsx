@@ -51,7 +51,7 @@ export function CreateHabit(): JSX.Element {
 				onChange={(event: React.ChangeEvent<HTMLInputElement>): void => {
 					setName(event.target.value);
 				}}
-				sx={{ mt: { xs: 3, md: 3 } }}
+				sx={{ mt: { md: 3, xs: 3 } }}
 				value={name}
 				variant="filled"
 			/>
@@ -69,7 +69,7 @@ export function CreateHabit(): JSX.Element {
 			/>
 
 			<TextFieldNumber
-				InputProps={{ inputProps: { min: 1, max: 31 } }}
+				InputProps={{ inputProps: { max: 31, min: 1 } }}
 				label="Co ile dni powtarzać?"
 				onChange={(event: React.ChangeEvent<HTMLInputElement>): void => {
 					if (parseInt(event.target.value) < 1) {

@@ -21,7 +21,7 @@ export function Login(): JSX.Element {
 	const handleLogin = (event: SyntheticEvent): void => {
 		event.preventDefault();
 
-		postFetch<{ data: { token: string } }>({ username, password }, `/auth/login`).then(
+		postFetch<{ data: { token: string } }>({ password, username }, `/auth/login`).then(
 			async ({ data }) => {
 				const { token } = data;
 
@@ -42,9 +42,9 @@ export function Login(): JSX.Element {
 			<Avatar
 				sx={{
 					bgcolor: "primary.main",
-					width: "5rem",
+					color: "white",
 					height: "5rem",
-					color: "white"
+					width: "5rem"
 				}}
 			>
 				<LockOpenOutlined fontSize="large" />

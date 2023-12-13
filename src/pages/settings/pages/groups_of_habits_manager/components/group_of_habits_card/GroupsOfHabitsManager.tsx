@@ -33,7 +33,7 @@ export function GroupsOfHabitsManager(): JSX.Element {
 	const createNewGroupOfHabits = (): void => {
 		const updatedLists = [...groupsOfHabitsCard];
 
-		updatedLists.push({ _id: uuid(), name: "", habits: [] });
+		updatedLists.push({ _id: uuid(), habits: [], name: "" });
 
 		setGroupOfHabitsCard(updatedLists);
 	};
@@ -43,8 +43,8 @@ export function GroupsOfHabitsManager(): JSX.Element {
 			const groupsToFetch = groupsOfHabitsCard.map((group) => {
 				return {
 					_id: group._id,
-					name: group.name,
-					habitsIds: group.habits.map((habit) => habit._id)
+					habitsIds: group.habits.map((habit) => habit._id),
+					name: group.name
 				};
 			});
 
@@ -70,11 +70,11 @@ export function GroupsOfHabitsManager(): JSX.Element {
 					<Button
 						onClick={createNewGroupOfHabits}
 						sx={{
-							minHeight: "10vh",
-							width: "100%",
-							height: "100%",
 							border: 2,
-							borderColor: "primary.main"
+							borderColor: "primary.main",
+							height: "100%",
+							minHeight: "10vh",
+							width: "100%"
 						}}
 						variant="outlined"
 					>
