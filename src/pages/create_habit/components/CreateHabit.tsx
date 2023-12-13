@@ -5,6 +5,8 @@ import { FormEvent, useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { createHabitAction } from "store/app/habit/habit.actions";
 
+import { EmojiSelector } from "./EmojiSelector";
+
 const TextFieldNumber = styled(TextField)(() => ({
 	"& input::-webkit-outer-spin-button, & input::-webkit-inner-spin-button": {
 		display: "none"
@@ -15,9 +17,10 @@ const TextFieldNumber = styled(TextField)(() => ({
 }));
 
 export function CreateHabit(): JSX.Element {
-	const [name, setName] = useState("");
-	const [description, setDescription] = useState("");
-	const [periodInDays, setPeriodInDays] = useState(1);
+	const [name, setName] = useState<string>("");
+	const [description, setDescription] = useState<string>("");
+	const [periodInDays, setPeriodInDays] = useState<number>(1);
+	const [emoji, setEmoji] = useState<string | undefined>(undefined);
 
 	const navigate = useNavigate();
 	const dispatch = useAppDispatch();
@@ -85,8 +88,10 @@ export function CreateHabit(): JSX.Element {
 				variant="filled"
 			/>
 
+			<EmojiSelector emoji={emoji} setEmoji={setEmoji} />
+
 			<Button
-				disabled={name === "" || Number.isNaN(periodInDays)}
+				disabled={name === "" || emoji === undefined || Number.isNaN(periodInDays)}
 				fullWidth
 				type="submit"
 				variant="contained"
