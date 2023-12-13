@@ -12,7 +12,8 @@ dist
 dist-ssr
 *.local
 build
-
+.cspellcache
+.eslintcache
 
 
 # Editor directories and files
