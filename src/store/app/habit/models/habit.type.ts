@@ -4,6 +4,7 @@ export type Habit = {
 	_id: string;
 	activities: Activity[];
 	description: string;
+	emoji: string;
 	name: string;
 	periodInDays: number;
 	score: number;
