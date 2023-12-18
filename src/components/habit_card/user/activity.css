@@ -27,7 +27,7 @@
 @keyframes today_blink {
 	0%,
 	100% {
-		background-color: transparent;
+		background-color: #323638;
 	}
 	50% {
 		background-color: #00ab5f;
@@ -44,7 +44,7 @@
 @keyframes delay_blink {
 	0%,
 	100% {
-		background-color: transparent;
+		background-color: #323638;
 	}
 	50% {
 		background-color: #d32f2f;

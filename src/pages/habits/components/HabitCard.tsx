@@ -31,9 +31,9 @@ export function HabitCard({ _id }: Props): JSX.Element {
 			px={2}
 			py={1.5}
 			sx={{
-				background: `linear-gradient(8deg, rgba(0,173, 95,${goalRate / 1.5}) ${
+				background: `linear-gradient(8deg, rgba(0,173, 95,${goalRate / 2}) ${
 					goalRate * 100 - 5
-				}%, rgba(211, 49, 49,${goalRate === 0 ? 0 : (1 - goalRate) / 1.5}) ${
+				}%, rgba(211, 49, 49,${goalRate === 0 ? 0 : (1 - goalRate) / 2}) ${
 					goalRate * 100
 				}%)`
 			}}
