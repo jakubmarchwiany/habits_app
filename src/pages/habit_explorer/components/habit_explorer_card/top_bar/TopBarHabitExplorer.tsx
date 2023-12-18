@@ -1,5 +1,4 @@
 import { Box, Tooltip, Typography, Zoom } from "@mui/material";
-import { Score } from "pages/habits/components/habit_card/top_bar/Score";
 
 type Props = {
 	description: string;
@@ -23,7 +22,7 @@ export function TopBarHabitExplorer({
 				mx: 1
 			}}
 		>
-			<Score score={score} />
+			{/* <Score score={score} /> */}
 			<Tooltip
 				TransitionComponent={Zoom}
 				placement="top"

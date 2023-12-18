@@ -1,8 +1,7 @@
 import { Chip, Divider, Stack, Typography } from "@mui/material";
-import Grid2 from "@mui/material/Unstable_Grid2/Grid2";
 import { useAppSelector } from "hooks/redux";
 
-import { Habit } from "./Habit";
+import { HabitCard } from "./HabitCard";
 
 type Props = {
 	_id: string;
@@ -19,7 +18,7 @@ export function GroupOfHabits({ _id }: Props): JSX.Element {
 
 	const generateHabits = (): JSX.Element | JSX.Element[] => {
 		if (groupOfHabits.habitsIds !== undefined && groupOfHabits.habitsIds.length > 0) {
-			return groupOfHabits.habitsIds.map((g) => <Habit _id={g} key={`habit_${g}`} />);
+			return groupOfHabits.habitsIds.map((g) => <HabitCard _id={g} key={`habit_${g}`} />);
 		} else {
 			return <Typography variant="h5">Nie masz żadnego nawyku w grupie</Typography>;
 		}
@@ -48,18 +47,15 @@ export function GroupOfHabits({ _id }: Props): JSX.Element {
 				/>
 			</Divider>
 
-			<Grid2
-				container
+			<Stack
 				id={"habit_group_grid_" + groupOfHabits._id}
 				key={"habit_group_grid_" + groupOfHabits._id}
 				mb={1}
 				mt={1.5}
 				mx={{ md: 3, xs: 1 }}
-				rowSpacing={2}
-				spacing={{ md: 2, xs: 1 }}
 			>
 				{generateHabits()}
-			</Grid2>
+			</Stack>
 		</Stack>
 	);
 }

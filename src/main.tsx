@@ -13,7 +13,6 @@ const router = createBrowserRouter([
 		children: [
 			{ element: PAGE.REDIRECT_TO_HABITS.element, path: PAGE.REDIRECT_TO_HABITS.path },
 			{ element: PAGE.HABITS.element, path: PAGE.HABITS.path },
-			{ element: PAGE.HABITSV2.element, path: PAGE.HABITSV2.path },
 			{ element: PAGE.DEAR_HABITS.element, path: PAGE.DEAR_HABITS.path },
 			{ element: PAGE.HABITS_CREATE.element, path: PAGE.HABITS_CREATE.path },
 			{ element: PAGE.HABIT.element, path: PAGE.HABIT.path },

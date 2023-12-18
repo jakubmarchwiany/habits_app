@@ -5,15 +5,15 @@ import { createActivityAction, deleteActivityAction } from "store/app/activity/a
 import { Activity, ActivityStatus } from "store/app/activity/models/activity.type";
 
 /* eslint-disable jsx-a11y/no-static-element-interactions */
-import "./activityv2.css";
-import { myConfetti } from "./confettiv2";
+import "./activity.css";
+import { myConfetti } from "./confetti";
 
 type Props = {
 	activities: Activity[];
 	habitId: string;
 };
 
-export function Activitiesv2({ activities, habitId }: Props): JSX.Element {
+export function Activities({ activities, habitId }: Props): JSX.Element {
 	const dispatch = useAppDispatch();
 
 	const generateActivities = (): JSX.Element[] => {
@@ -23,7 +23,7 @@ export function Activitiesv2({ activities, habitId }: Props): JSX.Element {
 			if (status === ActivityStatus.DONE) {
 				return (
 					<div
-						className={`activityv2 ${status}`}
+						className={`activity ${status}`}
 						data-tooltip={`${date.slice(5, 7)}-${date.slice(8, 10)}`}
 						key={`activity_${activity._id}_${index}`}
 						onClick={(): void => {
@@ -34,7 +34,7 @@ export function Activitiesv2({ activities, habitId }: Props): JSX.Element {
 			} else {
 				return (
 					<div
-						className={`activityv2 ${status}`}
+						className={`activity ${status}`}
 						data-tooltip={`${date.slice(5, 7)}-${date.slice(8, 10)}`}
 						key={`activity_${activity._id}_${index}`}
 						onClick={(e): void => {
@@ -49,7 +49,7 @@ export function Activitiesv2({ activities, habitId }: Props): JSX.Element {
 	};
 
 	return (
-		<Box className="gridDaysv2" width="100%">
+		<Box className="gridDays" width="100%">
 			{generateActivities()}
 		</Box>
 	);
