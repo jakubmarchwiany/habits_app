@@ -1,9 +1,9 @@
 import { Stack } from "@mui/material";
+import "components/habit_card/habit_info.css";
 import { useAppSelector } from "hooks/redux";
 
-import { Activities } from "./Activities";
-import { HabitInfo } from "./HabitInfo";
-import "./habit_info.css";
+import { HabitInfo } from "../../../components/habit_card/HabitInfo";
+import { Activities } from "../../../components/habit_card/user/Activities";
 
 type Props = {
 	_id: string;

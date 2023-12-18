@@ -4,9 +4,9 @@ import { useAppDispatch } from "hooks/redux";
 import { createActivityAction, deleteActivityAction } from "store/app/activity/activity.action";
 import { Activity, ActivityStatus } from "store/app/activity/models/activity.type";
 
+import { myConfetti } from "../confetti";
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 import "./activity.css";
-import { myConfetti } from "./confetti";
 
 type Props = {
 	activities: Activity[];
