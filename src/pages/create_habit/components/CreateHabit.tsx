@@ -39,7 +39,9 @@ export function CreateHabit(): JSX.Element {
 			onSubmit={(e: FormEvent<HTMLFormElement>): void => {
 				e.preventDefault();
 
-				dispatch(createHabitAction(name, description, periodInDays, navigate));
+				if (name !== undefined && emoji !== undefined) {
+					dispatch(createHabitAction(name, description, periodInDays, emoji, navigate));
+				}
 			}}
 			width={standardSize}
 		>
