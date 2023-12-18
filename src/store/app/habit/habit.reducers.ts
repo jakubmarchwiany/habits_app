@@ -16,11 +16,12 @@ export function updateHabitReducer(
 	action: PayloadAction<{
 		_id: string;
 		newDescription: string;
+		newEmoji: string;
 		newName: string;
 		newPeriodInDays: number;
 	}>
 ): void {
-	const { _id, newDescription, newName, newPeriodInDays } = action.payload;
+	const { _id, newDescription, newEmoji, newName, newPeriodInDays } = action.payload;
 	const { groupsOfHabits, habits } = state;
 
 	const habit = state.habits?.find((h) => h._id === _id);
@@ -34,6 +35,7 @@ export function updateHabitReducer(
 			Object.assign(habit, {
 				...habit,
 				description: newDescription,
+				emoji: newEmoji,
 				name: newName,
 				periodInDays: newPeriodInDays
 			});
@@ -43,6 +45,7 @@ export function updateHabitReducer(
 			Object.assign(habit, {
 				...habit,
 				description: newDescription,
+				emoji: newEmoji,
 				name: newName,
 				periodInDays: newPeriodInDays
 			});

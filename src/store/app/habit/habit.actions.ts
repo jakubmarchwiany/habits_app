@@ -82,11 +82,14 @@ export const createHabitAction =
 		name: string,
 		description: string,
 		periodInDays: number,
+		emoji: string,
 		navigate: NavigateFunction
 	): AppThunk =>
 	(appDispatch) => {
+		console.log(emoji);
+
 		postFetch<{ data: { habitId: string } }>(
-			{ description, name, periodInDays },
+			{ description, emoji, name, periodInDays },
 			"/habits/-/create"
 		).then(({ data }) => {
 			const { habitId } = data;
@@ -112,16 +115,23 @@ export const createHabitAction =
 	};
 
 export const updateHabitAction =
-	(_id: string, newName: string, newDescription: string, newPeriodInDays: number): AppThunk =>
+	(
+		_id: string,
+		newName: string,
+		newDescription: string,
+		newPeriodInDays: number,
+		newEmoji: string
+	): AppThunk =>
 	(appDispatch) => {
 		postFetch<never>(
-			{ newDescription, newName, newPeriodInDays },
+			{ newDescription, newEmoji, newName, newPeriodInDays },
 			`/habits/${_id}/update`
 		).then(() => {
 			appDispatch(
 				appActions.updateHabit({
 					_id,
 					newDescription,
+					newEmoji,
 					newName,
 					newPeriodInDays
 				})

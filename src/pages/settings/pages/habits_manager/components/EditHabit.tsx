@@ -2,6 +2,7 @@ import { Button, Stack, Typography } from "@mui/material";
 import TextField from "@mui/material/TextField";
 import { standardSize } from "assets/theme";
 import { useAppDispatch } from "hooks/redux";
+import { EmojiSelector } from "pages/create_habit/components/EmojiSelector";
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { deleteHabitAction, updateHabitAction } from "store/app/habit/habit.actions";
@@ -12,11 +13,12 @@ type Props = {
 };
 
 export function EditHabit({ habitToEdit }: Props): JSX.Element {
-	const { description, name, periodInDays } = habitToEdit;
+	const { description, emoji, name, periodInDays } = habitToEdit;
 
-	const [newName, setNewName] = useState(habitToEdit.name);
-	const [newDescription, setNewDescription] = useState(habitToEdit.description);
-	const [newPeriodInDays, setNewPeriodInDays] = useState(habitToEdit.periodInDays);
+	const [newName, setNewName] = useState<string>(name);
+	const [newDescription, setNewDescription] = useState<string>(description);
+	const [newPeriodInDays, setNewPeriodInDays] = useState<number>(periodInDays);
+	const [newEmoji, setNewEmoji] = useState<string>(emoji);
 
 	const dispatch = useAppDispatch();
 
@@ -26,6 +28,8 @@ export function EditHabit({ habitToEdit }: Props): JSX.Element {
 		setNewDescription(description);
 
 		setNewPeriodInDays(periodInDays);
+
+		setNewEmoji(emoji);
 	}, [habitToEdit]);
 
 	return (
@@ -79,11 +83,15 @@ export function EditHabit({ habitToEdit }: Props): JSX.Element {
 					value={newPeriodInDays}
 					variant="filled"
 				/>
+
+				<EmojiSelector emoji={newEmoji} setEmoji={setNewEmoji} />
+
 				<Button
 					disabled={
-						habitToEdit.name === newName &&
-						habitToEdit.description === newDescription &&
-						habitToEdit.periodInDays === newPeriodInDays
+						name === newName &&
+						description === newDescription &&
+						periodInDays === newPeriodInDays &&
+						emoji === newEmoji
 					}
 					fullWidth
 					onClick={(): void => {
@@ -92,7 +100,8 @@ export function EditHabit({ habitToEdit }: Props): JSX.Element {
 								habitToEdit._id,
 								newName,
 								newDescription,
-								newPeriodInDays
+								newPeriodInDays,
+								newEmoji
 							)
 						);
 					}}

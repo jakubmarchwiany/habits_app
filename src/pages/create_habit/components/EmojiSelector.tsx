@@ -4,7 +4,7 @@ import { Dispatch, SetStateAction, useState } from "react";
 
 type Props = {
 	emoji: string | undefined;
-	setEmoji: Dispatch<SetStateAction<string | undefined>>;
+	setEmoji: Dispatch<SetStateAction<string | undefined>> | Dispatch<SetStateAction<string>>;
 };
 
 export function EmojiSelector({ emoji, setEmoji }: Props): JSX.Element {
