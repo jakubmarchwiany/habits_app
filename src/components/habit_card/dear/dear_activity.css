@@ -1,6 +1,6 @@
 .dear_activity {
-	box-shadow: 0px 0px 0.3rem rgba(0, 0, 0, 0.5);
-	border-radius: 5px;
+	box-shadow: 0px 0px 0.4rem rgba(0, 0, 0, 0.5);
+	border-radius: 25%;
 	margin: 5px;
 	padding-top: 1rem;
 	padding-bottom: 1rem;
@@ -20,7 +20,7 @@
 @keyframes today_blink {
 	0%,
 	100% {
-		background-color: transparent;
+		background-color: #323638;
 	}
 	50% {
 		background-color: #00ab5f;
@@ -37,7 +37,7 @@
 @keyframes delay_blink {
 	0%,
 	100% {
-		background-color: transparent;
+		background-color: #323638;
 	}
 	50% {
 		background-color: #d32f2f;
@@ -74,5 +74,5 @@
 
 .gridDays {
 	display: grid;
-	grid-template-columns: auto auto auto auto auto auto auto;
+	grid-template-columns: repeat(21, auto);
 }

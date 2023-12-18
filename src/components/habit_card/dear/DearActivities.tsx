@@ -33,7 +33,7 @@ export function DearActivities({ activities }: Props): JSX.Element {
 	};
 
 	return (
-		<Box className="gridDays" mt={1}>
+		<Box className="gridDays" width="100%">
 			{generateActivities()}
 		</Box>
 	);
