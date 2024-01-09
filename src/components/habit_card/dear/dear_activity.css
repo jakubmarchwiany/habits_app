@@ -1,9 +1,7 @@
 .dear_activity {
 	box-shadow: 0px 0px 0.4rem rgba(0, 0, 0, 0.5);
 	border-radius: 25%;
-	margin: 5px;
-	padding-top: 1rem;
-	padding-bottom: 1rem;
+	margin: 0px 5px;
 }
 
 .dear_done {
