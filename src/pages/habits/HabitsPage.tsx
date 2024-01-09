@@ -1,6 +1,8 @@
 import { Stack, Typography } from "@mui/material";
 import { useAppSelector } from "hooks/redux";
 import { ErrorPage } from "layouts/ErrorPage";
+import { ShowAllButton } from "layouts/navigator/components/buttons/ShowAllButton";
+import { ToggleHabitsButton } from "layouts/navigator/components/buttons/ToggleHabitsButton";
 
 import { GroupOfHabits } from "./components/GroupOfHabits";
 
@@ -29,6 +31,10 @@ export function HabitsPage(): JSX.Element {
 				pt: { sm: 2, xs: 1 }
 			}}
 		>
+			<ToggleHabitsButton />
+
+			<ShowAllButton />
+
 			{generateGroupsOfHabits()}
 		</Stack>
 	);

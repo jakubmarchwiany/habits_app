@@ -1,26 +1,14 @@
 import { MenuOpen } from "@mui/icons-material";
 import { Drawer, IconButton } from "@mui/material";
 import { useState } from "react";
-import { useLocation } from "react-router-dom";
 
 import { NavigatorMenu } from "./components/NavigatorMenu";
-import { ShowAllButton } from "./components/buttons/ShowAllButton";
-import { ToggleHabitsButton } from "./components/buttons/ToggleHabitsButton";
 
 export function Navigator(): JSX.Element {
 	const [openDrawer, setOpenDrawer] = useState(false);
 
-	const location = useLocation();
-
 	return (
 		<>
-			{(location.pathname === "/habits" || location.pathname === "/dear/habits") && (
-				<>
-					<ToggleHabitsButton />
-
-					<ShowAllButton />
-				</>
-			)}
 			<IconButton
 				onClick={(): void => {
 					setOpenDrawer(true);
