@@ -1,11 +1,12 @@
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 import { Box } from "@mui/material";
 import { useAppDispatch } from "hooks/redux";
+/* eslint-disable jsx-a11y/no-static-element-interactions */
+import { useNDaysToShow } from "hooks/useNDaysToShow";
 import { createActivityAction, deleteActivityAction } from "store/app/activity/activity.action";
 import { Activity, ActivityStatus } from "store/app/activity/models/activity.type";
 
 import { myConfetti } from "../confetti";
-/* eslint-disable jsx-a11y/no-static-element-interactions */
 import "./activity.css";
 
 type Props = {
@@ -15,9 +16,10 @@ type Props = {
 
 export function Activities({ activities, habitId }: Props): JSX.Element {
 	const dispatch = useAppDispatch();
+	const nDaysToShow = useNDaysToShow();
 
 	const generateActivities = (): JSX.Element[] => {
-		return activities.map((activity, index) => {
+		return activities.slice(-nDaysToShow).map((activity, index) => {
 			const { _id, date, status } = activity;
 
 			if (status === ActivityStatus.DONE) {

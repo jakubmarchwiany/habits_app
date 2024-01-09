@@ -1,4 +1,5 @@
 import { Box } from "@mui/material";
+import { useNDaysToShow } from "hooks/useNDaysToShow";
 import { Activity, ActivityStatus } from "store/app/activity/models/activity.type";
 
 import "./dear_activity.css";
@@ -8,8 +9,10 @@ type Props = {
 };
 
 export function DearActivities({ activities }: Props): JSX.Element {
+	const nDaysToShow = useNDaysToShow();
+
 	const generateActivities = (): JSX.Element[] => {
-		return activities.map((activity, index) => {
+		return activities.slice(-nDaysToShow).map((activity, index) => {
 			const { date, status } = activity;
 
 			if (status === ActivityStatus.DONE) {
