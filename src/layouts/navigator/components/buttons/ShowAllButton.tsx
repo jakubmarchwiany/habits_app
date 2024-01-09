@@ -12,7 +12,7 @@ export function ShowAllButton(): JSX.Element {
 
 	useEffect(() => {
 		const handleKeyPress = (event: KeyboardEvent): void => {
-			if (event.key == "a") {
+			if (event.key == "z") {
 				dispatch(appActions.toggleShowAllHabits());
 			}
 		};
@@ -35,8 +35,9 @@ export function ShowAllButton(): JSX.Element {
 				color: "white",
 				fontSize: "3rem",
 				position: "fixed",
-				right: "1%",
-				top: "1%"
+				right: "5px",
+				top: "1%",
+				zIndex: 999
 			}}
 		>
 			{showAllHabits ? <DateRange fontSize="inherit" /> : <Today fontSize="inherit" />}
