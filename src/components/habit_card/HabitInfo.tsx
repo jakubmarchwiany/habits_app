@@ -22,6 +22,7 @@ export function HabitInfo({ description, emoji, name, periodInDays }: Props): JS
 				}
 			>
 				<Typography
+					id="emoji"
 					sx={{
 						borderRadius: 5,
 						boxShadow: 5,

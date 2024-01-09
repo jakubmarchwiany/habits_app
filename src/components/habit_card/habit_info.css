@@ -1,5 +1,5 @@
-#card:hover > #info {
-	width: auto;
+#emoji:hover + #info {
+	width: 100vw;
 }
 
 #info {
