@@ -13,5 +13,5 @@
 		"reduxjs"
 	],
 	"ignorePaths": ["node_modules", "build", "bun.lockb", ".commitlint.config.cjs"],
-	"import": ["node_modules/cspell-dict-pl_pl/cspell-ext.json"]
+	"import": ["cspell-dict-pl_pl/cspell-ext.json"]
 }

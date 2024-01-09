@@ -6,7 +6,7 @@
 }
 
 .done {
-	background-color: #00ab5f
+	background-color: #00ab5f;
 }
 
 .done:hover {
@@ -81,5 +81,5 @@
 
 .gridDays {
 	display: grid;
-	grid-template-columns: repeat(auto-fit, minmax(0px, 1fr) );
+	grid-template-columns: repeat(auto-fit, minmax(0px, 1fr));
 }
