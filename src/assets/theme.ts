@@ -2,15 +2,15 @@ import "@fontsource/source-sans-pro";
 import { ThemeOptions } from "@mui/material";
 
 export const getTheme = (color: string): ThemeOptions => ({
-	breakpoints: {
-		values: {
-			lg: 1216,
-			md: 1024,
-			sm: 768,
-			xl: 1408,
-			xs: 0
-		}
-	},
+	// breakpoints: {
+	// 	values: {
+	// 		lg: 1216,
+	// 		md: 1024,
+	// 		sm: 768,
+	// 		xl: 1408,
+	// 		xs: 0
+	// 	}
+	// },
 
 	components: {
 		MuiCssBaseline: {
