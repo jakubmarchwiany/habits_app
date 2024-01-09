@@ -81,5 +81,5 @@
 
 .gridDays {
 	display: grid;
-	grid-template-columns: repeat(21, auto);
+	grid-template-columns: repeat(auto-fit, minmax(0px, 1fr) );
 }
